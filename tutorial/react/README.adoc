@@ -1,4 +1,4 @@
-= React-athon
+= React
 :toc:
 
 ifdef::env-github[]
@@ -10,9 +10,9 @@ ifdef::env-github[]
 endif::[]
 
 == Overview
-Welcome to the _react-and-rn-intro_ at Acorn. Here we will go skinny-dipping together in the shallow part of the React and React Native pond.
+Welcome to the _react-and-rn-intro_ at Acorn. Here we will go skinny-dipping together in the shallow part of the React pond, or in other words, in this particular tutorial you will go hands on trying out some basic React concepts.
 
-TODO: Add additional high level information of what we are going to do here
+
 
 == Prerequisities
 === A decent editor
@@ -81,5 +81,16 @@ npm start
 The application should now be accessible via http://localhost:3000
 ____
 
+Make some changes to `App.js` and save it. The webpage in browser should automatically reload itself, showing your changes.
+
+== Video browser
+
+In this tutorial you will focus on developing an application that will search, display results and play videos from Youtube. The main purpose (apart from it's fun to watch videos) is to highlight some key concepts of React to get an understanding of it all works.
+
+We will touch upon concepts as
+
+- X
+- Y
+- Z
 
 
