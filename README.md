@@ -17,3 +17,14 @@ Internal React and React-Native Tutorials
   * Teori + praktik blandat
   * Utöka befintlig app med Redux
   
+### Notes
+
+React + React Native common code
+
+* Advantages
+  * Write once run anywhere
+  * Hot/Live reload
+  * install node plugins
+  * Virtual DOM (React)
+  * Shaved javascript
+  * JSX
