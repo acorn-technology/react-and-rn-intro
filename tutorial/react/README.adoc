@@ -1,5 +1,6 @@
 = React
 :toc:
+:imagesdir: images
 
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -94,9 +95,12 @@ npm start
 ----
 
 The application should now be accessible via http://localhost:3000
+
+image::react-boilerplate-app-running.png[]
+
 ____
 
-Make some changes to `App.js` and save it. The webpage in browser should automatically reload itself, showing your changes.
+To test the hot/live reload, make some changes to `App.js` and save it. The webpage in browser should automatically reload itself, showing your changes.
 
 == Video browser
 
