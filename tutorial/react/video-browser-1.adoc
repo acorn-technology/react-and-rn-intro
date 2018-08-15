@@ -146,3 +146,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ____
 
 *Hello world!*
+
+Continue with <<video-browser-2.adoc#,Divide application into components>>
