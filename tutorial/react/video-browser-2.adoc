@@ -1,0 +1,15 @@
+:imagesdir: images
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Divide application into components
+
+asdasdads
+
+image::video-app-mockup-divided-to-components.png[mockup2,600]
