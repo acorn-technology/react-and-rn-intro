@@ -50,8 +50,8 @@ ____
 . Open the `my-app` code project in an editor.
 . Remove all generated files under `src` directory - but keep the directory itself
 . Create the following files:
-.. `src/index.js`
-.. `src/App.js`
+.. `my-app/src/index.js`
+.. `my-app/src/App.js`
 ____
 
 With this basic structure in place, we can add the root component of our application, called `App`. Let's do this as _class based component_
@@ -87,7 +87,7 @@ ReactDOM.render(<App />);
 Note the error log in the Console output. Apparently the application has no clue about neither the `React` and `ReactDOM` modules nor our `App` component. 
 ____
 
-This is perhaps not so suprising since we must import the needed modules and components before we can use them.
+This is perhaps not so surprising since we must _import_ the needed modules and components before we can use them.
 
 [quote]
 ____
@@ -106,7 +106,23 @@ ReactDOM.render(<App />);
 Now we have a new error in the console. "The target container is not a DOM element". Looks like we still fail in making React shove our App into the DOM.
 ____
 
-The reason for this is that we haven't actually connected `App` to the projects' root element, which you can find in `index.html`: `<div id="root"></div>`.
+The reason for this is that we haven't actually connected `App` to the projects' root element, which you can find in `my-app/public/index.html`
+
+[source,html]
+----
+<html lang="en">
+<head>
+  ...
+</head>
+<body>
+  ...
+  
+<div id="root"></div>
+
+  ...
+</body>
+</html>
+----
 
 The javascript way to get a handle to this element is to use `document.getElementById('root')`. This can be added as an argument to `ReactDOM.render()`:
 
