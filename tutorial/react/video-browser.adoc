@@ -1,6 +1,3 @@
-= Video browser
-
-:toc:
 :imagesdir: images
 
 ifdef::env-github[]
@@ -11,16 +8,20 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+= Video browser
+
 In this tutorial you will focus on developing an application that will search, list results and play videos from Youtube. The main purpose (apart from it’s fun to watch videos) is to highlight some key concepts of React to get an understanding of how it all works.
+
+The tutorial is purposely designed to hold your hand and show you step by step what to do. The main goal is not to challenge your problem solving skills, instead we want to focus on presenting React concepts in small chunks, eventually leading up to a working application. With that said, don't blindly just copy and paste the code without reflecting on it. The tutorial will try to make you think about things here and there, but if you find any step confusing, please bring it up under the session so we can discuss it.
 
 [NOTE]
 To be able to do this tutorial, you must have followed the instructions given in <<prerequisites.adoc#,Prerequisites>>
 
 == Hello world
 
-After you followed the steps of <<prerequisites.adoc#set-up-a-basic-react-project,Prerequisites: Set up a basic React project>>, you should have a basic project structure in place. 
+After you followed the steps of <<prerequisites.adoc#set-up-a-basic-react-project,Prerequisites: Set up a basic React project>>, you should have a basic project structure in place. Now we can go ahead and do the mandatory Hello World example.
 
-The first thing to do is to start the development server.
+The first thing to do however is to start the development server.
 
 [quote]
 ____
