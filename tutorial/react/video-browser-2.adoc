@@ -10,7 +10,7 @@ endif::[]
 
 == Divide application into components
 
-We should spend some time to get our application properly divided into components. The goal is to get distinct and encapsulated code components that together becomes the complete video browser. To decide on component architecutre is probably an artform in itself, with many different ways to do it.
+We should spend some time to get our application properly divided into components. The goal is to get distinct and encapsulated code components that together becomes the complete video browser. How to decide on component architecture is of course an artform in itself, with many different ways to do it.
 
 In our case it makes at least somewhat sense to divide the application as the red rectangles depict:
 
