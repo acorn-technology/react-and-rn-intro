@@ -54,14 +54,14 @@ ____
 . Remove all generated files under `src` directory - but keep the directory itself
 . Create the following files:
 .. `my-app/src/index.js`
-.. `my-app/src/App.js`
+.. `my-app/src/app.js`
 ____
 
 With this basic structure in place, we can add the root component of our application, called `App`. Let's do this as _class based component_
 
 [quote]
 ____
-. Add the following code in `App.js`
+. Add the following code in `app.js`
 +
 [source,javascript]
 ----
@@ -100,7 +100,7 @@ ____
 ----
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './app';
 
 ReactDOM.render(<App />);
 ----
@@ -137,7 +137,7 @@ ____
 ----
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './app';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 ----
