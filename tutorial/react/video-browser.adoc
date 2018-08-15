@@ -17,9 +17,21 @@ The tutorial is purposely designed to hold your hand and show you step by step w
 [NOTE]
 To be able to do this tutorial, you must have followed the instructions given in <<prerequisites.adoc#,Prerequisites>>
 
+== Overview of the application
+
+The application we will create in this tutorial will look like this:
+
+image::video-app-mockup.png[mockup,600]
+
+If you think this looks awfully similar to Youtube, you are quite right. We will build a fully functioning page that allow the user to search for Youtube videos and display them. 
+
+Okay, you might say, but why bother doing this, what's wrong with the official one? The answer is that there is nothing wrong with the Youtube video browser at all, and you should definitely not try to sell the one we build here afterwards, but we do think a video browser will fit our needs nicely in displaying key concepts of React. And it's always fun to watch videos.
+
+Now that you know what we will create here, let's start and do the mandatory Hello World.
+
 == Hello world
 
-After you followed the steps of <<prerequisites.adoc#set-up-a-basic-react-project,Prerequisites: Set up a basic React project>>, you should have a basic project structure in place. Now we can go ahead and do the mandatory Hello World example.
+After you followed the steps of <<prerequisites.adoc#set-up-a-basic-react-project,Prerequisites: Set up a basic React project>>, you should have a basic project structure in place. Now we can go ahead and do the Hello World example.
 
 The first thing to do however is to start the development server.
 
