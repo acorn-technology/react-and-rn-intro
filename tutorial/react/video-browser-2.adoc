@@ -10,6 +10,58 @@ endif::[]
 
 == Divide application into components
 
-asdasdads
+We should spend some time to get our application properly divided into components. The goal is to get distinct and encapsulated code components that together becomes the complete video browser. To decide on component architecutre is probably an artform in itself, with many different ways to do it.
+
+In our case it makes at least somewhat sense to divide the application as the red rectangles depict:
 
 image::video-app-mockup-divided-to-components.png[mockup2,600]
+
+The picture shows that we have a top most component (the largest rectangle) which holds a set of child components. We do already have this top component in place - `app.js`, or in JSX-lingo: `<App />`
+
+Let's settle on these child components and names
+
+[ditaa]
+....
+App
+ |
+ +-- SearchBar
+ +-- VideoDetail
+ +-- VideoList
+        |
+        +-- VideoListItem
+....
+
+[cols=2*,options=header]
+|===
+|Component
+|Description
+
+|App
+|The aggregating top component
+
+|SearchBar
+|Component responsible for rendering the search bar and to keep track of input
+
+|VideoDetail
+|Contains code for displaying an embedded video player, together with title and description, of a user selected video.
+
+|VideoList
+|Shows a list of videos from search result
+
+|VideoListItem
+|A single video from search result. If user clicks this item, the video should be sent to VideoDetail component
+
+|===
+
+Given these components, let's create the files we need, one file per component.
+
+[quote]
+____
+. Create a directory `my-app/src/components`
+. Create `src/components/search-bar.js`
+. Create `src/components/video-detail.js`
+. Create `src/components/video-list.js`
+. Create `src/components/video-list-item.js`
+____
+
+== SearchBar
