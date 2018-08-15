@@ -106,7 +106,7 @@ ReactDOM.render(<App />);
 Now we have a new error in the console. "The target container is not a DOM element". Looks like we still fail in making React shove our App into the DOM.
 ____
 
-The reason for this is that we haven't actually connected `App` to the projects' root element, which you can find in `my-app/public/index.html`
+The reason for this is that we haven't actually connected `App` to the projects' root element. You can find this element in `my-app/public/index.html`
 
 [source,html]
 ----
