@@ -11,7 +11,7 @@ endif::[]
 
 = Prerequisites
 
-== A decent editor
+== Install a decent editor
 You will need a fairly decent editor to help out during your React coding, preferably one with content assist and auto-completion. Choose one below. 
 
 [quote]
@@ -26,7 +26,7 @@ If you are in possession of an IntelliJ IDEA Ultimate license, then you are alre
 
 ____
 
-== Node.js
+== Install Node.js
 `Node.js` is an open-source, cross-platform JavaScript run-time environment that executes JavaScript code outside the browser.
 
 [quote]
@@ -34,7 +34,7 @@ ____
 Download and Install Nodejs from https://nodejs.org/en/download/ 
 ____
 
-== React Developer Tools
+== Install React Developer Tools
 
 React Developer Tools lets you inspect the React component hierarchy directly in your browser, which is quite valuable during development.
 
@@ -49,7 +49,7 @@ ____
 - `Safari`: https://github.com/facebook/react-devtools/blob/master/packages/react-devtools/README.md[Install]
 ____
 
-== Setting up a basic React project
+== Set up a basic React project
 There are several ways to setup a React project. It usually involves installing and configuring several tools, where the most noteworthy are `WebPack` and `Babel`.
 
 [width="100%"]
