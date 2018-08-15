@@ -1,4 +1,42 @@
 = Video browser
 
-In this tutorial you will focus on developing an application that will search, display results and play videos from Youtube. The main purpose (apart from it’s fun to watch videos) is to highlight some key concepts of React to get an understanding of how it all works.
+:toc:
+:imagesdir: images
 
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+In this tutorial you will focus on developing an application that will search, list results and play videos from Youtube. The main purpose (apart from it’s fun to watch videos) is to highlight some key concepts of React to get an understanding of how it all works.
+
+[NOTE]
+To be able to do this tutorial, you must have followed the instructions given in <<prerequisites.adoc#,Prerequisites>>
+
+== Hello world
+
+After you followed the steps of <<prerequisites.adoc#set-up-a-basic-react-project,Prerequisites: Set up a basic React project>>, you should have a basic project structure in place. 
+
+The first thing to do is to start the development server.
+
+[quote]
+____
+. Go to the my-app directory
+. Run `npm start`
+
+This will open up the browser and load the url http://localhost:3000 (if not, please do so). We suggest that you also open up the browser's Developer tools window, showing the console tab. In some parts of the tutorial we will come accross javascript errors and warnings that will be discussed.
+____
+
+Now we are ready to go. Let's start by removing some code so we can start (almost) entirely from scratch.
+
+[quote]
+____
+. Open the `my-app` code project in an editor.
+. Remove all generated files under `src` directory - but keep the directory itself
+. Create the following files:
+.. `src/index.js`
+.. `src/App.js`
+____
