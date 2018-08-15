@@ -96,5 +96,5 @@ ____
 
 To test the hot/live reload, make some changes to `App.js` and save it. The webpage in browser should automatically reload itself, showing your changes.
 
-
+<<README.adoc#, Back to react-and-rn-intro>>
 
