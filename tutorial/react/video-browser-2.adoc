@@ -1,3 +1,4 @@
+:toc:
 :imagesdir: images
 
 ifdef::env-github[]
@@ -65,3 +66,74 @@ ____
 ____
 
 == SearchBar
+
+The search bar component should render an input field, so start by adding a class based React component that returns a simple `<input/>`
+
+[quote]
+____
+. In `search-bar.js`, create the search component
++
+[source,javascript]
+----
+import React, {Component} from 'react';
+
+class SearchBar extends Component {
+
+    render() {
+        return <input/>;
+    }
+}
+----
+____
+
+We have created the component, but we also need to make visible for other components, so it could be imported.
+
+[quote]
+____
+. Last in `search-bar.js`, add export statement
++
+[source,javascript]
+----
+export default SearchBar;
+----
+____
+
+Now let's flip back to `app.js` so we can import and use the <SearchBar/> component
+
+[quote]
+____
+. In `sapp.js`, add export statement to SearchBar. Note that you must specify the relative path to the file, and ommit the ".js" prefix
++
+[source,javascript]
+----
+import SearchBar from './components/search-bar';
+----
++
+. Replace the "Hello world" in return statment with the SearchBar tag instead
++
+[source,javascript]
+----
+   render() {
+       return <div>
+           <SearchBar />
+       </div>;
+   }
+----
++
+Note the deliberate line break, it is an attempt to make it more readable and html-like. The indentation doesn't look good however, so a common best practice is to use proper parenthesis around the expression:
++
+[source,javascript]
+----
+   render() {
+       return (
+           <div>
+               <SearchBar/>
+           </div>
+       );
+   }
+----
+____
+
+Save the file and take look in the browser. What do you see?
+
+=== Handle input events
