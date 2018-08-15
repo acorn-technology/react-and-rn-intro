@@ -65,10 +65,12 @@ ____
 +
 [source,javascript]
 ----
-class App extends Component {
-  render() {
-    return <div>Hello world!</div>;
-  }
+import React from 'react';
+
+class App extends React.Component {
+    render() {
+        return <div>Hello world!</div>;
+    }
 }
 
 export default App;
