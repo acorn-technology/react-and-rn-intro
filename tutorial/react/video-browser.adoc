@@ -1,0 +1,4 @@
+= Video browser
+
+In this tutorial you will focus on developing an application that will search, display results and play videos from Youtube. The main purpose (apart from it’s fun to watch videos) is to highlight some key concepts of React to get an understanding of how it all works.
+
