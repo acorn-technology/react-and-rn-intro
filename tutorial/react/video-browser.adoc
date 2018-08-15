@@ -27,7 +27,7 @@ If you think this looks awfully similar to Youtube, you are quite right. We will
 
 Okay, you might say, but why bother doing this, what's wrong with the official one? The answer is that there is nothing wrong with the Youtube video browser at all, and you should definitely not try to sell the one we build here afterwards, but we do think a video browser will fit our needs nicely in displaying key concepts of React. And it's always fun to watch videos.
 
-Now that you know what we will create here, let's start and do the mandatory Hello World.
+Now that you know what we will create here, let's start by doing the mandatory Hello World.
 
 == Hello world
 
@@ -53,3 +53,74 @@ ____
 .. `src/index.js`
 .. `src/App.js`
 ____
+
+With this basic structure in place, we can add the root component of our application, called `App`. Let's do this as _class based component_
+
+[quote]
+____
+. Add the following code in `App.js`
++
+[source,javascript]
+----
+class App extends Component {
+  render() {
+    return <div>Hello world!</div>;
+  }
+}
+
+export default App;
+----
+____
+
+Next up is to make React aware of our App component and render it on page. For this we will use the `render()` function on the `ReactDOM` object, which is the same thing as saying "React, please take this code that I wrote and shove it into the DOM"
+
+[quote]
+____
+. In `index.js`, please add
++
+[source,javascript]
+----
+ReactDOM.render(<App />);
+----
+
+[IMPORTANT]
+Note the error log in the Console output. Apparently the application has no clue about neither the `React` and `ReactDOM` modules nor our `App` component. 
+____
+
+This is perhaps not so suprising since we must import the needed modules and components before we can use them.
+
+[quote]
+____
+. Add imports to `index.js`
++
+[source,javascript]
+----
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(<App />);
+----
+
+[IMPORTANT]
+Now we have a new error in the console. "The target container is not a DOM element". Looks like we still fail in making React shove our App into the DOM.
+____
+
+The reason for this is that we haven't actually connected `App` to the projects' root element, which you can find in `index.html`: `<div id="root"></div>`.
+
+The javascript way to get a handle to this element is to use `document.getElementById('root')`. This can be added as an argument to `ReactDOM.render()`:
+
+[quote]
+____
+. Put our component into the root element in DOM
++
+[source,javascript]
+----
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+----
+
+*Hello world!*
