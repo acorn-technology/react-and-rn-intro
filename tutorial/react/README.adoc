@@ -31,7 +31,7 @@ Do not start doing any tutorial in advance! Wait until you are physically seated
 |Tutorial
 
 |React
-|<<video-browser.adoc#,Video Browser>>
+|<<video-browser-1.adoc#,Video Browser>>
 
 |React Native
 |TBD
