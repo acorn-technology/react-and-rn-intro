@@ -25,7 +25,7 @@ image::video-app-mockup.png[mockup,600]
 
 If you think this looks awfully similar to Youtube, you are quite right. We will build a fully functioning page that allow the user to search for Youtube videos and display them. 
 
-Okay, you might say, but why bother doing this, what's wrong with the official one? The answer is that there is nothing wrong with the Youtube video browser at all, and you should definitely not try to sell the one we build here afterwards, but we do think a video browser will fit our needs nicely in displaying key concepts of React. And it's always fun to watch videos.
+Okay, you might say, but why bother doing this, what's wrong with the official one? The answer is that there is nothing wrong with the Youtube video browser at all, and you should definitely not try to sell the one we build here afterwards, but we do think a video browser will fit our needs nicely in displaying key concepts of React. And as said, it's always fun to watch videos.
 
 Now that you know what we will create here, let's start by doing the mandatory Hello World.
 
@@ -40,7 +40,10 @@ ____
 . Go to the my-app directory
 . Run `npm start`
 
-This will open up the browser and load the url http://localhost:3000 (if not, please do so). We suggest that you also open up the browser's Developer tools window, showing the console tab. In some parts of the tutorial we will come accross javascript errors and warnings that will be discussed.
+This will open up the browser and load the url http://localhost:3000 (if not, please do so).
+
+[TIP]
+We suggest that you also open up the browser's Developer tools window, showing the console tab. In some parts of the tutorial we will come accross javascript errors and warnings that will be discussed.
 ____
 
 Now we are ready to go. Let's start by removing some code so we can start (almost) entirely from scratch.
@@ -124,7 +127,7 @@ The reason for this is that we haven't actually connected `App` to the projects'
 </html>
 ----
 
-The javascript way to get a handle to this element is to use `document.getElementById('root')`. This can be added as an argument to `ReactDOM.render()`:
+One way in javascript to get a handle to DOM elements is to use `document.getElementById('root')`. This can be added as an argument to `ReactDOM.render()`:
 
 [quote]
 ____
