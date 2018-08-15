@@ -102,14 +102,5 @@ ____
 
 To test the hot/live reload, make some changes to `App.js` and save it. The webpage in browser should automatically reload itself, showing your changes.
 
-== Video browser
-
-In this tutorial you will focus on developing an application that will search, display results and play videos from Youtube. The main purpose (apart from it's fun to watch videos) is to highlight some key concepts of React to get an understanding of it all works.
-
-We will touch upon concepts as
-
-- X
-- Y
-- Z
 
 
