@@ -10,6 +10,7 @@ ifdef::env-github[]
 endif::[]
 
 = Prerequisites
+
 == A decent editor
 You will need a fairly decent editor to help out during your React coding, preferably one with content assist and auto-completion. Choose one below. 
 
