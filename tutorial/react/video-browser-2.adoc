@@ -364,3 +364,68 @@ image:YTSearch-acorn-result.png[]
 ____
 
 We want to update the the list of videos whenever the user searches for them, which sounds like a great use for state. When the user searches, we want to set that search result on state.
+
+[quote]
+____
+. In `app.js`, add constructor and initialize the `state` with a property called `videos` holding and empty array
++
+[source,javascript]
+----
+class App extends React.Component {
+    
+    constructor(props) {
+        super(props);
+
+        this.state = { videos: [] };
+    }  
+    
+    ...
+}
+----
++
+. move the `YTSearch` function inside the constructor and instead of using `console.log()` to log data, set the `data` (i.e. search result videos) to `state`
++
+[source,javascript]
+----
+class App extends React.Component {
+    
+    constructor(props) {
+        super(props);
+
+        this.state = { videos: [] };
+
+        YTSearch({key: API_KEY, term: 'acorntechnology'}, (data) => {
+            this.setState({ videos: data });
+        });
+    }  
+    
+    ...
+}
+----
++
+Or perhaps a better name for `data` here would be `videos`:
++
+[source,javascript]
+----
+class App extends React.Component {
+    
+    constructor(props) {
+        super(props);
+
+        this.state = { videos: [] };
+
+        YTSearch({key: API_KEY, term: 'acorntechnology'}, (videos) => {
+            this.setState({ videos: videos });
+        });
+    } 
+    
+    ...
+}
+----
+____
+
+So now we have a `<App/>` component that upon initialization will perform a YouTube search on "acorntechnology" and store the result in `this.state.videos`.
+
+This is good and we can leave the matter of searching for a while. Let's start focusing on the video list and it's items by start putting these components together. Lets start with the parent of the two, `<VideoList/>`
+
+== VideoList
