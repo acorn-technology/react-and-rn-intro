@@ -98,3 +98,16 @@ To test the hot/live reload, make some changes to `App.js` and save it. The webp
 
 <<README.adoc#, Back to react-and-rn-intro>>
 
+== Generate a Youtube API key
+
+In one of the tutorials, we will use Youtube's API for searching videos. This requires an API key, which is completely free. Please create an API key and bring it with you to the tutorial.
+
+[quote]
+____
+. Go to http://console.developers.google.com (You will need to login with your google account - if you don't have any, sign up for one for free)
+. Click `Menu` -> `API Manager`
+. Click `Youtube Data API v3` -> `Enable API`
+. Click `Credentials` -> `New Credentials` -> `API key` -> `Browser key`
+. Click `Create`
+. Copy the generated and key and store it so you can easily access during the upcoming tutorial
+____
