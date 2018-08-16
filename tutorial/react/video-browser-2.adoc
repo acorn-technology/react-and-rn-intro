@@ -184,9 +184,9 @@ class SearchBar extends Component {
 export default SearchBar;
 ----
 [NOTE]
-Any input you make to search bar should now be turn up in the console log
+Any input you make to search bar should now turn up in the console log
 
-It is also possible to use the condensed arrow function instead, this allows us to inline the function directly in the onChange event:
+It is also possible to use the _condensed arrow function_ instead, this allows us to inline the function directly in the onChange event:
 
 [source,javascript]
 ----
