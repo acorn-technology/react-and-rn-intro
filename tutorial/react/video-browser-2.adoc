@@ -201,3 +201,99 @@ class SearchBar extends Component {
 export default SearchBar;
 ----
 ____
+
+=== Constructor and state
+
+To be able to keep track of the current state of the user input, we need to initialize the SearchBar component's `state object`. This is done in the `constructor` method of the class.
+
+[quote]
+____
+. In `search-bar.js`, add a method named `constructor` where `this.state` is initialized holding an object with the current search term
++
+[source,javascript]
+----
+class SearchBar extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {searchTerm: ''};
+    }
+    
+    ...
+    
+}
+----
+____
+
+Now we want to capture any changes to the input field's value into the property `searchTerm` of the state object. This will be done by changing the `onChange` attribute of the input element to call `this.setState()` instead of `console.log()`.
+
+[quote]
+____
+. Change the onChange attribute
++
+[source,javascript]
+----
+render() {
+	return <input onChange={event => this.setState({searchTerm: event.target.value})} />;
+}
+----
++
+. As a fun thing, print out `this.state.searchTerm` to the page just to see it change:
++
+[source,javascript]
+----
+render() {
+    return (
+        <div>
+            <input onChange={event => this.setState({searchTerm: event.target.value})} />
+            <p>Value of the input: {this.state.searchTerm}</p>
+        </div>
+    );
+}
+----
++
+[NOTE]
+This highlights a key concept in React: _Whenever a component's state change, the component (and it's children) immediately re-renders_
++
+. Revert back by removing the value output, but keep the div tags for later
++
+[source,javascript]
+----
+render() {
+    return (
+        <div>
+            <input onChange={event => this.setState({searchTerm: event.target.value})} />
+        </div>
+    );
+}
+----
+____
+
+* TODO: Add a section about constructor, state and setState() here
+
+React has the concept of _Controlled component_, which an html form element that has it's value set by React state, and this value only ever changes when the state changes. This makes the React state be the “single source of truth”.
+
+[quote]
+____
+. Make the search bar `<input/>` element a controlled component
++
+[source,javascript]
+----
+render() {
+    return (
+        <div>
+            <input
+                value={this.state.searchTerm}
+                onChange={event => this.setState({searchTerm: event.target.value})} />
+        </div>
+    );
+}
+----
++
+When user enters text the `onChange` handler is called, triggering React to rerender. When rendering is complete, the `value` is set to `this.state.searchTerm`. This allows us to read the `value` of the input more easily since we can read `this.state.searchTerm` whenever we want and be sure that it will always have the latest input from user.
++
+link:https://reactjs.org/docs/forms.html#controlled-components[React doc about Controlled components]
+____
+
+=== Searching for videos
