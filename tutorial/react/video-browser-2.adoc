@@ -297,3 +297,70 @@ link:https://reactjs.org/docs/forms.html#controlled-components[React doc about C
 ____
 
 === Searching for videos
+
+Now we are ready to do some serious YouTube video searches. But before going bonkers on that, we need to quickly set up some things.
+
+[IMPORTANT]
+If you haven't already done so, generate an Youtube API key as described in
+<<prerequisites.adoc#generate-a-youtube-api-key,Prerequisites: Generate a youtube API key>>
+
+[quote]
+____
+. Take your generated API key and add it to a constant in `app.js`
++
+[source,javascript]
+----
+const API_KEY = "<the-key>";
+----
++
+. Install the google npm package that will helps us do searches
++
+[source,bash]
+----
+# Make sure to execute from directory "my-app"
+npm install --save youtube-api-search
+----
++
+This will install the package so we can import needed components to use for searching.
+____
+
+Now we are ready to go bonkers.
+
+Central in React is the concept of downwards dataflow, which says _"Any state is always owned by some specific component, and any data or UI derived from that state can only affect components “below” them in the tree"_. 
+
+[TIP]
+link:https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down[React doc about Data flows down]
+
+This implies that the most parent component in an application should be responsible for fetching data.
+
+In our case `app.js` is the top most component so we will let it handle the data fetching.
+
+[quote]
+____
+. In `app.js`, add import to youtube searh utilities
++
+[source,javascript]
+----
+import YTSearch from 'youtube-api-search';
+----
+. Just to demonstrate how `YTSearch` function works, let us do a quick and dirty call just to see what it does. Add a call to `YTSearch` as follows:
++
+[source,javascript]
+----
+const API_KEY = "<the-key>";
+
+YTSearch({key: API_KEY, term: 'acorntechnology'}, (data) => {
+    console.log(data);
+});
+
+class App extends React.Component {
+  ...
+}
+----
++
+Now take a look in the developer's tool Console log. There you should see the search result, a list of videos looking something like this:
++
+image:YTSearch-acorn-result.png[]
+____
+
+We want to update the the list of videos whenever the user searches for them, which sounds like a great use for state. When the user searches, we want to set that search result on state.
