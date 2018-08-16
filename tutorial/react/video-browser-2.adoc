@@ -296,7 +296,7 @@ When user enters text the `onChange` handler is called, triggering React to rere
 link:https://reactjs.org/docs/forms.html#controlled-components[React doc about Controlled components]
 ____
 
-=== Searching for videos
+== Searching for videos
 
 Now we are ready to do some serious YouTube video searches. But before going bonkers on that, we need to quickly set up some things.
 
