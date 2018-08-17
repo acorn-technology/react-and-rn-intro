@@ -426,6 +426,71 @@ ____
 
 So now we have a `<App/>` component that upon initialization will perform a YouTube search on "acorntechnology" and store the result in `this.state.videos`.
 
-This is good and we can leave the matter of searching for a while. Let's start focusing on the video list and it's items by start putting these components together. Lets start with the parent of the two, `<VideoList/>`
+This is good and we can leave the matter of searching for a while. Let's start focusing on the video list and it's items by start putting these components together.
 
 == VideoList
+
+The ultimate goal of the `VideoList` component is to display a list of one or more `VideoListItem`, based on search results produced by `App` and `SearchBar`.
+
+This component will not need to hold any state, so we can make it a plain _functional component_.
+
+[NOTE]
+_Class based components_ versus _functional components_: Up until now we have used _class based components_. These types of components can, as you have seen, hold local state. A React _functional component_ is literally a plain javascript function, which can take 0 or more object arguments and returns a React element.
+
+[quote]
+____
+. In `video-list.js`, create a const `VideoList` and assign it a plain function returning an empty `<ul>` element
++
+[source,javascript]
+----
+import React from 'react';
+
+const VideoList = function () {
+    return (
+        <ul className="col-md-4 list-group">
+
+        </ul>
+    );
+};
+----
++
+This can also be written using the condensed fat arrow syntax:
++
+[source,javascript]
+----
+import React from 'react';
+
+const VideoList = () => {
+    return (
+        <ul className="col-md-4 list-group">
+
+        </ul>
+    );
+};
+----
++
+. Make sure to export the component so we can import it in other components
++
+[source,javascript]
+----
+export default VideoList;
+----
++
+. Also note that we did sneak in some styling in `<ul className="col-md-4 list-group">`. For convenience we will make use of some ready made CSS from Bootstrap. In order to this to work we must link to it, so in `my-app/public/index.html` please add the following `<link>` element:
++
+[source,html]
+----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    ...
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/48938155eb24b4ccdde09426066869504c6dab3c/dist/css/bootstrap.min.css">
+    ...
+</head>
+<body>
+    ...
+</body>
+</html>
+----
+____
+
