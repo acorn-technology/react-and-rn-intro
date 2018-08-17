@@ -597,3 +597,86 @@ export default VideoList;
 +
 Take peek at the browser, you should see the length of search result array below the search bar.
 ____
+
+So now `VideoList` has an array of videos in it, which we can iterate over to produce individual `VideoListItem` elements. This can be achieved using traditional for loops, but that is kind of bulky. We will loop over the array elements using the built-in Map iterator instead.
+
+The easiest way to explaing the Map iterator is perhaps by using the browser developer's tools javascript console. Use the console and enter the following:
+
+. `var array = [1,2,3];`
+
+. `array.map(function(number){ return number * 2 });`
++
+Note the resulting output
++
+. `array.map((number) => { return number * 2 });`
++
+The same but using condensed arrow function instead
++
+. `array.map((number) => { return '<div>' + number + '</div>' });`
++
+This example demonstrates roughly what we want to do with our videos array, iterate over it and create elements for each item.
+
+But first we need to setup `video-list-item.js` properly.
+
+[quote]
+____
+. In `video-list-item.js`, add a React import
++
+[source,javascript]
+----
+import React from 'react';
+----
++
+. Declare a functional component `VideoListItem` with props that returns a (for now static) list item e.g. `<li>Video</li>`
++
+[source,javascript]
+----
+const VideoListItem = (props) => {
+
+    return (
+        <li>Video</li>
+    );
+};
+----
++
+. Declare export
++
+[source,javascript]
+----
+export default VideoListItem;
+----
++ 
+. In `video-list.js`, add import to `VideoListItem`
++
+[source,javascript]
+----
+import VideoListItem from "./video-list-item";
+----
++
+. Declare a `const videoItems` that iterates over `props.videos`
+using map, creating a `VideoListItem` for each element in array
++
+[source,javascript]
+----
+const videoItems = props.videos.map((video) => {
+    return (
+        <VideoListItem video={video}/>
+    )
+});
+----
++
+. replace `{props.videos.length}` with `{videoItems}`
++
+[source,javascript]
+----
+return (
+    <ul className="col-md-4 list-group">
+        {videoItems}
+    </ul>
+);
+----
++
+Expected result:
++
+image:first-video-list.png[]
+____
