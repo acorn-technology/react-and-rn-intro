@@ -688,3 +688,24 @@ React want us to provide a unique key for each element in our video list. Keys w
 Keys in list should be unique for each item. Regarding our videos, we can use the `etag` of each video present in the youtube response.
 
 image:key-etag.png[]
+
+[quote]
+____
+. In `video-list.js`, Add property `key={video.etag}` to `VideoListItem` JSX tag
++
+[source,javascript]
+----
+<VideoListItem key={video.etag} video={video}/>
+----
+____
+
+Now it's high time to work some more on making the list item a bit more informative, actually displaying information of each video  instead of just the hardcoded "Video".
+
+First take look out how the video object actually looks like.
+
+[quote]
+____
+. In `video-list-item.js` add `console.log(props.video);` as the first line in the function and then check the developer's tools Console tab
++
+You should see a list with one item per found video. Expand one and take a look at the property `snippet`. Here you'll find a `title` and also some image urls under `thumbnails` that will be good to use. Remove the console.log statement when done.
+____
