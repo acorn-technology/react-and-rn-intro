@@ -598,6 +598,8 @@ export default VideoList;
 Take peek at the browser, you should see the length of search result array below the search bar.
 ____
 
+== VideoListItem
+
 So now `VideoList` has an array of videos in it, which we can iterate over to produce individual `VideoListItem` elements. This can be achieved using traditional for loops, but that is kind of bulky. We will loop over the array elements using the built-in Map iterator instead.
 
 The easiest way to explaing the Map iterator is perhaps by using the browser developer's tools javascript console. Use the console and enter the following:
