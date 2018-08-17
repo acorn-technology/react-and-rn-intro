@@ -437,6 +437,8 @@ This component will not need to hold any state, so we can make it a plain _funct
 [NOTE]
 _Class based components_ versus _functional components_: Up until now we have used _class based components_. These types of components can, as you have seen, hold local state. A React _functional component_ is literally a plain javascript function, which can take 0 or more object arguments and returns a React element.
 
+The `VideoList` will get the videos from search result and should then create visual elements based on the content. It will not need any local states for achieving this.
+
 [quote]
 ____
 . In `video-list.js`, create a const `VideoList` and assign it a plain function returning an empty `<ul>` element
