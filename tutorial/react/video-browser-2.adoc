@@ -680,3 +680,11 @@ Expected result:
 +
 image:first-video-list.png[]
 ____
+
+[IMPORTANT]
+We know have a warning in the console. It is telling us that
+React want us to provide a unique key for each element in our video list. Keys will help React identify which items have changed, are added, or are removed. Also see link:https://reactjs.org/docs/lists-and-keys.html#keys[React doc about keys in lists]
+
+Keys in list should be unique for each item. Regarding our videos, we can use the `etag` of each video present in the youtube response.
+
+image:key-etag.png[]
