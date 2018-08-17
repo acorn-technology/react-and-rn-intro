@@ -496,3 +496,104 @@ export default VideoList;
 ----
 ____
 
+Ok, the `VideoList` component is now in place, returning an empty `<ul>` element. We should add more content to this element soon, but first we will head back to `app.js` and use the `VideoList` component there. 
+
+The current content of `app.js` should now look similar to this:
+
+[source,javascript]
+----
+import React from 'react';
+import SearchBar from './components/search-bar';
+import YTSearch from 'youtube-api-search';
+
+const API_KEY = "<the-key>";
+
+class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = { videos: [] };
+
+        YTSearch({key: API_KEY, term: 'acorntechnology'}, (videos) => {
+            this.setState({ videos: videos });
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <SearchBar/>
+            </div>
+        );
+    }
+}
+
+export default App;
+----
+
+The only thing displayed on page right now is the `<SearchBar/>` element. Let's add the `<VideoList/>` element as well. 
+
+[quote]
+____
+. In `app.js`, add import to `VideoList`
++
+[source,javascript]
+----
+import VideoList from "./components/video-list";
+----
++
+. Place `<VideoList/>` below `<SearchBar/>`
++
+[source,javascript]
+----
+render() {
+    return (
+        <div>
+            <SearchBar/>
+            <VideoList/>
+        </div>
+    );
+}
+----
+____
+
+Not much happens in the browser yet. We need to do some additional steps to get a search result list rendered.
+
+We are in a situation where the `<App/>` component's state holds the videos search result. To be able to show the results in `VideoList`, we must pass it down somehow. React supports this in a quite straight forward fashion, by allowing us to add properties to JSX tags. This usually referred to as _passing props_.
+
+[quote]
+____
+. In `app.js`, add `videos` property to the VideoList JSX tag, pass `this.state.videos` as props.
++
+[source,javascript]
+----
+render() {
+    return (
+        <div>
+            <SearchBar/>
+            <VideoList videos={this.state.videos}/>
+        </div>
+    );
+}
+----
++
+. In `video-list.js`, add argument `props` to the function. This will be the recieving end of the props passing. Also add a temporary printout of the props content inside the `<ul>` element.
++
+[source,javascript]
+----
+import React from 'react';
+
+const VideoList = (props) => {
+    return (
+        <ul className="col-md-4 list-group">
+            {props.videos.length}
+        </ul>
+    );
+};
+
+export default VideoList;
+----
++
+Take peek at the browser, you should see the length of search result array below the search bar.
+____
