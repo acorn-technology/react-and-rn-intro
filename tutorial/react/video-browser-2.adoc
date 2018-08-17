@@ -709,3 +709,72 @@ ____
 +
 You should see a list with one item per found video. Expand one and take a look at the property `snippet`. Here you'll find a `title` and also some image urls under `thumbnails` that will be good to use. Remove the console.log statement when done.
 ____
+
+Let's start by adding a bunch of markup and other things to better display the video information. Please note that we will use some styling classes from bootstrap, so we do not need to think about css that much here.
+
+[quote]
+____
+. In `video-list-item.js`, add a const holding the videos from the props argument
++
+[source, javascript]
+----
+const VideoListItem = (props) => {
+
+    const video = props.video;
+
+    return (
+        <li>Video</li>
+    );
+};
+----
++
+. Add some initial markup
++
+[source, javascript]
+----
+const VideoListItem = (props) => {
+
+    const video = props.video;
+
+    return (
+        <li className="list-group-item">
+            <div className="video-list media">
+                <div className="media-left">
+                    <img className="media-object" alt="" />
+                </div>
+                <div className="media-body">
+                    <div className="media-heading"></div>
+                </div>
+            </div>
+        </li>
+    );
+};
+----
++
+. Create a const `imageUrl` holding the video's image URL
++
+[source, javascript]
+----
+const imageUrl = video.snippet.thumbnails.default.url;
+----
++
+. Add property `src` to `img` tag, referencing `imageUrl`
++
+[source, javascript]
+----
+<img className="media-object" alt="" src={imageUrl} />
+----
++
+Things are starting to happen, take look at the browser!
++
+. Add the title of the video into `div` with className `media-heading`
++
+[source, javascript]
+----
+<div className="media-heading">{video.snippet.title}</div>
+----
+____
+
+[TIP]
+Note that the videos shown in list are from the default searchTerm "acorntechnology", defined in `app.js`. You can of course change this to anything you like.
+
