@@ -778,3 +778,4 @@ ____
 [TIP]
 Note that the videos shown in list are from the default searchTerm "acorntechnology", defined in `app.js`. You can of course change this to anything you like.
 
+== VideoDetail
