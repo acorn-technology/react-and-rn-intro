@@ -15,6 +15,8 @@ The ultimate goal of the `VideoList` component is to display a list of one or mo
 
 This component will not need to hold any state, so we can make it a plain _functional component_.
 
+=== Functional components
+
 [NOTE]
 _Class based components_ versus _functional components_: Up until now we have used _class based components_. These types of components can, as you have seen, hold local state. A React _functional component_ is literally a plain javascript function, which can take 0 or more object arguments and returns a React element.
 
@@ -141,6 +143,8 @@ ____
 
 Not much happens in the browser yet. We need to do some additional steps to get a search result list rendered.
 
+=== Passing props
+
 We are in a situation where the `<App/>` component's state holds the videos search result. To be able to show the results in `VideoList`, we must pass it down somehow. React supports this in a quite straight forward fashion, by allowing us to add properties to JSX tags. This usually referred to as _passing props_.
 
 [quote]
@@ -183,7 +187,9 @@ ____
 
 So now `VideoList` has an array of videos in it, which we can iterate over to produce individual `VideoListItem` elements. This can be achieved using traditional for loops, but that is kind of bulky. We will loop over the array elements using the built-in Map iterator instead.
 
-The easiest way to explaing the Map iterator is perhaps by using the browser developer's tools javascript console. Use the console and enter the following:
+=== Loop by using Map iterator
+
+The easiest way to explaing the Map iterator is perhaps by using the browser developer's tools javascript console for a demo. Use the console and enter the following:
 
 . `var array = [1,2,3];`
 
@@ -197,7 +203,7 @@ The same but using condensed arrow function instead
 +
 . `array.map((number) => { return '<div>' + number + '</div>' });`
 +
-This example demonstrates roughly what we want to do with our videos array, iterate over it and create elements for each item.
+The last example demonstrates roughly what we want to do with our videos array, iterate over it and create elements for each item.
 
 But first we need to setup `video-list-item.js` properly.
 
@@ -263,6 +269,8 @@ Expected result:
 +
 image:first-video-list.png[]
 ____
+
+=== Lists and keys
 
 [IMPORTANT]
 We know have a warning in the console. It is telling us that
