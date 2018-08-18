@@ -326,6 +326,8 @@ ____
 
 Now we are ready to go bonkers.
 
+=== Downwards data flow
+
 Central in React is the concept of downwards dataflow, which says _"Any state is always owned by some specific component, and any data or UI derived from that state can only affect components “below” them in the tree"_. 
 
 [TIP]
