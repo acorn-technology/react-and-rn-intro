@@ -187,7 +187,7 @@ ____
 
 So now `VideoList` has an array of videos in it, which we can iterate over to produce individual `VideoListItem` elements. This can be achieved using traditional for loops, but that is kind of bulky. We will loop over the array elements using the built-in Map iterator instead.
 
-=== Loop by using Map iterator
+=== About Map iterator
 
 The easiest way to explaing the Map iterator is perhaps by using the browser developer's tools javascript console for a demo. Use the console and enter the following:
 
