@@ -1,0 +1,364 @@
+:toc:
+:imagesdir: images
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== VideoList
+
+The ultimate goal of the `VideoList` component is to display a list of one or more `VideoListItem`, based on search results produced by `App` and `SearchBar`.
+
+This component will not need to hold any state, so we can make it a plain _functional component_.
+
+[NOTE]
+_Class based components_ versus _functional components_: Up until now we have used _class based components_. These types of components can, as you have seen, hold local state. A React _functional component_ is literally a plain javascript function, which can take 0 or more object arguments and returns a React element.
+
+The `VideoList` will get the videos from search result and should then create visual elements based on the content. It will not need any local states for achieving this.
+
+[quote]
+____
+. In `video-list.js`, create a const `VideoList` and assign it a plain function returning an empty `<ul>` element
++
+[source,javascript]
+----
+import React from 'react';
+
+const VideoList = function () {
+    return (
+        <ul className="col-md-4 list-group">
+
+        </ul>
+    );
+};
+----
++
+This can also be written using the condensed fat arrow syntax:
++
+[source,javascript]
+----
+import React from 'react';
+
+const VideoList = () => {
+    return (
+        <ul className="col-md-4 list-group">
+
+        </ul>
+    );
+};
+----
++
+. Make sure to export the component so we can import it in other components
++
+[source,javascript]
+----
+export default VideoList;
+----
++
+. Also note that we did sneak in some styling in `<ul className="col-md-4 list-group">`. For convenience we will make use of some ready made CSS from Bootstrap. In order to this to work we must link to it, so in `my-app/public/index.html` please add the following `<link>` element:
++
+[source,html]
+----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    ...
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/48938155eb24b4ccdde09426066869504c6dab3c/dist/css/bootstrap.min.css">
+    ...
+</head>
+<body>
+    ...
+</body>
+</html>
+----
+____
+
+Ok, the `VideoList` component is now in place, returning an empty `<ul>` element. We should add more content to this element soon, but first we will head back to `app.js` and use the `VideoList` component there. 
+
+The current content of `app.js` should now look similar to this:
+
+[source,javascript]
+----
+import React from 'react';
+import SearchBar from './components/search-bar';
+import YTSearch from 'youtube-api-search';
+
+const API_KEY = "<the-key>";
+
+class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = { videos: [] };
+
+        YTSearch({key: API_KEY, term: 'acorntechnology'}, (videos) => {
+            this.setState({ videos: videos });
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <SearchBar/>
+            </div>
+        );
+    }
+}
+
+export default App;
+----
+
+The only thing displayed on page right now is the `<SearchBar/>` element. Let's add the `<VideoList/>` element as well. 
+
+[quote]
+____
+. In `app.js`, add import to `VideoList`
++
+[source,javascript]
+----
+import VideoList from "./components/video-list";
+----
++
+. Place `<VideoList/>` below `<SearchBar/>`
++
+[source,javascript]
+----
+render() {
+    return (
+        <div>
+            <SearchBar/>
+            <VideoList/>
+        </div>
+    );
+}
+----
+____
+
+Not much happens in the browser yet. We need to do some additional steps to get a search result list rendered.
+
+We are in a situation where the `<App/>` component's state holds the videos search result. To be able to show the results in `VideoList`, we must pass it down somehow. React supports this in a quite straight forward fashion, by allowing us to add properties to JSX tags. This usually referred to as _passing props_.
+
+[quote]
+____
+. In `app.js`, add `videos` property to the VideoList JSX tag, pass `this.state.videos` as props.
++
+[source,javascript]
+----
+render() {
+    return (
+        <div>
+            <SearchBar/>
+            <VideoList videos={this.state.videos}/>
+        </div>
+    );
+}
+----
++
+. In `video-list.js`, add argument `props` to the function. This will be the recieving end of the props passing. Also add a temporary printout of the props content inside the `<ul>` element.
++
+[source,javascript]
+----
+import React from 'react';
+
+const VideoList = (props) => {
+    return (
+        <ul className="col-md-4 list-group">
+            {props.videos.length}
+        </ul>
+    );
+};
+
+export default VideoList;
+----
++
+Take peek at the browser, you should see the length of search result array below the search bar.
+____
+
+== VideoListItem
+
+So now `VideoList` has an array of videos in it, which we can iterate over to produce individual `VideoListItem` elements. This can be achieved using traditional for loops, but that is kind of bulky. We will loop over the array elements using the built-in Map iterator instead.
+
+The easiest way to explaing the Map iterator is perhaps by using the browser developer's tools javascript console. Use the console and enter the following:
+
+. `var array = [1,2,3];`
+
+. `array.map(function(number){ return number * 2 });`
++
+Note the resulting output
++
+. `array.map((number) => { return number * 2 });`
++
+The same but using condensed arrow function instead
++
+. `array.map((number) => { return '<div>' + number + '</div>' });`
++
+This example demonstrates roughly what we want to do with our videos array, iterate over it and create elements for each item.
+
+But first we need to setup `video-list-item.js` properly.
+
+[quote]
+____
+. In `video-list-item.js`, add a React import
++
+[source,javascript]
+----
+import React from 'react';
+----
++
+. Declare a functional component `VideoListItem` with props that returns a (for now static) list item e.g. `<li>Video</li>`
++
+[source,javascript]
+----
+const VideoListItem = (props) => {
+
+    return (
+        <li>Video</li>
+    );
+};
+----
++
+. Declare export
++
+[source,javascript]
+----
+export default VideoListItem;
+----
++ 
+. In `video-list.js`, add import to `VideoListItem`
++
+[source,javascript]
+----
+import VideoListItem from "./video-list-item";
+----
++
+. Declare a `const videoItems` that iterates over `props.videos`
+using map, creating a `VideoListItem` for each element in array
++
+[source,javascript]
+----
+const videoItems = props.videos.map((video) => {
+    return (
+        <VideoListItem video={video}/>
+    )
+});
+----
++
+. replace `{props.videos.length}` with `{videoItems}`
++
+[source,javascript]
+----
+return (
+    <ul className="col-md-4 list-group">
+        {videoItems}
+    </ul>
+);
+----
++
+Expected result:
++
+image:first-video-list.png[]
+____
+
+[IMPORTANT]
+We know have a warning in the console. It is telling us that
+React want us to provide a unique key for each element in our video list. Keys will help React identify which items have changed, are added, or are removed. Also see link:https://reactjs.org/docs/lists-and-keys.html#keys[React doc about keys in lists]
+
+Keys in list should be unique for each item. Regarding our videos, we can use the `etag` of each video present in the youtube response.
+
+image:key-etag.png[]
+
+[quote]
+____
+. In `video-list.js`, Add property `key={video.etag}` to `VideoListItem` JSX tag
++
+[source,javascript]
+----
+<VideoListItem key={video.etag} video={video}/>
+----
+____
+
+Now it's high time to work some more on making the list item a bit more informative, actually displaying information of each video  instead of just the hardcoded "Video".
+
+First take look out how the video object actually looks like.
+
+[quote]
+____
+. In `video-list-item.js` add `console.log(props.video);` as the first line in the function and then check the developer's tools Console tab
++
+You should see a list with one item per found video. Expand one and take a look at the property `snippet`. Here you'll find a `title` and also some image urls under `thumbnails` that will be good to use. Remove the console.log statement when done.
+____
+
+Let's start by adding a bunch of markup and other things to better display the video information. Please note that we will use some styling classes from bootstrap, so we do not need to think about css that much here.
+
+[quote]
+____
+. In `video-list-item.js`, add a const holding the videos from the props argument
++
+[source, javascript]
+----
+const VideoListItem = (props) => {
+
+    const video = props.video;
+
+    return (
+        <li>Video</li>
+    );
+};
+----
++
+. Add some initial markup
++
+[source, javascript]
+----
+const VideoListItem = (props) => {
+
+    const video = props.video;
+
+    return (
+        <li className="list-group-item">
+            <div className="video-list media">
+                <div className="media-left">
+                    <img className="media-object" alt="" />
+                </div>
+                <div className="media-body">
+                    <div className="media-heading"></div>
+                </div>
+            </div>
+        </li>
+    );
+};
+----
++
+. Create a const `imageUrl` holding the video's image URL
++
+[source, javascript]
+----
+const imageUrl = video.snippet.thumbnails.default.url;
+----
++
+. Add property `src` to `img` tag, referencing `imageUrl`
++
+[source, javascript]
+----
+<img className="media-object" alt="" src={imageUrl} />
+----
++
+Things are starting to happen, take look at the browser!
++
+. Add the title of the video into `div` with className `media-heading`
++
+[source, javascript]
+----
+<div className="media-heading">{video.snippet.title}</div>
+----
+____
+
+[TIP]
+Note that the videos shown in list are from the default searchTerm "acorntechnology", defined in `app.js`. You can of course change this to anything you like.
+
+== VideoDetail
