@@ -278,7 +278,7 @@ State is a plain javascript object that is used to record user events in React. 
 
 The state object is initialized and set in a class component's constructor function. _The constructor function is the first and only function automatically called whenever a new instance of the class is created_.
 
-`super(props)` -> a class extends `Component`, which has it's own constructor function. This must be called from any implementing child component as the first thing in the child's constructor.
+Regarding `super(props)`: A class based components extends `Component`, which has it's own constructor function. This must be called from any implementing child component as the first thing in the child's constructor.
 
 The state is created by assigning an object to `this.state`. The object we pass will contain the properties that we want to record on the state, for instance `this.state = {searchTerm: ''};`
 
