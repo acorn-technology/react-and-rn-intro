@@ -595,3 +595,110 @@ const VideoDetail = (props) => {
 ----
 This should get rid of the problem and the video should be displayed and it should be possible to play it.
 ____
+
+Next up we want to get rid of the hard coded first video and prepare for passing along a deliberately selected video to the `VideoDetail` component. 
+
+This is preferrably added to the state object of `app.js`, this component will then hold state containing the videos from search result together with the current user selected video. 
+
+[quote]
+____
+. In `app.js`, add `selectedVideo` as a property to the state object
++
+[source,javascript]
+----
+    this.state = {
+        videos: [],
+        selectedVideo: null
+    };
+----
++
+Then make sure to pass the property along.
++
+. In `app.js`, change the video property of VideoDetail to use this.state.selectedVideo instead
++
+[source,javascript]
+----
+<VideoDetail video={this.state.selectedVideo}/>
+----
++
+[IMPORTANT]
+====
+A look at browser shows us that we are stuck in the _"Loading..."_ mode, which makes kind of sense since we aren't yet updating the `selectedVideo` state. 
+
+In the constructor `YTSearch` function searches for videos and currently it updates `this.state.videos` with all videos. At the same time, we want it to update `this.state.selectedVideo` with the first video in the result array.
+
+====
++
+. In `app.js`, update the state and set `selectedVideo` to the first video
++
+[source,javascript]
+----
+YTSearch({key: API_KEY, term: 'acorntechnology'}, (videos) => {
+    this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+    });
+});
+----
+____
+
+Since the state is changed, React will re-render `<App/>` and all it's children. `VideoDetail` will re-render with the new video.
+
+=== Callbacks
+
+Let's continue with adding code that allows the user to select a video from the list and play it. 
+
+This means that we must implement a _callback_ that will be passed from `App` via `VideoList` down to `VideoListItem`, which responsibility will be to handle selections from the list (i.e. when user selects a video in the list). When a selection is made, `App` will become aware of it through the _callback_ and the `App` state property `selectedVideo` will be updated.
+
+[...] which will result in React re-rendering everything again so the selected video becomes visible in `VideoDetail`.
+
+[TIP]
+====
+If you did find the last passage a bit hard to follow, don't fret. It will probably become a bit clearer when we do the coding in the upcoming steps.
+
+====
+
+Let's start coding.
+
+[quote]
+____
+. In `app.js`, add a new property to tag `VideoList` called `onVideoSelect`. This property should be a function that updates the `selectedVideo` state
++
+[source,javascript]
+----
+<VideoList
+    onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+    videos={this.state.videos}/>
+----
++
+Since we now are passing `onVideoSelect` as a property to `VideoList`, we need to add code in `video-list.js` to mirror this. We need to continue to pass the callback down to VideoListItem.
++
+. In `video-list.js`, add new property `onVideoSelect` to tag `VideoListItem`, passing on the callback in `props.onVideoSelect`
++
+[source,javascript]
+----
+const videoItems = props.videos.map(video => {
+    return (
+        <VideoListItem
+            onVideoSelect={props.onVideoSelect}
+            key={video.etag}
+            video={video}/>
+    );
+});
+----
++
+So now we are passing the props `onVideoSelect` down to `VideoListItem`. Next up is to add code in `video-list-item.js` that handles that property. Let's use this so whenever a user clicks on an `<li>` element, that particular video should be sent back via the callback.
++
+. In `video-list-item.js`, add another const that holds the callback in `props.onVideoSelect`
++
+[source,javascript]
+----
+const onVideoSelect = props.onVideoSelect;
+...
+
+<li onClick={() => onVideoSelect(video)} className="list-group-item">
+----
+____
+
+And on that bomb shell it should now be possible to select videos in browser by clicking the items!
+
