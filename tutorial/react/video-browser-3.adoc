@@ -482,6 +482,7 @@ image:YTSearch-video-videoId.png[]
 [quote]
 ____
 . In `video-detail.js`, create a const holding the complete url
++
 [source,javascript]
 ----
 const videoUrl = "https://www.youtube.com/embed/" + video.id.videoId;
