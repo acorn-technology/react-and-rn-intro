@@ -239,6 +239,7 @@ ____
 +
 [source, bash]
 ----
+# Run this in directory my-app
 npm install --save lodash
 ----
 +
