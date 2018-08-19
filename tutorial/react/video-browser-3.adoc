@@ -448,7 +448,7 @@ The video object we recieved from Youtube contains a lot of information. We are 
 
 image:YTSearch-video-snippet.png[]
 
-. Add title and description to the two empty <div> tags
+. Add title and description to the two empty <div> tags under `<div className="details">`
 
 [source,javascript]
 ----
