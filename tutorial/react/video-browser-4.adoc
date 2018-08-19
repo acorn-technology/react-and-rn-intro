@@ -1,1 +1,80 @@
+:toc:
+:imagesdir: images
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Searching for videos part 2
+
+We do of course need to provide users the ability to search for new videos, anything else would be utterly boring. We will follow a similar pattern as we did with the video list, by sending a callback function to the `SearchBar` component. 
+
+The callback we will create will take a string, the _search term_, perform a `YTSearch`, and when the search is complete, set the resulting videos to the `App` state.
+
+[quote]
+____
+. In `app.js` (under the constructor), define a new function named `videoSearch(searchTerm)`
++
+[source,javascript]
+----
+videoSearch(searchTerm) {
+    
+}
+----
++
+. Refactor the code a bit by moving the `YTSearch` code block from the constructor to the newly created function
++
+[source,javascript]
+----
+constructor(props) {
+    super(props);
+
+    this.state = {
+        videos: [],
+        selectedVideo: null
+    };
+}
+
+videoSearch(searchTerm) {
+
+    YTSearch({key: API_KEY, term: 'acorntechnology'}, (videos) => {
+        this.setState({
+            videos: videos,
+            selectedVideo: videos[0]
+        });
+    });
+}
+----
++
+. In the call to `YTSearch`, remove "acorntechnology" and use the `searchTerm` variable instead. Next do a call to `this.videoSearch('acorntechnology')` in the constructor to maintain the original default behaviour.
++
+[source,javascript]
+----
+constructor(props) {
+    super(props);
+
+    this.state = {
+        videos: [],
+        selectedVideo: null
+    };
+
+    this.videoSearch('acorntechnology');
+}
+
+videoSearch(searchTerm) {
+    YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
+        this.setState({
+            videos: videos,
+            selectedVideo: videos[0]
+        });
+    });
+}
+----
+____
+
+We are now in the position to pass the `videoSearch` function as a callback down to `SearchBar`.
 
