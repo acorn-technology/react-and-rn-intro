@@ -148,7 +148,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 +
 [NOTE]
 ====
-The server on http://localhost:3000 will live reload everytime you save any files in the project. Make it a habit to do so on every change you during the course of this tutorial.
+The server on http://localhost:3000 will live reload everytime you save any files in the project. Make it a habit to do so on every change you do during the course of this tutorial.
 
 ====
 ____
