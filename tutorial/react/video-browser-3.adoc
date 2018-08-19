@@ -369,4 +369,104 @@ ____
 [TIP]
 Note that the videos shown in list are from the default searchTerm "acorntechnology", defined in `app.js`. You can of course change this to anything you like.
 
+We have a list showing search result which is great! There is still some things we need to do, like we want users to be able to select which video to watch, for starters. We will address these matter in a while, but for now we put the VideoList and VideoListItem to rest.
+
+Instead it's time to work on making the video detail section a little bit more usable.
+
 == VideoDetail
+
+The `VideoDetail` component is responsible for presenting the content of an actual video. Sounds great, so let's create it.
+	
+[NOTE]
+====
+Before we go a head, here is a question you should ask yourself before creating components: _"Do I expect this component to maintain any type of state?"_
+
+* If yes - create a _class based component_
+
+* If no - you can probably get by with creating a _functional component_
+
+====
+
+Regarding the `VideoDetail` component, we will get all data feeded through the `props` argument, and there is no real need for holding any state since we just want to display the stuff we get through `props`. This suggest that it is enough to create a functional component here.
+
+[quote]
+____
+. In `video-detail.js`, add code making it a functional component, returning an empty `<div></div>` element for now.
++
+[source,javascript]
+----
+import React from 'react';
+
+const VideoDetail = (props) => {
+
+    return (<div/>);
+};
+
+export default VideoDetail;
+----
++
+. Add this ready made bunch of JSX markup to prepare for some later layout fixes. Notable here is that we create place holders for where the _emdedded video player_ and the _video title_ should go
++
+[source,javascript]
+----
+const VideoDetail = (props) => {
+
+    return (
+        <div className="video-detail col-md-8">
+            <div className="embed-responsive embed-responsive-16by9">
+                <iframe className="embed-responsive-item"></iframe>
+            </div>
+            <div className="details">
+                <div className="video-title"></div>
+                <div></div>
+            </div>
+        </div>
+    );
+};
+----
+____
+
+First we want to display the title and description of the video. This information will be present in the `props` object coming in from `<App>` (although we haven't written that code yet).
+
+The `props` object will contain one single `video` from search.
+
+[quote]
+____
+. Extract the video variable from `props`
++
+[source,javascript]
+----
+const VideoDetail = (props) => {
+
+    const video = props.video;
+
+    ...
+};
+----
++
+The video object we recieved from Youtube contains a lot of information. We are interested of the _title_ and _description_, both available under _snippet_:
+
+image:YTSearch-video-snippet.png[]
+
+. Add title and description to the two empty <div> tags
+
+[source,javascript]
+----
+const VideoDetail = (props) => {
+
+    const video = props.video;
+
+    return (
+        <div className="video-detail col-md-8">
+            <div className="embed-responsive embed-responsive-16by9">
+                <iframe className="embed-responsive-item" title="video-detail"/>
+            </div>
+            <div className="details">
+                <div className="video-title">{video.snippet.title}</div>
+                <div>{video.snippet.description}</div>
+            </div>
+        </div>
+    );
+};
+----
+____
