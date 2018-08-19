@@ -445,11 +445,11 @@ const VideoDetail = (props) => {
 ----
 +
 The video object we recieved from Youtube contains a lot of information. We are interested of the _title_ and _description_, both available under _snippet_:
-
++
 image:YTSearch-video-snippet.png[]
-
++
 . Add title and description to the two empty <div> tags under `<div className="details">`
-
++
 [source,javascript]
 ----
 const VideoDetail = (props) => {
@@ -488,6 +488,7 @@ const videoUrl = "https://www.youtube.com/embed/" + video.id.videoId;
 ----
 +
 . Add the url to the iframe `src` attribute
++
 [source,javascript]
 ----
 <iframe className="embed-responsive-item" title="video-detail" src={videoUrl}/>
@@ -499,6 +500,7 @@ Now the `VideoDetail` component is ready to be imported and used in `app.js`
 [quote]
 ____
 . In `app.js`, add import to `VideoDetail` and then put in a `<VideoDetail />` tag between `<SearchBar />` and `<VideoList videos={this.state.videos}/>`
++
 [source,javascript]
 ----
 ...
@@ -518,7 +520,7 @@ class App extends React.Component {
     }
 }
 ----
-
++
 [IMPORTANT]
 ====
 You will see an error in the javascript console, "Cannot read property 'id' of undefined"
@@ -535,6 +537,7 @@ We haven't come to the implementation of the actual selection of videos yet, so 
 [quote]
 ____
 . In `app.js`, add the first video in array to `<VideoDetail />` as props
++
 [source,javascript]
 ----
 ...
@@ -554,7 +557,7 @@ class App extends React.Component {
     }
 }
 ----
-
++
 [IMPORTANT]
 ====
 When saving we still get the error message in the console log: "Cannot read property 'id' of undefined". Seems like the first video object we are sending is 'undefined', so it fails when we try to lookup the id. Why is that?
