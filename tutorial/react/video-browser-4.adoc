@@ -227,7 +227,7 @@ Save it all and watch the browser reload
 
 === Throttling of search input
 
-The search seem to work, but it gives a kind of laggy impression. It performs a search on every keypress we do, which is not very optimal neither from a performance point of view (it fires away a request to Youtube server for every keypress) nor from a user experience perspective. 
+The search seem to work, but it gives a laggy impression. It performs a search on every keypress we do, which is not very optimal neither from a performance point of view (it fires away a request to Youtube server for every keypress) nor from a user experience perspective. 
 
 Perhaps we should try to throttle the input somewhat so that searches are fired every 2 seconds only, or something close to that? Let's try it.
 
