@@ -726,3 +726,7 @@ This example shows how a parent component can communicate with it's child compon
 There are more suitable ways to share complex states between components, if necessary, for example _Redux_, which we will be looking at in another tutorial.
 
 ====
+
+We can now see all components on the page in browser. It is time to add code for handling search terms entered in the search bar and send that of to YouTube.
+
+Continue with <<video-browser-4.adoc#searching-for-videos-part-2, Searching for videos part 2>>
