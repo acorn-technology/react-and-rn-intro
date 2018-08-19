@@ -706,5 +706,21 @@ const onVideoSelect = props.onVideoSelect;
 This will result in whenever a user clicks on that element, the callback will be called with the video for that element.
 ____
 
+[NOTE]
 And on that bomb shell it should now be possible to select and view videos in the browser by clicking the items!
 
+Very fine indeed, good job! But since this is hairy stuff that maybe doesn't feel all natural, let's run through what actually happens one more time.
+
+* `App` defines a callback function that takes a video and updates the `selectedVideo` on `state`, it then passes this as `onVideoSelect` to `VideoList` component. 
+
+* `VideoList` takes the given property and passes it on to `VideoListItem`. 
+
+* `VideoListItem` takes the property and says _"whenever I get clicked, call that function with my video"_. Since each `VideoListItem` has a different video, each particular video will be sent as argument into the callback function on click.
+
+[NOTE]
+====
+This example shows how a parent component can communicate with it's child components. It is however usually not wise to create callback jumps like these in more than *two levels of depth*. It quickly becomes confusing to follow callback chains where you must hunt around in different files to find the actual source function. 
+
+There are more suitable ways to share complex states between components, if necessary, for example _Redux_, which we will be looking at in another tutorial.
+
+====
