@@ -156,4 +156,32 @@ ____
 
 The browser should now happily go *Hello world!* - congratulations!
 
+== A note on embedding expressions in JSX
+
+Any component in react returns a JSX element, and in our case we returned `<div>Hello world!</div>` from the render function:
+
+[source,javascript]
+----
+render() {
+    return <div>Hello world!</div>;
+}
+
+----
+
+This is eventually transpiled to javascript by babeljs. 
+
+We can mix JSX with javascript statements in our code by adding curly braces `{}` inside the JSX statement. The above example could also be written like this:
+
+[source,javascript]
+----
+render() {
+    const greeting = "Hello word";
+
+    return <div>{greeting + "!"}</div>;
+}
+
+----
+
+You will see this a lot during the tutorial. It is good to know that when you are "inside" the curly braces in a JSX statement, you are in javascript mode, which means that anything you can do in javascript you can also dothere.
+
 Continue with <<video-browser-2.adoc#,Divide application into components>>
