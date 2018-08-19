@@ -270,7 +270,21 @@ render() {
 ----
 ____
 
-* TODO: Add a section about constructor, state and setState() here
+[IMPORTANT]
+====
+*Important about state*
+
+State is a plain javascript object that is used to record user events in React. Each _class based component_ has it's own _state object_. Whenever a component's state change, the component immediately re-renders, and also forces all of it's children to re-render as well.
+
+The state object is initialized and set in a class component's constructor function. _The constructor function is the first and only function automatically called whenever a new instance of the class is created_.
+
+`super(props)` -> a class extends `Component`, which has it's own constructor function. This must be called from any implementing child component as the first thing in the child's constructor.
+
+The state is created by assigning an object to `this.state`. The object we pass will contain the properties that we want to record on the state, for instance `this.state = {searchTerm: ''};`
+
+The construct of assigning state by directly using `this.state = {...}` is only used in the constructor. Outside the constructor you *MUST* use `this.setState({...})` instead. React does a tremendous amount of things behind the scenes during `setState()`. This is the way we tell React that "Hey, the state is changing and here is what the new state is". If you set `this.state` directly when changing state, React will be unaware of the change.
+
+====
 
 React has the concept of _Controlled component_, which an html form element that has it's value set by React state, and this value only ever changes when the state changes. This makes the React state be the “single source of truth”.
 
