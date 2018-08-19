@@ -147,4 +147,156 @@ ____
 
 Great! Sweet! That's it! Please do try the searchbar in browser by entering a search term of your choice. It should now function as intended!
 
+[TIP]
+Now is the time when it is quite okay to pat yourself on your shoulder. 
+
+== Some finishing touches
+
+We can now see all components on a page, and we can select and play videos. But the css styling is a bit off and could benefit of some loving. 
+
+Also, the search bar in browser acts in a kind of too sensitive way, reacting on every single keypress the user makes. Perhaps we should _throttle_ the search bar somewhat, so it delays the search a bit until the user stops hammering the keyboard.
+
+Let us address these things now.
+
+=== Additional styling
+
+It would be nice with some improvments to the visual presentation: 
+
+* Better alignment of the search bar
+* Cursor changes to a pointer and the color goes light grey when hovering over a video in the list.
+
+First let's create CSS style file and link to it from `public/index.html`.
+
+[quote]
+____
+. In folder `my-app/public`, create file `style.css`
+
+. Add the following content to file.
++
+[source, css]
+----
+.search-bar {
+    margin: 20px;
+    text-align: center;
+}
+
+.search-bar input {
+    width: 75%;
+}
+
+.video-item img {
+    max-width: 64px;
+}
+
+.video-detail .details {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.video-title {
+    font-weight: bold;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    background-color: #eee;
+}
+----
++
+. Open `my-app/public/index.html` and add link to the `style.css` file (somewhere inside <head> tag) 
++
+[source, html]
+----
+<link rel="stylesheet" href="style.css">
+----
++
+. Lastly, in `search-bar.js`, add `className="search-bar"` to the top enclosing `<div>`
++
+[source, html]
+----
+<div className="search-bar">
+----
+____
+
+Save it all and watch the browser reload
+
+=== Throttling of search input
+
+The search seem to work, but it gives a kind of laggy impression. It performs a search on every keypress we do, which is not very optimal neither from a performance point of view (it fires away a request to Youtube server for every keypress) nor from a user experience perspective. 
+
+Perhaps we should try to throttle the input somewhat so that searches are fired every 2 seconds only, or something close to that? Let's try it.
+
+To our aid we will make use of a javascript library called _lodash_, which contains tons of different utility functions, where on is called `_.debounce` (https://lodash.com/docs/4.17.10#debounce). This creates a "debounced" function that will allow us to delay our search calls.
+
+[quote]
+____
+. Open a terminal window and install the _lodash_ library
++
+[source, bash]
+----
+npm install --save lodash
+----
++
+. In `app.js`, import _lodash_ (which by convention uses the _ char in import)
++
+[source, javascript]
+----
+import _ from 'lodash';
+----
++
+. At the top of the render() function, add a debounced function based on our original `videoSearch(searchTerm)`
++
+[source, javascript]
+----
+const debouncedVideoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
+----
++
+. Change `onSearchTermChange` in `SearchBar` tag to pass `debouncedVideoSearch` instead of `searchTerm => this.videoSearch(searchTerm)`
++
+[source, javascript]
+----
+<SearchBar onSearchTermChange={debouncedVideoSearch}/>
+----
++
+The complete `App` render() function should now look like this
++
+[source, javascript]
+----
+render() {
+    const debouncedVideoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
+
+    return (
+        <div>
+            <SearchBar onSearchTermChange={debouncedVideoSearch}/>
+            <VideoDetail video={this.state.selectedVideo}/>
+            <VideoList
+                onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+                videos={this.state.videos}/>
+        </div>
+    );
+}
+----
+____
+
+Enter a new search in the search field to see the effect!
+
+[NOTE]
+====
+Explanation on what is happening here: The `_.debounce()` function takes two arguments: 
+
+. the function to run
+. the number of milliseconds to delay. 
+
+The effect will be that no matter how repeatedly the `<SearchBar onSearchTermChange={videoSearch}/>` will be called, `(searchTerm) => {this.videoSearch(searchTerm)` will only be executed every 300 ms. 
+
+This is actually the same way as a Google search behaves.
+
+====
+
+
 
