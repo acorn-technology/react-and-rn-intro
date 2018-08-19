@@ -717,6 +717,8 @@ Very fine indeed, good job! But since this is hairy stuff that maybe doesn't fee
 
 * `VideoListItem` takes the property and says _"whenever I get clicked, call that function with my video"_. Since each `VideoListItem` has a different video, each particular video will be sent as argument into the callback function on click.
 
+* When the callback is made, the `selectedVideo` state in `App` gets updated, triggering React to rerender the component, which now will display the selected video in `VideoDetail`. 
+
 [NOTE]
 ====
 This example shows how a parent component can communicate with it's child components. It is however usually not wise to create callback jumps like these in more than *two levels of depth*. It quickly becomes confusing to follow callback chains where you must hunt around in different files to find the actual source function. 
