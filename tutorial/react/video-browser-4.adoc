@@ -299,5 +299,9 @@ This is actually the same way as a Google search behaves.
 
 ====
 
+== The end
 
+You have reached the end of the line, good work! Thank you for hanging on so far. We hope that you feel properly introduced to React by now and want to stay on for the coming React Native and Redux tutorials.
+
+Cheers!
 
