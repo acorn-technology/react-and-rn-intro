@@ -694,11 +694,17 @@ So now we are passing the props `onVideoSelect` down to `VideoListItem`. Next up
 [source,javascript]
 ----
 const onVideoSelect = props.onVideoSelect;
-...
-
+----
++
+. To the `<li>` element's `onClick` event, add a function that calls onVideoSelect with the `video` variable
++
+[source,javascript]
+----
 <li onClick={() => onVideoSelect(video)} className="list-group-item">
 ----
++
+This will result in whenever a user clicks on that element, the callback will be called with the video for that element.
 ____
 
-And on that bomb shell it should now be possible to select videos in browser by clicking the items!
+And on that bomb shell it should now be possible to select and view videos in the browser by clicking the items!
 
