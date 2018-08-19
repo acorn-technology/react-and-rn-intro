@@ -153,6 +153,6 @@ The server on http://localhost:3000 will live reload everytime you save any file
 ====
 ____
 
-*Hello world!*
+The browser should now happily go *Hello world!* - congratulations!
 
 Continue with <<video-browser-2.adoc#,Divide application into components>>
