@@ -470,3 +470,124 @@ const VideoDetail = (props) => {
 };
 ----
 ____
+
+In order to embed the video in the iframe tag we just created, we need to construct a url to Youtube containing the id of the video we want to display. 
+
+The full url is `https://www.youtube.com/embed/<the-videoId>`, where we must replace _<the-videoId>_ with an actual id.
+
+This id can be pulled from `video.id.videoId`:
+
+image:YTSearch-video-videoId.png[]
+
+[quote]
+____
+. In `video-detail.js`, create a const holding the complete url
+[source,javascript]
+----
+const videoUrl = "https://www.youtube.com/embed/" + video.id.videoId;
+----
++
+. Add the url to the iframe `src` attribute
+[source,javascript]
+----
+<iframe className="embed-responsive-item" title="video-detail" src={videoUrl}/>
+----
+____
+
+Now the `VideoDetail` component is ready to be imported and used in `app.js`
+
+[quote]
+____
+. In `app.js`, add import to `VideoDetail` and then put in a `<VideoDetail />` tag between `<SearchBar />` and `<VideoList videos={this.state.videos}/>`
+[source,javascript]
+----
+...
+import VideoDetail from "./components/video-detail";
+...
+
+class App extends React.Component {
+    ...
+    render() {
+        return (
+            <div>
+                <SearchBar/>
+                <VideoDetail />
+                <VideoList videos={this.state.videos}/>
+            </div>
+        );
+    }
+}
+----
+
+[IMPORTANT]
+====
+You will see an error in the javascript console, "Cannot read property 'id' of undefined"
+
+Can you deduct why this happens?
+
+====
+____
+
+We must also submit a `video` for the `VideoDetail` to show (that is why we get the console error right now, `VideoDetail` tries to work with `props.video`, but we don't pass anything yet, so it is undefined). 
+
+We haven't come to the implementation of the actual selection of videos yet, so for now let us just hardcode the first video in array so we have something to look at.
+
+[quote]
+____
+. In `app.js`, add the first video in array to `<VideoDetail />` as props
+[source,javascript]
+----
+...
+import VideoDetail from "./components/video-detail";
+...
+
+class App extends React.Component {
+    ...
+    render() {
+        return (
+            <div>
+                <SearchBar/>
+                <VideoDetail video={this.state.videos[0]}/>
+                <VideoList videos={this.state.videos}/>
+            </div>
+        );
+    }
+}
+----
+
+[IMPORTANT]
+====
+When saving we still get the error message in the console log: "Cannot read property 'id' of undefined". Seems like the first video object we are sending is 'undefined', so it fails when we try to lookup the id. Why is that?
+
+The explanation lies within how React works during rendering. Please keep calm and read on.
+
+====
+____
+
+=== React rendering behavior
+
+In the constructor of the `App` component, the `this.state` object is initialized with the property `videos` holding an empty array. Next in the constructor the function `YTSearch` is called for searching videos and `this.state.videos` is updated with the result. This search can take some time (albeit usually a very short time), during which the `this.state.videos` contains an empty array.
+
+React works in the way that it will render the complete component while the `YTSearch` function completes. This means that `VideoDetail` will render using the empty array, ending up trying to access the id of an "undefined" object. When `YTSearch` finally is complete and the state is updated, React will re-render everything, this time with content in the videos array.
+
+We must hence make our code a little more robust so it takes care of possible situations with undefined or null videos.
+
+[quote]
+____
+. In `video-detail.js`, add a null check returning a div with the message _"Loading..."_
+
+[source,javascript]
+----
+const VideoDetail = (props) => {
+
+    if (!props.video) {
+        return <div>Loading...</div>
+    }    
+
+    const video = props.video;
+    const videoUrl = "https://www.youtube.com/embed/" + video.id.videoId;
+    ...
+};
+----
+This should get rid of the problem and the video should be displayed and it should be possible to play it.
+____
