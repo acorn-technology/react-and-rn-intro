@@ -1,3 +1,4 @@
+:toc:
 :imagesdir: images
 
 ifdef::env-github[]
