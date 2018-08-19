@@ -78,3 +78,73 @@ ____
 
 We are now in the position to pass the `videoSearch` function as a callback down to `SearchBar`.
 
+As you may already have guessed, our ambition is to send down the callback, let `SearchBar` capture the search term from the user, use that in the callback function so that state properties `videos` and `selectedVideo` in `App` can be updated, forcing React to rerender. 
+
+[quote]
+____
+. In `app.js`, add property `onSearchTermChange` to `SearchBar` component, holding the callback function we just made
++
+[source,javascript]
+----
+<SearchBar onSearchTermChange={searchTerm => this.videoSearch(searchTerm)}/>
+----
+____
+
+When `SearchBar` calls `onSearchTermChange`, it will do so with `searchTerm` and send it right into callback function `videoSearch`, which in turn will perform the `YTSearch` and update the state.
+
+To make the latter work we need to flip over to `search-bar.js` and implement the code there. First of all we should refactor the `<input>` `onChange` to call a function instead, since this will be less bulky.
+
+[quote]
+____
+. In `search-bar.js`, create a function named  `onInputChange(searchTerm)`
++
+[source,javascript]
+----
+onInputChange(searchTerm) {
+
+}
+----
++
+. In `search-bar.js`, modify the `onChange` attribute of `<input>` element by adding a call to `onInputChange(searchTerm)`. Submit `event.target.value` as argument to the function
++
+[source,javascript]
+----
+render() {
+	return (
+	    <div className="search-bar">
+	        <input
+               value={this.state.searchTerm}
+               onChange={event => this.onInputChange(event.target.value)} />
+        </div>
+    );
+}
+----
++
+Inside `onInputChange(searchTerm)` we want to do two things:
+
+* call `this.setState` in `SearchBar` with captured search term
+* call the passed callback function `onSearchTermChange(searchTerm)` with the same term. Note that the callback function is available through the props object
++ 
+. Update the `searchTerm` in state
++
+[source,javascript]
+----
+onInputChange(searchTerm) {
+    this.setState({searchTerm: searchTerm});
+}
+----
++ 
+. Send captured `searchTerm` into callback
++
+[source,javascript]
+----
+onInputChange(searchTerm) {
+    this.setState({searchTerm: searchTerm});
+    this.props.onSearchTermChange(searchTerm);
+}
+----
+____
+
+Great! Sweet! That's it! Please do try the searchbar in browser by entering a search term of your choice. It should now function as intended!
+
+
