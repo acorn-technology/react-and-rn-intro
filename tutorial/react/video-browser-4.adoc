@@ -288,7 +288,7 @@ Enter a new search in the search field to see the effect!
 
 [NOTE]
 ====
-Explanation on what is happening here: The `_.debounce()` function takes two arguments: 
+The `_.debounce()` function takes two arguments: 
 
 . the function to run
 . the number of milliseconds to delay. 
