@@ -286,6 +286,8 @@ The construct of assigning state by directly using `this.state = {...}` is only 
 
 ====
 
+=== Controlled component
+
 React has the concept of _Controlled component_, which an html form element that has it's value set by React state, and this value only ever changes when the state changes. This makes the React state be the “single source of truth”.
 
 [quote]
