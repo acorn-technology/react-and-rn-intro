@@ -102,7 +102,7 @@ Now let's flip back to `app.js` so we can import and use the <SearchBar/> compon
 
 [quote]
 ____
-. In `sapp.js`, add export statement to SearchBar. Note that you must specify the relative path to the file, and ommit the ".js" prefix
+. In `app.js`, add export statement to SearchBar. Note that you must specify the relative path to the file, and ommit the ".js" prefix
 +
 [source,javascript]
 ----
@@ -315,7 +315,7 @@ ____
 Now we are ready to do some serious YouTube video searches. But before going bonkers on that, we need to quickly set up some things.
 
 [IMPORTANT]
-If you haven't already done so, generate an Youtube API key as described in
+If you haven't already done so, generate an YouTube API key as described in
 <<prerequisites.adoc#generate-a-youtube-api-key,Prerequisites: Generate a youtube API key>>
 
 [quote]
