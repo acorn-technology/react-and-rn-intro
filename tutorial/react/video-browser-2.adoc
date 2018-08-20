@@ -86,7 +86,7 @@ class SearchBar extends Component {
 ----
 ____
 
-We have created the component, but we also need to make visible for other components, so it could be imported.
+We have created the component, but we also need to make it visible for other components, so it could be imported.
 
 [quote]
 ____
@@ -102,7 +102,7 @@ Now let's flip back to `app.js` so we can import and use the <SearchBar/> compon
 
 [quote]
 ____
-. In `app.js`, add export statement to SearchBar. Note that you must specify the relative path to the file, and ommit the ".js" prefix
+. In `app.js`, add export statement to SearchBar. Note that you must specify the relative path to the file, and ommit the _.js_ prefix
 +
 [source,javascript]
 ----
@@ -288,7 +288,7 @@ The construct of assigning state by directly using `this.state = {...}` is only 
 
 === Controlled component
 
-React has the concept of _Controlled component_, which an html form element that has it's value set by React state, and this value only ever changes when the state changes. This makes the React state be the “single source of truth”.
+React has the concept of _Controlled component_, which is an html form element that has it's value set by React state, and this value only ever changes when the state changes. This makes the React state be the “single source of truth”.
 
 [quote]
 ____
