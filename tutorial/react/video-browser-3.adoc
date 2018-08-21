@@ -18,9 +18,9 @@ This component will not need to hold any state, so we can make it a plain _funct
 === Functional components
 
 [NOTE]
-_Class based components_ versus _functional components_: Up until now we have used _class based components_. These types of components can, as you have seen, hold local state. A React _functional component_ is literally a plain javascript function, which can take 0 or more object arguments and returns a React element.
+_Class based components_ versus _functional components_: Up until now we have used _class based components_. These types of components can, as you have seen, hold local state. A React _functional component_ is literally a plain javascript function, which can take zero or more object arguments and returns a React element.
 
-The `VideoList` will get the videos from search result and should then create visual elements based on the content. It will not need any local states for achieving this.
+The `VideoList` will get videos from search result and should then create visual elements based on that content. It will not need any local states for achieving this.
 
 [quote]
 ____
@@ -79,9 +79,9 @@ export default VideoList;
 ----
 ____
 
-Ok, the `VideoList` component is now in place, returning an empty `<ul>` element. We should add more content to this element soon, but first we will head back to `app.js` and use the `VideoList` component there. 
+Ok, the `VideoList` component is now in place, returning an empty `<ul>` element. We will add more content to this element soon, but first we should head back to `app.js` and use the `VideoList` component there. 
 
-The current content of `app.js` should now look similar to this:
+The current content of `app.js` should now look like this:
 
 [source,javascript]
 ----
@@ -141,15 +141,15 @@ render() {
 ----
 ____
 
-Not much happens in the browser yet. We need to do some additional steps to get a search result list rendered.
+Not much happens in the browser yet. We need to perform some additional steps to get a search result list rendered.
 
 === Passing props
 
-We are in a situation where the `<App/>` component's state holds the videos search result. To be able to show the results in `VideoList`, we must pass it down somehow. React supports this in a quite straight forward fashion, by allowing us to add properties to JSX tags. This usually referred to as _passing props_.
+We are in a situation where the `<App/>` component's state holds the videos search result. To be able to show the results in `VideoList`, we must pass it down somehow. React supports this in a quite straight forward fashion, by allowing us to add properties to JSX tags. This is usually referred to as _passing props_.
 
 [quote]
 ____
-. In `app.js`, add `videos` property to the VideoList JSX tag, pass `this.state.videos` as props.
+. In `app.js`, add `videos` property to the `VideoList` JSX tag, pass `this.state.videos` as props.
 +
 [source,javascript]
 ----
@@ -163,7 +163,7 @@ render() {
 }
 ----
 +
-. In `video-list.js`, add argument `props` to the function. This will be the recieving end of the props passing. Also add a temporary printout of the props content inside the `<ul>` element.
+. In `video-list.js`, add argument `props` to the function. This will be the recieving end of the props passing. Also add a temporary printout of the `props` content inside the `<ul>` element.
 +
 [source,javascript]
 ----
@@ -180,16 +180,16 @@ const VideoList = (props) => {
 export default VideoList;
 ----
 +
-Take peek at the browser, you should see the length of search result array below the search bar.
+Take peek at the browser, you should see the length of search result array directly below the search bar.
 ____
 
 == VideoListItem
 
-So now `VideoList` has an array of videos in it, which we can iterate over to produce individual `VideoListItem` elements. This can be achieved using traditional for loops, but that is kind of bulky. We will loop over the array elements using the built-in Map iterator instead.
+So now `VideoList` has an array of videos in it, which we can iterate over to produce individual `VideoListItem` elements. This can be achieved using traditional for loops, but that is kind of bulky. We will instead loop over the array elements using the built-in Map iterator.
 
 === About Map iterator
 
-The easiest way to explaing the Map iterator is perhaps by using the browser developer's tools javascript console for a demo. Use the console and enter the following:
+The easiest way to explain the Map iterator is perhaps by using the browser developer's tools javascript console for a demo. Use the console and enter the following:
 
 . `var array = [1,2,3];`
 
@@ -242,7 +242,7 @@ export default VideoListItem;
 import VideoListItem from "./video-list-item";
 ----
 +
-. Declare a `const videoItems` that iterates over `props.videos`
+. In `video-list.js`, declare a `const videoItems` that iterates over `props.videos`
 using map, creating a `VideoListItem` for each element in array
 +
 [source,javascript]
@@ -290,15 +290,17 @@ ____
 ----
 ____
 
-Now it's high time to work some more on making the list item a bit more informative, actually displaying information of each video  instead of just the hardcoded "Video".
+Now it's high time to work on making the list item a bit more informative, making it display information for each video instead of just the hardcoded "Video".
 
-First take look out how the video object actually looks like.
+First let's take look at how the video object actually looks like by printing it to console.
 
 [quote]
 ____
 . In `video-list-item.js` add `console.log(props.video);` as the first line in the function and then check the developer's tools Console tab
 +
-You should see a list with one item per found video. Expand one and take a look at the property `snippet`. Here you'll find a `title` and also some image urls under `thumbnails` that will be good to use. Remove the console.log statement when done.
+You should see a list with one item per found video. Expand one and take a look at the property `snippet`. Here you'll find a `title` and also some image urls under `thumbnails` that will be good to use. 
+
+. Remove the console.log statement when done.
 ____
 
 Let's start by adding a bunch of markup and other things to better display the video information. Please note that we will use some styling classes from bootstrap, so we do not need to think about css that much here.
@@ -369,14 +371,14 @@ ____
 [TIP]
 Note that the videos shown in list are from the default searchTerm "acorntechnology", defined in `app.js`. You can of course change this to anything you like.
 
-We have a list showing search result which is great! There is still some things we need to do, like we want users to be able to select which video to watch, for starters. We will address these matter in a while, but for now we put the VideoList and VideoListItem to rest.
+We have a list showing search result which is great! There is still some things we need to do, like we want users to be able to select which video to watch, for starters. We will address these matter in a while, but for now we put the `VideoList` and `VideoListItem` to rest.
 
-Instead it's time to work on making the video detail section a little bit more usable.
+Instead it's time to work on making the video detail section a tad more usable.
 
 == VideoDetail
 
 The `VideoDetail` component is responsible for presenting the content of an actual video. Sounds great, so let's create it.
-	
+    
 [NOTE]
 ====
 Before we go a head, here is a question you should ask yourself before creating components: _"Do I expect this component to maintain any type of state?"_
@@ -391,7 +393,7 @@ Regarding the `VideoDetail` component, we will get all data feeded through the `
 
 [quote]
 ____
-. In `video-detail.js`, add code making it a functional component, returning an empty `<div></div>` element for now.
+. In `video-detail.js`, add code making it a functional component, returning an empty `<div></div>` element.
 +
 [source,javascript]
 ----
@@ -444,7 +446,7 @@ const VideoDetail = (props) => {
 };
 ----
 +
-The video object we recieved from Youtube contains a lot of information. We are interested of the _title_ and _description_, both available under _snippet_:
+The video object we recieved from YouTube contains a lot of information. We are interested of the _title_ and _description_, both available under _snippet_:
 +
 image:YTSearch-video-snippet.png[]
 +
@@ -471,7 +473,7 @@ const VideoDetail = (props) => {
 ----
 ____
 
-In order to embed the video in the iframe tag we just created, we need to construct a url to Youtube containing the id of the video we want to display. 
+In order to embed the video in the iframe tag we just created, we need to construct a url to YouTube containing the id of the video we want to display. 
 
 The full url is `https://www.youtube.com/embed/<the-videoId>`, where we must replace _<the-videoId>_ with an actual id.
 
@@ -574,7 +576,7 @@ In the constructor of the `App` component, the `this.state` object is initialize
 
 React works in the way that it will render the complete component while the `YTSearch` function completes. This means that `VideoDetail` will render using the empty array, ending up trying to access the id of an "undefined" object. When `YTSearch` finally is complete and the state is updated, React will re-render everything, this time with content in the videos array.
 
-We must hence make our code a little more robust so it takes care of possible situations with undefined or null videos.
+We must hence make our code a little more robust so it takes care of possible situations where `videos` can be undefined or null.
 
 [quote]
 ____
@@ -614,7 +616,7 @@ ____
 +
 Then make sure to pass the property along.
 +
-. In `app.js`, change the video property of VideoDetail to use this.state.selectedVideo instead
+. In `app.js`, change the video property of `VideoDetail` to use `this.state.selectedVideo` instead
 +
 [source,javascript]
 ----
@@ -625,7 +627,7 @@ Then make sure to pass the property along.
 ====
 A look at browser shows us that we are stuck in the _"Loading..."_ mode, which makes kind of sense since we aren't yet updating the `selectedVideo` state. 
 
-In the constructor `YTSearch` function searches for videos and currently it updates `this.state.videos` with all videos. At the same time, we want it to update `this.state.selectedVideo` with the first video in the result array.
+In the constructor the `YTSearch` function searches for videos and currently it updates `this.state.videos` with all videos. At the same time, we want it to update `this.state.selectedVideo` with the first video in the result array.
 
 ====
 +
@@ -671,7 +673,7 @@ ____
     videos={this.state.videos}/>
 ----
 +
-Since we now are passing `onVideoSelect` as a property to `VideoList`, we need to add code in `video-list.js` to mirror this. We need to continue to pass the callback down to VideoListItem.
+Since we now are passing `onVideoSelect` as a property to `VideoList`, we need to add code in `video-list.js` to mirror this. We need to continue to pass the callback down to `VideoListItem`.
 +
 . In `video-list.js`, add new property `onVideoSelect` to tag `VideoListItem`, passing on the callback in `props.onVideoSelect`
 +
@@ -696,7 +698,7 @@ So now we are passing the props `onVideoSelect` down to `VideoListItem`. Next up
 const onVideoSelect = props.onVideoSelect;
 ----
 +
-. To the `<li>` element's `onClick` event, add a function that calls onVideoSelect with the `video` variable
+. To the `<li>` element's `onClick` event, add a function that calls `onVideoSelect` with the `video` variable
 +
 [source,javascript]
 ----
@@ -711,7 +713,7 @@ And on that bomb shell it should now be possible to select and view videos in th
 
 Very fine indeed, good job! But since this is hairy stuff that maybe doesn't feel all natural, let's run through what actually happens one more time.
 
-* `App` defines a callback function that takes a video and updates the `selectedVideo` on `state`, it then passes this as `onVideoSelect` to `VideoList` component. 
+* `App` defines a callback function that takes a video and updates the `selectedVideo` on `state`, it then passes this function as the property `onVideoSelect` to `VideoList` component. 
 
 * `VideoList` takes the given property and passes it on to `VideoListItem`. 
 
@@ -723,10 +725,10 @@ Very fine indeed, good job! But since this is hairy stuff that maybe doesn't fee
 ====
 This example shows how a parent component can communicate with it's child components. It is however usually not wise to create callback jumps like these in more than *two levels of depth*. It quickly becomes confusing to follow callback chains where you must hunt around in different files to find the actual source function. 
 
-There are more suitable ways to share complex states between components, if necessary, for example _Redux_, which we will be looking at in another tutorial.
+There are more suitable ways to share complex states between components, if necessary, for example _Redux_, which we will be looking at in the third session.
 
 ====
 
 We can now see all components on the page in browser. It is time to add code for handling search terms entered in the search bar and send that of to YouTube.
 
-Continue with <<video-browser-4.adoc#searching-for-videos-part-2, Searching for videos part 2>>
+Continue with <<video-browser-4.adoc, Searching for videos part 2>>

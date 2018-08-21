@@ -78,7 +78,7 @@ ____
 
 We are now in the position to pass the `videoSearch` function as a callback down to `SearchBar`.
 
-As you may already have guessed, our ambition is to send down the callback, let `SearchBar` capture the search term from the user, use that in the callback function so that state properties `videos` and `selectedVideo` in `App` can be updated, forcing React to rerender. 
+As you may already have guessed, our ambition is to send down the callback, let `SearchBar` capture the search term from the `<input>`, use that in the callback function so that state properties `videos` and `selectedVideo` in `App` can be updated, forcing React to rerender. 
 
 [quote]
 ____
@@ -110,9 +110,9 @@ onInputChange(searchTerm) {
 [source,javascript]
 ----
 render() {
-	return (
-	    <div className="search-bar">
-	        <input
+    return (
+        <div className="search-bar">
+            <input
                value={this.state.searchTerm}
                onChange={event => this.onInputChange(event.target.value)} />
         </div>
@@ -145,7 +145,7 @@ onInputChange(searchTerm) {
 ----
 ____
 
-Great! Sweet! That's it! Please do try the searchbar in browser by entering a search term of your choice. It should now function as intended!
+Great! Sweet! That's it! Please do try the search bar in browser by entering a search term of your choice. It should now function as intended!
 
 [TIP]
 Now is the time when it is quite okay to pat yourself on your shoulder. 
@@ -227,7 +227,7 @@ Save it all and watch the browser reload
 
 === Throttling of search input
 
-The search seem to work, but it gives a laggy impression. It performs a search on every keypress we do, which is not very optimal neither from a performance point of view (it fires away a request to Youtube server for every keypress) nor from a user experience perspective. 
+The search seem to work, but it gives a laggy impression. It performs a search on every keypress we do, which is not very optimal neither from a performance point of view (it fires away a request to YouTube server for every keypress) nor from a user experience perspective. 
 
 Perhaps we should try to throttle the input somewhat so that searches are fired every 2 seconds only, or something close to that? Let's try it.
 

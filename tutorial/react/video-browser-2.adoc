@@ -98,18 +98,18 @@ export default SearchBar;
 ----
 ____
 
-Now let's flip back to `app.js` so we can import and use the <SearchBar/> component
+Now let's flip back to `app.js` so we can import and use the `SearchBar` component
 
 [quote]
 ____
-. In `app.js`, add export statement to SearchBar. Note that you must specify the relative path to the file, and ommit the _.js_ prefix
+. In `app.js`, add export statement to `SearchBar`. Note that you must specify the relative path to the file, and ommit the _.js_ prefix
 +
 [source,javascript]
 ----
 import SearchBar from './components/search-bar';
 ----
 +
-. Replace the "Hello world" in return statment with the SearchBar tag instead
+. Replace the "Hello world" in return statment with the `<SearchBar/>` tag instead
 +
 [source,javascript]
 ----
@@ -138,9 +138,9 @@ Save the file and take look in the browser. What do you see?
 
 === Handle input events
 
-You should now see a simple, unadorned, search bar in top left corner of the browser. Even though it is possible to enter text in the input, nothing more actually happens. We want to capture the content entered to use it as a search term.
+You should now see a simple, unadorned, search bar in top left corner of the browser. Even though it is possible to enter text in the input, nothing more actually happens. 
 
-To do this we should write a event handler function and pass it to the <input> onChange event.
+We want to capture the content entered to use it as a search term. To do this we should write a event handler function and pass it to the `<input>` onChange event.
 
 [quote]
 ____
@@ -204,11 +204,11 @@ ____
 
 === Constructor and state
 
-To be able to keep track of the current state of the user input, we need to initialize the SearchBar component's `state object`. This is done in the `constructor` method of the class.
+To be able to keep track of the current state of the search bar, i.e. it's search term, we need to initialize the `SearchBar` component's `state object`. This is done in the `constructor` method of the class.
 
 [quote]
 ____
-. In `search-bar.js`, add a method named `constructor` where `this.state` is initialized holding an object with the current search term
+. In `search-bar.js`, add a method named `constructor` where `this.state` is initialized holding an object with an empty search term
 +
 [source,javascript]
 ----
@@ -252,6 +252,8 @@ render() {
     );
 }
 ----
++
+Enter some text into the search bar to see how it behaves.
 +
 [NOTE]
 This highlights a key concept in React: _Whenever a component's state change, the component (and it's children) immediately re-renders_
@@ -355,7 +357,7 @@ In our case `app.js` is the top most component so we will let it handle the data
 
 [quote]
 ____
-. In `app.js`, add import to youtube searh utilities
+. In `app.js`, add import to YouTube search utilities
 +
 [source,javascript]
 ----
@@ -446,4 +448,4 @@ So now we have a `<App/>` component that upon initialization will perform a YouT
 
 This is good and we can leave the matter of searching for a while. Let's start focusing on the video list and it's items by start putting these components together.
 
-<<video-browser-3.adoc#videoList,Continue with VideoList>>
+<<video-browser-3.adoc,Continue with VideoList>>
