@@ -731,4 +731,4 @@ There are more suitable ways to share complex states between components, if nece
 
 We can now see all components on the page in browser. It is time to add code for handling search terms entered in the search bar and send that of to YouTube.
 
-Continue with <<video-browser-4.adoc, Searching for videos part 2>>
+Continue with <<video-browser-4.adoc#, Searching for videos part 2>>
