@@ -186,4 +186,4 @@ render() {
 
 You will see this a lot during the tutorial. It is good to know that when you are "inside" the curly braces in a JSX statement, you are in javascript mode, which means that anything you can do in javascript you can also do there.
 
-Continue with <<video-browser-2.adoc,Divide application into components>>
+Continue with <<video-browser-2.adoc#,Divide application into components>>
