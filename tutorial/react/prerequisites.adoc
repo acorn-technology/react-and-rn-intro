@@ -16,8 +16,10 @@ You will need a fairly decent editor to help out during your React coding, prefe
 
 [quote]
 ____
-- `Visual Studio Code` https://code.visualstudio.com/download[https://code.visualstudio.com/download]
-- `IntelliJ WebStorm` https://www.jetbrains.com/webstorm/[https://www.jetbrains.com/webstorm/] (30 days trial version)
+* `Visual Studio Code` https://code.visualstudio.com/download[https://code.visualstudio.com/download]
+* `Atom` https://atom.io
+** If using Atom, also install it's React package: https://atom.io/packages/react
+* `IntelliJ WebStorm` https://www.jetbrains.com/webstorm/[https://www.jetbrains.com/webstorm/] (30 days trial version)
 
 [TIP]
 ====
