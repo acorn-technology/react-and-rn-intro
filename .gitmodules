@@ -1,0 +1,3 @@
+[submodule "reactnative"]
+	path = reactnative
+	url = https://github.com/appsupport-at-acorn/rn-tutorial-instagram-clone
