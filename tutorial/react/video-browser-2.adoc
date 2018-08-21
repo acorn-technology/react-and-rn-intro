@@ -448,4 +448,4 @@ So now we have a `<App/>` component that upon initialization will perform a YouT
 
 This is good and we can leave the matter of searching for a while. Let's start focusing on the video list and it's items by start putting these components together.
 
-<<video-browser-3.adoc,Continue with VideoList>>
+<<video-browser-3.adoc#,Continue with VideoList>>
