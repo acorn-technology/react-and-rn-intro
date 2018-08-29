@@ -102,7 +102,7 @@ Now let's flip back to `app.js` so we can import and use the `SearchBar` compone
 
 [quote]
 ____
-. In `app.js`, add export statement to `SearchBar`. Note that you must specify the relative path to the file, and ommit the _.js_ prefix
+. In `app.js`, add import statement to `SearchBar`. Note that you must specify the relative path to the file, and ommit the _.js_ prefix
 +
 [source,javascript]
 ----
