@@ -297,22 +297,22 @@ If we want to manipulate or validate the value of the `<input>` element, we need
 ____
 . Make the search bar `<input/>` element a controlled component by setting `this.state.searchTerm` to the input value attribute
 +
-[source,javascript, numbered]
+[source,javascript]
 ----
 render() {
     return (
         <div>
             <input
-                value={this.state.searchTerm} # <1>
+                value={this.state.searchTerm}
                 onChange={event => this.setState({searchTerm: event.target.value})} />
         </div>
     );
 }
 ----
 +
-*Line 6:* When user enters text the `onChange` handler is called, the state searchTerm field is updated with new user input, and finally React is triggered to rerender. 
+When user enters text the `onChange` handler is called, the state `searchTerm` field is updated with new user input, and finally React is triggered to rerender. 
 +
-*Line 5:* When rendering is complete, the `value` is set to `this.state.searchTerm`. 
+When rendering is complete, the `value` is set to `this.state.searchTerm`. 
 +
 This allows us to read the `value` of the input more easily since we can read `this.state.searchTerm` whenever we want and be sure that it will always have the latest input from user.
 +
