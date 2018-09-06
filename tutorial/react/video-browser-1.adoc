@@ -46,7 +46,12 @@ ____
 This will open up the browser and load the url http://localhost:3000 (if not, please do so).
 
 [TIP]
+====
 We suggest that you also open up the browser's Developer tools window, showing the console tab. In some parts of the tutorial we will come accross javascript errors and warnings that will be discussed.
+
+.Chrome with Developer tools window (shortcut key F12)
+image::chrome-w-console.png[]
+====
 ____
 
 Now we are ready to go. Let's start by removing some code so we can start (almost) entirely from scratch.
