@@ -112,4 +112,3 @@ ____
 . Copy the generated and key and store it so you can easily access during the upcoming tutorial
 ____
 
-<<README.adoc#, Back to react-and-rn-intro>>
