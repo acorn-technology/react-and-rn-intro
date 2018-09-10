@@ -98,8 +98,6 @@ ____
 
 To test the hot/live reload, make some changes to `App.js` and save it. The webpage in browser should automatically reload itself, showing your changes.
 
-<<README.adoc#, Back to react-and-rn-intro>>
-
 == Generate a Youtube API key
 
 In one of the tutorials, we will use Youtube's API for searching videos. This requires an API key, which is completely free. Please create an API key and bring it with you to the tutorial.
@@ -113,3 +111,5 @@ ____
 . Click `Create`
 . Copy the generated and key and store it so you can easily access during the upcoming tutorial
 ____
+
+<<README.adoc#, Back to react-and-rn-intro>>
