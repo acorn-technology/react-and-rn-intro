@@ -1,6 +1,0 @@
-[submodule "reactnative"]
-	path = reactnative
-	url = https://github.com/appsupport-at-acorn/rn-tutorial-instagram-clone
-[submodule "you_tube_tutorial"]
-	path = you_tube_tutorial
-	url = https://github.com/Glottris/you_tube_tutorial
