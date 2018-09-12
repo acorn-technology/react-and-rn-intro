@@ -305,13 +305,13 @@ You have reached the end of the line, good work! Thank you for hanging on so far
 
 Cheers!
 
-== ... want more?
+=== ... want more?
 
 If you are in the flow and don't feel like stopping quite yet, we have a bonus for you. Head over to https://reactjs.org/docs/state-and-lifecycle.html and walk through the content there. You will learn more about state, and especially so regarding lifecycle methods, a concept we didn't cover. 
 
 Your effort will eventually end up in a `<Clock/>` component, which you can add to the video browser (so the user won't lose track of time when watching videos).
 
-== Useful links
+=== Useful links
 
 * Official React site: https://reactjs.org
 
