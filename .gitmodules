@@ -4,3 +4,6 @@
 [submodule "you_tube_tutorial"]
 	path = you_tube_tutorial
 	url = https://github.com/Glottris/you_tube_tutorial
+[submodule "react-native-youtube-clone"]
+	path = react-native-youtube-clone
+	url = https://github.com/Glottris/-expo_youTube_tutorial
