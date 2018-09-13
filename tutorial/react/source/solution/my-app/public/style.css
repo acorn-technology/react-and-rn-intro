@@ -4,6 +4,7 @@ body {
 }
 
 .search-bar {
+    color: black;
     margin: 20px;
     text-align: center;
 }
