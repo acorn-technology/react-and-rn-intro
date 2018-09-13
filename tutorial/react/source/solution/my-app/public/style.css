@@ -1,3 +1,8 @@
+body {
+    background-color: black;
+    color: #eeeeee;
+}
+
 .search-bar {
     margin: 20px;
     text-align: center;
@@ -16,6 +21,8 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    color: #eeeeee;
+    background-color: purple;
 }
 
 .video-title {
@@ -24,8 +31,9 @@
 
 .list-group-item {
     cursor: pointer;
+    background-color: black;
 }
 
 .list-group-item:hover {
-    background-color: #eee;
+    background-color: purple;
 }
