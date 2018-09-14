@@ -11,31 +11,17 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-Welcome to the _react-and-rn-intro_ at Acorn. Here we will go skinny-dipping together in the shallow part of the React pond, or in other words, we will here together go hand in hand trying out some basic React concepts.
-
-We will meetup on three different occassions to have closer look at `React`, `React Native`, and finally `Redux`. We will in each session blend theory with hands on practice (in the form of tutorials that we perform together).
+Welcome to the React tutorial at Acorn. Here we will go skinny-dipping together in the shallow part of the React pond, or in other words, we will here together go hand in hand trying out some basic React concepts.
 
 == Prerequisites
 [NOTE]
 Things you should do before the first session: <<prerequisites.adoc#,Prerequisites>>
 
 == Session tutorials
-Here is the entry point to the tutorials we will do in each session
+Here is the entry point to the tutorial we will do in the session
 
 [IMPORTANT]
-Do not start doing any tutorial in advance! Wait until you are physically seated in one of the sessions!
+Do not start doing the tutorial in advance! Wait until you are physically seated in the classroom!
 
-[cols=2*,options=header]
-|===
-|Session
-|Tutorial
-
-|React
-|<<video-browser-1.adoc#,Video Browser>>
-
-|React Native
-|TBD
-
-|Redux
-|TBD
+<<video-browser-1.adoc#,Tutorial: Video Browser>>
 
