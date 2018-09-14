@@ -1,4 +1,4 @@
-= react-and-rn-intro
+= React
 
 :toc:
 :imagesdir: images
