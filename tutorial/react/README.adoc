@@ -15,9 +15,9 @@ Welcome to the React tutorial at Acorn. Here we will go skinny-dipping together 
 
 == Prerequisites
 [NOTE]
-Things you should do before the first session: <<prerequisites.adoc#,Prerequisites>>
+Things you should do before the session: <<prerequisites.adoc#,Prerequisites>>
 
-== Session tutorials
+== Tutorial
 Here is the entry point to the tutorial we will do in the session
 
 [IMPORTANT]
