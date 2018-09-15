@@ -1,0 +1,114 @@
+:toc:
+:imagesdir: images
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+= Prerequisites
+
+== Install a decent editor
+You will need a fairly decent editor to help out during your React coding, preferably one with content assist and auto-completion. Choose one below. 
+
+[quote]
+____
+* `Visual Studio Code` https://code.visualstudio.com/download[https://code.visualstudio.com/download]
+* `Atom` https://atom.io
+** If using Atom, also install it's React package: https://atom.io/packages/react
+* `IntelliJ WebStorm` https://www.jetbrains.com/webstorm/[https://www.jetbrains.com/webstorm/] (30 days trial version)
+
+[TIP]
+====
+If you are in possession of an IntelliJ IDEA Ultimate license, then you are already good to go. Ultimate contains the same javascript support as IntelliJ WebStorm.
+====
+
+____
+
+== Install Node.js
+`Node.js` is an open-source, cross-platform JavaScript run-time environment that executes JavaScript code outside the browser.
+
+[quote]
+____
+Download and Install Nodejs from https://nodejs.org/en/download/ 
+____
+
+== Install React Developer Tools
+
+React Developer Tools lets you inspect the React component hierarchy directly in your browser, which is quite valuable during development.
+
+[quote]
+____
+*Add React Developer Tools to your favourite browser*
+
+- `Chrome`: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?utm_source=chrome-ntp-icon[Install]
+
+- `Firefox`: https://addons.mozilla.org/en-US/firefox/addon/react-devtools/[Install]
+
+- `Safari`: https://github.com/facebook/react-devtools/blob/master/packages/react-devtools/README.md[Install]
+____
+
+== Set up a basic React project
+There are several ways to setup a React project. It usually involves installing and configuring several tools, where the most noteworthy are `WebPack` and `Babel`.
+
+[width="100%"]
+|====================
+
+| WebPack | At its core, webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles.
+
+| Babel | Babel is a javascript compiler that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in old browsers or environments. 
+
+|====================
+
+Here we will use Facebook's own template `create-react-app` to quickly setup a project. This will setup everything needed, or more specifically it will create:
+
+* A basic boilerplate React application
+* Installations of `Webpack` and `Babel`, configured quietly in the background
+* A development server that allow for immediate reload when project files are changed
+
+[quote]
+____
+*Generate template application*
+
+. Open a terminal in Linux/MacOS or Powershell prompt if you are using Windows.
+
+. Generate the React application
++
+[source, bash]
+----
+npx create-react-app my-app
+cd my-app
+----
+
+. Start the development server
++
+[source, bash]
+----
+npm start
+----
+
+The application should now be accessible via http://localhost:3000
+
+image::react-boilerplate-app-running.png[]
+
+____
+
+To test the hot/live reload, make some changes to `App.js` and save it. The webpage in browser should automatically reload itself, showing your changes.
+
+== Generate a Youtube API key
+
+In one of the tutorials, we will use Youtube's API for searching videos. This requires an API key, which is completely free. Please create an API key and bring it with you to the tutorial.
+
+[quote]
+____
+. Go to http://console.developers.google.com (You will need to login with your google account - if you don't have any, sign up for one for free)
+. Click `Menu` -> `API Manager`
+. Click `Youtube Data API v3` -> `Enable API`
+. Click `Credentials` -> `New Credentials` -> `API key` -> `Browser key`
+. Click `Create`
+. Copy the generated and key and store it so you can easily access during the upcoming tutorial
+____
+
