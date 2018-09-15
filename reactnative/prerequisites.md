@@ -25,9 +25,14 @@ Windows is supported, but only for Android apps, and is definitely the worst exp
 ### Node + NPM
 Install [node and npm](https://www.npmjs.com/), following the instructions for your platform.
 
+### Watchman
+Install [watchman](https://facebook.github.io/watchman/docs/install.html)
+
 ### react-native-cli and expo-cli
 
 React-native CLI is used to generate a template react-native app, and expo-cli is used to generate a template expo app.
+
+We will discuss the difference between the two of these in the tutorial.
 
 Setup:
 Install the tools necessary to create template projects from the command line using npm.
@@ -35,6 +40,8 @@ Install the tools necessary to create template projects from the command line us
 ```bash
 npm install -g react-native-cli
 npm install -g create-react-native-app
+npm install -g expo-cli
+npm install -g yarn
 ```
 
 ### Atom IDE with Nuclide
@@ -50,7 +57,7 @@ Open atom and select Atom-->Preferences-->Packages, then find nuclide and click 
 
 ![nuclide_settings](images/nuclide_in_atom_settings_1.png)
 
-Under settings, check "Install Recommended Packages on Startup"
+After clicking nuclide->settings, ensure "Install Recommended Packages on Startup" is checked.
 
 ![nuclide_settings](images/install_on_startup.png)
 
@@ -82,77 +89,87 @@ To build and run your new app on Android:
 react-native run-android
 ```
 
-#### Test your new development environment 2.
+#### Test your new Expo development environment
 
-- Create a pure React-Native project called "expo_test"
+Expo is an iOS/Android app which can be downloaded from the AppStore/Play Store and includes a bunch of pre-built and tested native modules.  The expo-cli will automagically install it on your emulator/phone when you run your app (and this process can take several minutes, so be patient!)  If you have trouble getting the Expo app running in your simulator or on your phone, follow the instructions [here](https://docs.expo.io/versions/latest/introduction/installation)
+
+- Create an expo project called "acorntube"
 
 ```bash
-
-create-react-native-app expo_test
-cd expo_test
+create-react-native-app acorntube
+cd acorntube
 ```
 
-To build and run your new app on iOS:
+To build and run your new app in the expo app on your emulator or phone:
 ```bash
-react-native run-ios
+npm start
 ```
 
-To build and run your new app on Android:
-```bash
-react-native run-android
-```
+You should be able to get both template apps up and running by following the prompts that appear in the command line.
 
-### Download with:
+![android beside ios](images/expo_template_projects.png)
 
-```sh
-git clone https://github.com/appsupport-at-acorn/react-and-rn-intro --recursive
+Open Atom, and in the tree to the left, click "Add Local Folder," navigate and select your new "acorntube" folder.
 
-cd react-and-rn-intro/reactnative
-```
+![acorntube](images/select_acorntube.png)
 
-### Install Libs:
+Double click on "App.js" to open the source code, which will look like this:
 
-```sh
-yarn
-```
+```jsx
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-
-### Run with:
-
-```sh
-exp start
-```
-
-#### IOS
-
-Open another window, then:
-```sh
-exp ios
-```
-
-#### Android
-
-Open another window, then:
-
-```sh
-sh adbreverse.sh
-exp android
-```
-
-## Setup flow
-
-nano .babelrc
-
-```json
-{
-  "presets": ["react-native"]
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <Text>Changes you make will automatically reload.</Text>
+        <Text>Shake your phone to open the developer menu.</Text>
+      </View>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 ```
 
-apm install nuclide
-yarn add --dev flow-bin
-yarn run flow init
-yarn add --dev babel-cli babel-preset-react-native
+Try changing "backgroundColor" to 'red' and saving App.js.  Your app's background colour should automatically change to red.
 
-Install flowtype to atom via Atom-->Preferences-->+Install-->flow-ide (by flowtype)
-https://atom.io/packages/ide-flowtype
+```jsx
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+```
+
+# Finished!
+
+Congratulations, you are ready for the tutorial!
+
+## Appendix: Troubleshooting
+
+### 'Shake' an android simulator
+
+```bash
+adb shell input keyevent 82
+```
+
+### Connect npm javascript bundler to an android phone
+
+If you get the red-screen error message about running adb reverse, run adb reverse:
+
+```bash
+adb reverse tcp:8081 tcp:8081
+```
