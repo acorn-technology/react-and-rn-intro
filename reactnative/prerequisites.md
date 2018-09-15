@@ -3,9 +3,7 @@
 You need to be able to run a default app in order to follow along with the course.
 
 As react-native is Facebook's own open-source development platform, we will use
-their own development tools.
-
-For this reason, we will install the tools used by Facebook.  
+their own development tools, so will install the tools recommended by Facebook.  
 
 ## Operating Systems
 OSX is the best platform for developing RN apps, as it supports iOS and Android, and also has the most support from facebook.  
@@ -89,6 +87,10 @@ To build and run your new app on Android:
 react-native run-android
 ```
 
+The "Hello" app should start running on your phone or in your simulator. The first part of the tutorial will start from this generated source code.
+
+<img src="images/react_native_default_app.png" height=500 />
+
 #### Test your new Expo development environment
 
 Expo is an iOS/Android app which can be downloaded from the AppStore/Play Store and includes a bunch of pre-built and tested native modules.  The expo-cli will automagically install it on your emulator/phone when you run your app (and this process can take several minutes, so be patient!)  If you have trouble getting the Expo app running in your simulator or on your phone, follow the instructions [here](https://docs.expo.io/versions/latest/introduction/installation)
@@ -153,6 +155,8 @@ const styles = StyleSheet.create({
   },
 });
 ```
+
+The second part of the react-native tutorial will start with this template code.
 
 # Finished!
 
