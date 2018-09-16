@@ -16,6 +16,14 @@ Windows is supported, but only for Android apps, and is definitely the worst exp
 ### Android
 - Install [Android Studio](https://developer.android.com/studio/) to develop Android apps.
   - If you want to run Android Apps in a simulator, install HAXM and create an x86 AVD using the SDK manager and AVD manager.
+    - Install HAXM (Android Studio-->Preferences, select "Android SDK in the left menu and "SDK Tools" on the right side)
+      - It might already be installed together with Android Studio, in which case you don't need to install it again.   
+    - <img src="images/haxm_install.png" width=600/>
+    - The easiest way to get to the AVD manager is to open an Android Studio project (or create a new one) and then the menu item for the AVD will be available once the project opens.
+    - <img src="images/select_avd.png" width=220/>
+    - Create an x86 AVD, which has best performance on X86 development machines.  You can just accept the defaults. I created one with these options, which worked fine.
+    - <img src="images/avd_creation.png" />
+
 
 ### iOS  
 - From the OSX App Store, install Xcode and the Xcode command line utilities to develop iOS apps.
@@ -90,6 +98,8 @@ react-native run-android
 The "Hello" app should start running on your phone or in your simulator. The first part of the tutorial will start from this generated source code.
 
 <img src="images/react_native_default_app.png" height=500 />
+
+If you get an "sdk not found" error, refer to the [troubleshooting](#android-cannot-find-the-sdk) tips at the bottom of this document.
 
 #### Test your new Expo development environment
 
@@ -170,10 +180,33 @@ Congratulations, you are ready for the tutorial!
 adb shell input keyevent 82
 ```
 
+Uses Android Debug Bridge (ADB) to "shake" the phone.
+
 ### Connect npm javascript bundler to an android phone
 
 If you get the red-screen error message about running adb reverse, run adb reverse:
 
 ```bash
 adb reverse tcp:8081 tcp:8081
+```
+
+This allows the javascript server running on your PC to connect via Android Debug Bridge (ADB).
+
+### Android Cannot find the SDK
+
+If build steps can't find the SDK, it probably means that it isn't in your path.  You can either place it in your path, or you can create a local.properties directory under android/ in the project directory.
+
+android/local.properties for OSX
+```bash
+sdk.dir = /Users/<USERNAME>/Library/Android/sdk
+```
+
+android/local.properties for Windows
+```bash
+sdk.dir = C:\\Users\\<USERNAME>\\AppData\\Local\\Android\\sdk
+```
+
+android/local.properties for linux
+```bash
+sdk.dir = /home/<USERNAME>/Android/Sdk
 ```
