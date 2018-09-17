@@ -1,9 +1,12 @@
 /** @flow */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, ListView, Image} from 'react-native';
+import {Text, View, Button, ListView, Image} from 'react-native';
 
-const first_names = ["Thomas", "Magnus", "Gustav", "Emi", "Emma", "Remya", "Chris", "Ken", "Carl", "David", "Jörgen", "Johanna", "Anna", "Marie", "Peter", "Jan", "Jenny", "Helene"];
-const last_names = ["A.","B.","C.","D.","E.","F.","G.","H.","I.","J.","K.","L.","M.","N.","O.","P.","Q.","R.","S.","T.","U.","V.","W.","X.","Y.","Z."];
+const first_names = ["Thomas", "Magnus", "Gustav", "Emi", "Emma", "Remya",
+"Chris", "Ken", "Carl", "David", "Jörgen", "Johanna", "Anna", "Marie",
+"Peter", "Jan", "Jenny", "Helene"];
+const last_names = ["A.","B.","C.","D.","E.","F.","G.","H.","I.","J.","K.",
+"L.","M.","N.","O.","P.","Q.","R.","S.","T.","U.","V.","W.","X.","Y.","Z."];
 
 const borders = {
   borderColor:'blue',
@@ -63,7 +66,8 @@ export default class App extends Component<Props, State> {
   renderRow(rowData:Contact, unused:string, index:string){
     return (
       <View style={{...borders, flexDirection:'row', alignItems:'center'}}>
-        <Image style={{margin:1, width: 51, height: 51}} source={{uri: rowData.pic}} />
+        <Image style={{margin:1, width: 51, height: 51}}
+          source={{uri: rowData.pic}} />
         <Text style={{flex:1, marginLeft:10}}>{rowData.name}</Text>
         <Text style={{flex:1}}>{rowData.number}</Text>
       </View>
@@ -73,10 +77,14 @@ export default class App extends Component<Props, State> {
   render() {
     return (
       <View style={{flex:1, alignItems: 'stretch'}}>
-        <Text style={{marginTop:25, height: 50, alignSelf:'center'}}>React Native Demo</Text>
+        <Text style={{marginTop:25, height: 50, alignSelf:'center'}}>
+          React Native Demo
+        </Text>
         <ListView style={{flex:1}} dataSource={this.state.ds}
-          renderRow={(rowData, unused, index) => {return this.renderRow(rowData, unused, index);}} />
-        <Button title="Add One" onPress={()=>{this.addOneContact()}} style={{alignSelf:'center'}} />
+          renderRow={(rowData, unused, index) => {
+            return this.renderRow(rowData, unused, index);}} />
+        <Button title="Add One"
+          onPress={()=>{this.addOneContact()}} style={{alignSelf:'center'}} />
       </View>
     );
   }
