@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from 'react';
-import {Text, View, Button, ListView, Image} from 'react-native';
+import {Text, View, Button, ListView, Image, TouchableOpacity, Alert} from 'react-native';
 
 const first_names = ["Thomas", "Magnus", "Gustav", "Emi", "Emma", "Remya",
 "Chris", "Ken", "Carl", "David", "Jörgen", "Johanna", "Anna", "Marie",
@@ -59,13 +59,24 @@ export default class App extends Component<Props, State> {
   }
   renderRow(rowData:Contact, unused:string, index:string){
     return (
-      <View style={{backgroundColor:'#E0FFFF', margin:1, flexDirection:'row',
-        alignItems:'center'}}>
+      <TouchableOpacity style={{backgroundColor:'#E0FFFF', margin:1,
+        flexDirection:'row', alignItems:'center'}}
+        onPress={()=>{
+          Alert.alert(
+            'Calling ' + rowData.name,
+            'Are you sure?',
+            [
+              {text: 'Cancel', onPress: () => console.log('Call Canceled')},
+              {text: 'OK', onPress: () => console.log('Called ' + rowData.name)},
+            ],
+          )
+        }}
+        >
         <Image style={{margin:1, width: 51, height: 51}}
           source={{uri: rowData.pic}} />
         <Text style={{flex:1, marginLeft:10}}>{rowData.name}</Text>
         <Text style={{flex:1}}>{rowData.number}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
   render() {

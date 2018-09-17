@@ -24,6 +24,7 @@ Windows is supported, but only for Android apps, and is definitely the worst exp
     - Create an x86 AVD, which has best performance on X86 development machines.  You can just accept the defaults. I created one with these options, which worked fine.
     - <img src="images/avd_creation.png" />
 
+- Check that your default path points to adb (Android Debug Bridge), so that you can run it from the command line.  adb is stored in <android_sdk>/platform-tools/
 
 ### iOS  
 - From the OSX App Store, install Xcode and the Xcode command line utilities to develop iOS apps.

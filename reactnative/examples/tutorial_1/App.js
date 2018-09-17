@@ -1,49 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
+/* @flow */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {Platform, StyleSheet, Text, View, ListView} from 'react-native';
 
 type Props = {};
-export default class App extends Component<Props> {
+type State = { dataSource: any };
+export default class App extends Component<Props, State> {
+  state:State = { dataSource:[] };
+
+  constructor() {
+    super()
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    let numbers = [...Array(100)];
+    numbers.map((value, index, array)=>{array[index] = index.toString();})
+    this.state = {
+      dataSource: ds.cloneWithRows(
+        numbers
+      ),
+    };
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View>
+        <Text style={{height: 50}}></Text>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData:string, unused:string, index:string) =>
+              <Text>  Row {index} = {rowData}</Text>}
+        >
+        </ListView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});

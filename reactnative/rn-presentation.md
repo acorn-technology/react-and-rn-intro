@@ -5,40 +5,15 @@ presentation:
   controls: false
 ---
 <!-- slide -->
-React Native
+React & React Native
 "Learn Once, Write Anywhere"
-
-<!-- slide -->
-Overview
-
-* What is React Native
-* Learn Once, Write Anywhere
-
-* What is Expo
-* How does React-Native work
-* How does Expo work
-* Hot Reload
-* Static Checkers
-  * flow
-  * typescript
-* Flexbox
-* Shared Javascript with Server/Cloud
-* Hooks to Native
-  * Swift/Objective-C
-  * Java/Kotlin
-  * C/C++
-* Available libraries
-  * Maps (Google/Apple, etc.)
-  * Vector-icons, Fonts, etc.
-  * Buttons, video players, GPS trackers, etc.
-* jsx examples
 
 <!-- slide -->
 ### What is React-Native?
 
 * Javascript engine for Mobile with direct hooks to native components supported on the mobile platform.
-* iOS, Android, Windows Phone (in a branch)
-* A React-Native App has literally ~~NO~~ one limitation~~s~~, as its support for native libraries means if you are lacking native support, you can implement it yourself.  <span style="font-size: 0.5em;">This is a lie - it is not suitable for anything with dynamic animations based on user feedback, like games, **yet**...</span>
+* iOS, Android, ...Windows Phone?
+* A React-Native App has ~~no~~ one limitation~~s~~, as its support for native libraries means if you are lacking native support, you can implement it yourself.  <span style="font-size: 0.5em;">This is a lie - it is not suitable for anything with dynamic animations based on user feedback, like games, **yet**...</span>
 
 #### Motto
 ~~Write Once, Run Anywhere~~
@@ -53,15 +28,15 @@ Learn Once, Write Anywhere
   - *You may not sue Facebook for patent infringement*
 - Used by Facebook, WIX, Instagram, Uber, Discord, Bloomberg, Discovery VR, ...
 
-![using rn](tutorial/whos_using_rn.png)
+![using rn](images/whos_using_rn.png)
 
 <!-- slide -->
 ### How does it work I ?
-![architecture](tutorial/rn_architecture.png)
+![architecture](images/rn_architecture.png)
 
 <!-- slide -->
 ### How does it work II ?
-<img src ="tutorial/rn_architecture.png" height="500"></img>
+<img src ="images/rn_architecture.png" height="500"></img>
 - Runtime Environment: Javascript Core
 - Most React-Native controls interact with a native counterpart
   - Pure-javascript components are obviously also supported and inherently cross-platform (but with a performance penalty, and they won't "look" native)
@@ -71,7 +46,7 @@ Learn Once, Write Anywhere
 
 <!-- slide -->
 ### How does it work III ?
-<img src ="tutorial/rn_architecture.png" height="500"></img>
+<img src ="images/rn_architecture.png" height="500"></img>
 - Pure Android/iOS application is compiled from source and deployed to phone. This application includes all necessary native components, including native Java/Kotlin/Obj-C/Swift/C++ libraries needed by the javascript.
 - Node web server runs which holds all of the React-Native JavaScript code.
 - In Debug mode, the JavaScript code bundled and transferred from the development PC to the phone via USB/WIFI/Ethernet/etc...
@@ -98,44 +73,21 @@ Learn Once, Write Anywhere
 - React Native project generates native Android and XCode projects which can be compiled from raw source code.
 - Projects can be modified directly, you can distribute this app to app stores, you can modify the React Native library code, you can add native code, etc.
 - You may need to know more about React Native than you really want to.
-- Extra functionality is added by using yarn add <module> or npm install <module>
+- Extra functionality is added with package managers yarn add <module> or npm install <module>
 
 #### Expo
+- An expo project is created using create-react-native-app <project_name>
 - An Expo project runs in the Expo App, a prebuilt app which can be downloaded from Google Play or iOS App Store.
-- The Expo App is a pre-built react-native app including many native modules not included by default:
+- The Expo App is a pre-built react-native app including many native modules not included in default react-native template project.
   - camera, push notifications, vector icons, etc...
 - Expo's own build servers can be used to generate Android and iOS apps for release on Google Play or the iOS App Store.
 - Must do "expo eject" if you want to modify any native libraries or add native code.
+  - generates the android/ and xcode/ libraries including the open source expo app source code.
 
 <!-- slide -->
 ### Example App 1
-Setup:
-Install the tools necessary to create a template React Native project from the command line.
 
-```bash
-npm install -g react-native-cli
-```
-
-- Create a new React-Native project called "AwesomeProject"
-
-```bash
-
-react-native init AwesomeProject
-cd AwesomeProject
-```
-
-To build and run your new app on iOS:
-```bash
-react-native run-ios
-```
-
-To build and run your new app on Android:
-```bash
-react-native run-android
-```
-
-<!-- slide -->
-### Example App 1
+Open the tutorial_1 directory created in [prerequisites](prerequisites.md) using atom.
 
 Copy and paste this code over your App.js code for a basic example of how to use a native ListView component on both Android and iOS.
 
@@ -172,7 +124,10 @@ export default class App extends Component {
 <!-- slide -->
 ### Reload the app to see changes
 
-Reload the app: Shake your phone or:
+You need to reload the app to see any changes:
+
+#### IOS or Android Device:
+Reload the app: Shake your phone, select "Reload"
 #### IOS Simulator reload:
 Click on the simulator and press CMD+R
 #### Android Simulator reload:
@@ -186,7 +141,6 @@ Then click on "Reload"
 ```javascript
 import React, {Component} from 'react';
 import {Text, View, ListView} from 'react-native';
-
 ```
 
 Imports what is needed from react and react native.
@@ -259,14 +213,14 @@ Flexbox in combination with hot-reload makes rapid UI design possible.
   - Full app reload will restore the state.
 
 <!-- slide -->
-### Let's enable Hot Reload
+### Let's enable Live Reload
 
-- Enable hot reloading
+- Enable live reloading
   - Open the debug menu:
     - Shake the Phone (CMD+D or "adb shell input keyevent 82")
-    - Select "Enable Hot Reloading"
-    - ![hot reload](images/enable_hot_reload.png)
-- Now any time you make a change to the app and save it, your app's layout will update automagically.
+    - Select "Enable Live Reload"
+    - ![live reload](images/debug_menu.png)
+- Now any time you make a change to the app and save it, your app will reload automagically.
 
 <!-- slide -->
 ### Example App 2 - Contact List Code 1/2
@@ -282,7 +236,6 @@ const first_names = ["Thomas", "Magnus", "Gustav", "Emi", "Emma", "Remya",
 "Peter", "Jan", "Jenny", "Helene"];
 const last_names = ["A.","B.","C.","D.","E.","F.","G.","H.","I.","J.","K.",
 "L.","M.","N.","O.","P.","Q.","R.","S.","T.","U.","V.","W.","X.","Y.","Z."];
-const borders = { borderColor:'blue', borderWidth:1 };
 
 function getRandom(max){
   return Math.floor((Math.random() * max));
@@ -330,7 +283,7 @@ Replace the inside of your App component with the following code.
   }
   renderRow(rowData, unused, index){
     return (
-      <View>
+      <View style={{backgroundColor:'#E0FFFF'}}>
         <Image style={{width: 50, height: 50}} source={{uri: rowData.pic}} />
         <Text>{rowData.name}, {rowData.number}</Text>
       </View>
@@ -353,15 +306,16 @@ Replace the inside of your App component with the following code.
 ### It works, but it's ugly
 ![ugly](images/contacts_ugly.png)
 
-Let's fix it up.
+Let's fix it up using flexbox
 
 <!-- slide -->
-### Let's use styles and flexbox.
-Replace renderRow() with the following code.
+### Let's use styles and flexbox. ###
+
+- Replace renderRow() with the following code.
 ```javascript
 renderRow(rowData, unused, index){
   return (
-    <View style={{...borders, flexDirection:'row', alignItems:'center'}}>
+    <View style={{backgroundColor:'#E0FFFF', margin:1, flexDirection:'row', alignItems:'center'}}>
       <Image style={{margin:1, width: 51, height: 51}}
         source={{uri: rowData.pic}} />
       <Text style={{flex:1, marginLeft:10}}>{rowData.name}</Text>
@@ -370,6 +324,67 @@ renderRow(rowData, unused, index){
   );
 }
 ```
+Disable Live Reload, Enable Hot Reload, and play around with the definitions to see if you can make it prettier.
+
+<!-- slide -->
+### Let's call someone.
+We can make the View into a Touchable.
+
+- Import TouchableOpacity and Alert
+
+```javascript
+import {Text, View, Button, ListView, Image, TouchableOpacity, Alert} from 'react-native';
+```
+
+<!-- slide -->
+#### Click "makes a call" (to the console)
+```javascript
+renderRow(rowData, unused, index){
+  return (
+    <TouchableOpacity style={{backgroundColor:'#E0FFFF', margin:1,
+      flexDirection:'row', alignItems:'center'}}
+      onPress={()=>{
+        Alert.alert(
+          'Calling ' + rowData.name,
+          'Are you sure?',
+          [
+            {text: 'Cancel', onPress: () => console.log('Call Canceled')},
+            {text: 'OK', onPress: () => console.log('Called ' + rowData.name)},
+          ],
+        )
+      }}
+      >
+      <Image style={{margin:1, width: 51, height: 51}}
+        source={{uri: rowData.pic}} />
+      <Text style={{flex:1, marginLeft:10}}>{rowData.name}</Text>
+      <Text style={{flex:1}}>{rowData.number}</Text>
+    </TouchableOpacity>
+  );
+}
+```
+<!-- slide -->
+#### Where's the debug console? 1/3
+
+If we want to debug the javascript, or see the console, we can use Chrome as a debugger....
+
+- Shake the phone (CMD+R or "adb shell keyinput 82")
+- Select "Debug JS Remotely"
+- Chrome should open a new tab
+![debug 1](images/debug_console_1.png)
+
+<!-- slide -->
+#### Where's the debug console? 2/3
+
+Select "..."-->"More Tools"-->Developer Tools
+![debug 2](images/debug_console_2.png)
+
+<!-- slide -->
+#### Where's the debug console? 3/3
+![debug 3](images/debug_console_3.png)
+
+- You can add your folder to the workspace to click through and edit code directly from chrome. (Be sure to allow chrome access in the pop up which will appear!)
+- You can set breakpoints from within chrome.
+- Now make a call, and you will see the call printed in the console.
 
 <!-- slide -->
 ### React-Native Cons
