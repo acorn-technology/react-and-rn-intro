@@ -28,7 +28,7 @@ export default class App extends React.Component {
     return (
       <View style={{flex:1}}>
         <Header
-          centerComponent={{text: 'YouTube', style: {color: '#fff'}}}
+          centerComponent={{text: 'AcornTube', style: {color: '#fff'}}}
           outerContainerStyles={{backgroundColor: '#E62117'}}
         />
         <SearchBar

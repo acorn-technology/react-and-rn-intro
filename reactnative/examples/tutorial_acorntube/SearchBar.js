@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textInput: {
+    ...textInputIos,
     flex: 1,
     marginLeft: 10
   },
