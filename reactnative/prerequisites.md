@@ -169,6 +169,17 @@ const styles = StyleSheet.create({
 
 The second part of the react-native tutorial will start with this template code.
 
+## YouTube API key
+
+If you haven't already, please create an API key and bring it with you to the tutorial.
+
+  * Go to http://console.developers.google.com (You will need to login with your google account - if you don't have any, sign up for one for free)
+  * Click `Menu` -> `API Manager`
+  * Click `Youtube Data API v3` -> `Enable API`
+  * Click `Credentials` -> `New Credentials` -> `API key` -> `Browser key`
+  * Click `Create`
+  * Copy the generated and key and store it so you can easily access during the upcoming tutorial
+
 # Finished!
 
 Congratulations, you are ready for the tutorial!
