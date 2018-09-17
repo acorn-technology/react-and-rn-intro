@@ -7,11 +7,7 @@ const first_names = ["Thomas", "Magnus", "Gustav", "Emi", "Emma", "Remya",
 "Peter", "Jan", "Jenny", "Helene"];
 const last_names = ["A.","B.","C.","D.","E.","F.","G.","H.","I.","J.","K.",
 "L.","M.","N.","O.","P.","Q.","R.","S.","T.","U.","V.","W.","X.","Y.","Z."];
-
-const borders = {
-  borderColor:'blue',
-  borderWidth:1
-};
+const borders = { borderColor:'blue', borderWidth:1 };
 
 function getRandom(max:number):number{
   return Math.floor((Math.random() * max));
