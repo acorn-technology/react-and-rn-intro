@@ -184,15 +184,6 @@ export default class App extends Component {
 - The list view component's props expect a function (renderRow) which knows how to display each row. We define this here too.
 
 <!-- slide -->
-### Flexbox
-
-[Facebook's page on Flexbox](https://facebook.github.io/react-native/docs/flexbox) lets you play around with doing app layout with flexbox.
-
-Flexbox lets you specify app screen layout loosely as ratios of screen or component size in your jsx code, and react-native will take care of stretching, shrinking,  centering, aligning, and wrapping, etc., components for you.
-
-Flexbox in combination with hot-reload makes rapid UI design possible.
-
-<!-- slide -->
 ### Live Reload and Hot Reload
 
 #### Live Reload
@@ -222,8 +213,8 @@ Flexbox in combination with hot-reload makes rapid UI design possible.
 
 <!-- slide -->
 ### Example App 2 - Contact List Code 1/2
-We'll now create a fake contact list app, with a button to add a new random contact.
-Paste this at the top of your App.js, above the component declaration.
+- We'll now create a fake contact list app, with a button to add a new random contact.
+- Paste this at the top of your App.js, above the component declaration.
 
 ```javascript
 import React, {Component} from 'react';
@@ -307,8 +298,22 @@ Replace the inside of your App component with the following code.
 Let's fix it up using flexbox
 
 <!-- slide -->
+### Flexbox
+
+- [Facebook's page on Flexbox](https://facebook.github.io/react-native/docs/flexbox) lets you play around with doing app layout with flexbox.
+
+- Flexbox lets you specify app screen layout loosely as ratios of screen or component size in your jsx code, and react-native will take care of stretching, shrinking,  centering, aligning, and wrapping, etc., components for you.
+
+- Flexbox in combination with hot-reload makes rapid UI design possible.
+
+- Here is a [flexbox cheatsheat pdf](http://jonibologna.com/content/images/flexboxsheet.pdf).
+
+- Here is a [one page cheat sheet](https://gapintelligence.com/blog/2017/the-flexbox-one-page-cheat-sheet)
+
+<!-- slide -->
 ### Let's use styles and flexbox. ###
 
+- Disable Live Reload, Enable Hot Reload
 - Replace renderRow() with the following code.
 ```javascript
 renderRow(rowData, unused, index){
@@ -322,7 +327,7 @@ renderRow(rowData, unused, index){
   );
 }
 ```
-Disable Live Reload, Enable Hot Reload, and play around with the definitions to see if you can make it prettier.
+- Play around with the definitions to see if you can make it prettier.
 
 <!-- slide -->
 ### Let's call someone.
@@ -383,6 +388,10 @@ Select "..."-->"More Tools"-->Developer Tools
 - You can add your folder to the workspace to click through and edit code directly from chrome. (Be sure to allow chrome access in the pop up which will appear!)
 - You can set breakpoints from within chrome.
 - Now make a call, and you will see the call printed in the console.
+
+<!-- slide -->
+### Flow
+
 
 <!-- slide -->
 ### React-Native Cons
