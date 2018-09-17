@@ -7,6 +7,7 @@ const first_names = ["Thomas", "Magnus", "Gustav", "Emi", "Emma", "Remya",
 "Peter", "Jan", "Jenny", "Helene"];
 const last_names = ["A.","B.","C.","D.","E.","F.","G.","H.","I.","J.","K.",
 "L.","M.","N.","O.","P.","Q.","R.","S.","T.","U.","V.","W.","X.","Y.","Z."];
+
 function getRandom(max:number):number{
   return Math.floor((Math.random() * max));
 }
@@ -30,9 +31,12 @@ function getNumber():string{
   return number;
 }
 
+// Flow type declarations
 type Contact = {name: string, number:string, pic:string};
 type Props = {};
 type State = { contacts: Array<Contact>, ds:any};
+
+// Class declaration including the component types.
 export default class App extends Component<Props, State> {
   ds:any;
   state:State = { contacts:[], ds:[] };
