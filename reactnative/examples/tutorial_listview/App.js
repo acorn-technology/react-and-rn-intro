@@ -82,10 +82,7 @@ export default class App extends Component<Props, State> {
   render() {
     return (
       <View style={{flex:1, alignItems: 'stretch'}}>
-        <Text style={{marginTop:25, height: 50, alignSelf:'center'}}>
-          React Native Demo
-        </Text>
-        <ListView style={{flex:1}} dataSource={this.state.ds}
+        <ListView style={{flex:1, marginTop:20}} dataSource={this.state.ds}
           renderRow={(rowData, unused, index) => {
             return this.renderRow(rowData, unused, index);}} />
         <Button title="Add One"
