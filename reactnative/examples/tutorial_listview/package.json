@@ -1,5 +1,5 @@
 {
-  "name": "AwesomeProject",
+  "name": "tutorial_listview",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,12 +13,8 @@
   "devDependencies": {
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.45.2",
-    "babel-cli": "^6.26.0",
-    "babel-preset-react-native": "^4.0.0",
-    "react-test-renderer": "16.5.0",
-    "flow-bin": "^0.78.0",
-    "flow-upgrade": "^1.0.4"
+    "metro-react-native-babel-preset": "0.45.3",
+    "react-test-renderer": "16.5.0"
   },
   "jest": {
     "preset": "react-native"
