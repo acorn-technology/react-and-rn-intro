@@ -73,7 +73,7 @@ Learn Once, Write Anywhere
 - React Native project generates native Android and XCode projects which can be compiled from raw source code.
 - Projects can be modified directly, you can distribute this app to app stores, you can modify the React Native library code, you can add native code, etc.
 - You may need to know more about React Native than you really want to.
-- Extra functionality is added with package managers yarn add <module> or npm install <module>
+- Extra functionality is added with package managers via "yarn add <module>" or "npm install <module>"
 
 #### Expo
 - An expo project is created using create-react-native-app <project_name>
@@ -133,22 +133,22 @@ Click on the simulator and press CMD+R
 #### Android Simulator reload:
 From shell, type "adb shell input keyevent 82"
 Then click on "Reload"
-<img src="images/app1_screenshot.png" height=800/>
+<img src="images/app1_screenshot.png" height=700/>
 
 <!-- slide -->
 #### Breakdown of the first app, part 1/2
 
+- Import what is needed from react and react native.
 ```javascript
 import React, {Component} from 'react';
 import {Text, View, ListView} from 'react-native';
 ```
-
-Imports what is needed from react and react native.
+- Export the App Component by default to any Components which import this file.
 
 ```javascript
 export default class App extends Component {  
 ```
-Exports the App Component by default, to any Components which import this file.
+- Create a constructor that creates a ListView datasource with 100 elements in it.
 ```javascript
   constructor() {
     super()
@@ -160,8 +160,7 @@ Exports the App Component by default, to any Components which import this file.
     };
   }
 ```
-The constructor is called ONCE on app startup.
-It creates a listview datasource with 100 elements in it.
+
 <!-- slide -->
 #### Breakdown of the first app, part 2/2
 ```javascript
@@ -181,9 +180,8 @@ It creates a listview datasource with 100 elements in it.
   }
 }
 ```
-
-The render() function returns the jsx which defines the screen.
-The list view component's props expect a function (renderRow) which knows how to display each row. We define this here too.
+- The render() function returns the jsx which defines the screen.
+- The list view component's props expect a function (renderRow) which knows how to display each row. We define this here too.
 
 <!-- slide -->
 ### Flexbox
