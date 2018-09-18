@@ -8,7 +8,7 @@ import YTSearch from 'youtube-api-search';
 const API_KEY = 'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
 
 // Flow type declarations
-type Video = {etag: string, id:Object, snippet:Object, kind:string};
+type Video = {etag: string, kind:string, id:Object, snippet:Object };
 type Props = {};
 type State = { videos: Array<Video>, ds:any, loading:boolean, lastSearchTerm:string};
 
