@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {Text, View, Button, ListView, Image, TouchableOpacity, StyleSheet, RefreshControl} from 'react-native';
 import { Header, Card } from 'react-native-elements';
-import { SearchBar } from './components/SearchBar';
+import { SearchBar } from './SearchBar';
 import YTSearch from 'youtube-api-search';
 
 const API_KEY = 'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
