@@ -1,8 +1,11 @@
+/* @flow */
 import React from 'react';
 import { Platform, StyleSheet, View, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 
-export class SearchBar extends React.Component {
+type Props = {loading:boolean, onPressSearch:Function};
+type State = {searchTerm:string};
+export class SearchBar extends React.Component<Props, State> {
   state = { searchTerm: '' };
   render() {
     return (
