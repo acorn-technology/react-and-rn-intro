@@ -26,10 +26,12 @@ type Video = {etag: string, kind:string, id:Object, snippet:Object };
 type Props = {};
 type State = {
   ds:any,
-  playingVideo:?Video,
   videos: Array<Video>,
   loading:boolean,
-  lastSearchTerm:string};
+  lastSearchTerm:string,
+  playingVideo:?Video
+};
+
 // Class declaration including the component types.
 export default class App extends Component<Props, State> {
   ds:any;
@@ -38,8 +40,9 @@ export default class App extends Component<Props, State> {
   constructor() {
     super()
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {playingVideo:null, videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"" };
+    this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null};
   }
+
   onPressSearch(searchTerm:string) {
     this.setState({loading: true, lastSearchTerm:searchTerm});
     YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
@@ -47,6 +50,7 @@ export default class App extends Component<Props, State> {
       this.setState({loading: false, videos: videos, ds:ds, playingVideo:null});
     })
   }
+
   renderCardForVideo(video:Video){
     return (
       <TouchableOpacity style={{
@@ -72,6 +76,7 @@ export default class App extends Component<Props, State> {
       </TouchableOpacity>
     );
   }
+
   renderRow(video:Video, unused:string, index:string){
     if ((null === this.state.playingVideo) || (video.etag !== this.state.playingVideo?.etag)){
       return this.renderCardForVideo(video);
@@ -88,8 +93,8 @@ export default class App extends Component<Props, State> {
     }
   }
 
-  renderdd() {
-    const {loading, videos, lastSearchTerm} = this.state;
+  render() {
+    const {loading, videos, lastSearchTerm, ds} = this.state;
     return (
       <View style={styles.container}>
         <Header
@@ -102,7 +107,7 @@ export default class App extends Component<Props, State> {
         />
         <ListView style={styles.listview}
           enableEmptySections={true}
-          dataSource={this.state.ds}
+          dataSource={ds}
           refreshControl={ <RefreshControl refreshing={loading}
                            onRefresh={()=>{this.onPressSearch(lastSearchTerm)}} >
                            </RefreshControl> }
@@ -110,19 +115,6 @@ export default class App extends Component<Props, State> {
                      return this.renderRow(rowData, unused, index);
           }}
         ></ListView>
-      </View>
-    );
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Header
-          centerComponent={{text: 'AcornTube', style: {color: 'white'}}}
-          outerContainerStyles={{backgroundColor: 'red'}}
-        />
-        <SearchBar
-          onPressSearch={(searchTerm:string)=>{}}
-        />
       </View>
     );
   }
