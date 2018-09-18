@@ -14,6 +14,11 @@ export class SearchBar extends React.Component {
         />
         <Button
           buttonStyle={styles.button}
+          icon={{
+            name: 'search',
+            size: 18,
+            color: 'white'
+          }}
           textStyle={styles.buttonTextStyle}
           title={this.props.loading ? "Loading..." : "Search"}
           onPress={() => this.props.onPressSearch(this.state.searchTerm)}
@@ -42,8 +47,11 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   button: {
-    height: 30,
-    marginBottom: 8
+    height: 40,
+    marginBottom: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius:5
   },
   buttonTextStyle: {
     color:'white',

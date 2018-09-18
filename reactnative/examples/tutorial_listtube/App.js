@@ -43,7 +43,7 @@ export default class App extends Component<Props, State> {
   renderRow(video:Video, unused:string, index:string){
     return (
       <TouchableOpacity style={{
-        flex:1, backgroundColor:'#E0FFFF', alignSelf:'stretch'}}
+        flex:1, alignSelf:'stretch'}}
         onPress={()=>{
         }}>
         <Card containerStyle={styles.card}>
