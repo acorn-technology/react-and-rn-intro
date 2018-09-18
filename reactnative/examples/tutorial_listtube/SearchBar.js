@@ -1,11 +1,12 @@
 /* @flow */
-import React from 'react';
-import { Platform, StyleSheet, View, TextInput } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, View, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 
 type Props = {loading:boolean, onPressSearch:Function};
 type State = {searchTerm:string};
-export class SearchBar extends React.Component<Props, State> {
+
+export class SearchBar extends Component<Props, State> {
   state = { searchTerm: '' };
   render() {
     return (
@@ -31,12 +32,6 @@ export class SearchBar extends React.Component<Props, State> {
   }
 }
 
-// Add an underline on iOS.
-const textInputIos = Platform.OS === 'ios' ? {
-  borderColor: 'gray',
-  borderBottomWidth: 1
-} : {};
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -45,7 +40,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textInput: {
-    ...textInputIos,
+    borderColor: 'gray',
+    borderBottomWidth: 1,
     flex: 1,
     marginLeft: 10
   },
