@@ -11,7 +11,7 @@ presentation:
 1. Using NPM:
 ```bash
 npm install --save react-native-elements
-npm install --save react-native-vector-icons
+npm install --save react-native-vector-icons@4.2.0
 npm install --save react-native-youtube
 npm install --save youtube-api-search
 react-native link
@@ -20,7 +20,7 @@ react-native link
 2. Or Using Yarn:
 ```bash
 yarn add --save react-native-elements
-yarn add --save react-native-vector-icons
+yarn add --save react-native-vector-icons@4.2.0
 yarn add --save react-native-youtube
 yarn add --save youtube-api-search
 react-native link
@@ -33,7 +33,7 @@ react-native link
     "react": "16.5.0",
     "react-native": "0.57.0",
     "react-native-elements": "^0.19.1",
-    "react-native-vector-icons": "^4.2.0",
+    "react-native-vector-icons": "4.2.0",
     "react-native-youtube": "^1.1.0",
     "youtube-api-search": "^0.0.5"
   },
