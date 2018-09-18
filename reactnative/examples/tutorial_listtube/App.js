@@ -1,16 +1,25 @@
 /** @flow */
 import React, {Component} from 'react';
-import {Text, View, Button, ListView, Image, TouchableOpacity, Alert} from 'react-native';
-import { Header } from 'react-native-elements';
+import {Text, View, Button, ListView, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import { Header, Card } from 'react-native-elements';
 import { SearchBar } from './components/SearchBar';
 import YTSearch from 'youtube-api-search';
 
 const API_KEY = 'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
 
 // Flow type declarations
-type Video = {video: Object};
+type Video = {etag: string, id:Object, snippet:Object, kind:string};
 type Props = {};
 type State = { videos: Array<Video>, ds:any, loading:boolean};
+
+const styles = StyleSheet.create({
+  card: { padding: 5 },
+  image: { alignSelf: 'stretch', height: 180 },
+  textBox: { flex: 1, padding: 1 },
+  title: { fontSize: 12, },
+  channel: { fontSize: 11, color: '#777', alignSelf: 'flex-end' },
+  description: { fontSize: 10, alignSelf: 'center' }
+});
 
 // Class declaration including the component types.
 export default class App extends Component<Props, State> {
@@ -31,14 +40,28 @@ export default class App extends Component<Props, State> {
     })
   }
 
-  renderRow(rowData:Video, unused:string, index:string){
+  renderRow(video:Video, unused:string, index:string){
     return (
-      <TouchableOpacity style={{backgroundColor:'#E0FFFF', margin:1,
-        flexDirection:'row', alignItems:'center'}}
+      <TouchableOpacity style={{
+        flex:1, backgroundColor:'#E0FFFF', alignSelf:'stretch'}}
         onPress={()=>{
-        }}
-        >
-        <Text style={{flex:1, marginLeft:10}}>Video {index}</Text>
+        }}>
+        <Card containerStyle={styles.card}>
+          <Image style={styles.image}
+              source={{uri: video.snippet.thumbnails.medium.url}}
+          />
+          <View style={styles.textBox}>
+            <Text style={styles.title}>
+                        {video.snippet.title}
+            </Text>
+            <Text style={styles.channel}>
+                        {video.snippet.channelTitle}
+            </Text>
+            <Text style={styles.description}>
+                        {video.snippet.description}
+            </Text>
+          </View>
+        </Card>
       </TouchableOpacity>
     );
   }
