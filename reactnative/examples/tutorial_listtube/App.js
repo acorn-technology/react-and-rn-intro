@@ -4,6 +4,7 @@ import {Text, View, Button, ListView, Image, TouchableOpacity, Alert} from 'reac
 import { Header } from 'react-native-elements';
 import { SearchBar } from './components/SearchBar';
 
+const API_KEY = 'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
 
 // Flow type declarations
 type Video = {video: Object};
@@ -35,6 +36,14 @@ export default class App extends Component<Props, State> {
     const {loading, videos} = this.state;
     return (
       <View style={{flex:1, alignItems: 'stretch'}}>
+        <Header
+          centerComponent={{text: 'AcornTube', style: {color: '#fff'}}}
+          outerContainerStyles={{backgroundColor: '#E62117'}}
+        />
+        <SearchBar
+          loading={loading}
+          onPressSearch={()=>{}}
+        />
         <ListView style={{flex:1, marginTop:20}} enableEmptySections={true} dataSource={this.state.ds}
           renderRow={(rowData, unused, index) => {
             return this.renderRow(rowData, unused, index);}} />
