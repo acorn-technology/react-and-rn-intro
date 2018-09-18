@@ -41,7 +41,7 @@ export default class App extends Component<Props, State> {
     this.setState({loading: true, lastSearchTerm:searchTerm});
     YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
       let ds = this.ds.cloneWithRows(videos)
-      this.setState({loading: false, videos: videos, ds:ds});
+      this.setState({loading: false, videos: videos, ds:ds, playingVideo:null});
     })
   }
 
@@ -73,17 +73,12 @@ export default class App extends Component<Props, State> {
     }
     else {
       return (
-        <TouchableOpacity style={{
-        flex:1, alignSelf:'stretch'}}
-        onPress={()=>{this.setState({playingVideo:null})
-        }}>
         <YouTube
           apiKey={API_KEY}
           videoId={video.id.videoId}   // The YouTube video ID
           play={this.state.playingVideo !== null}
           play={true}
           loop={false}
-          fullscreen={true}
           controls={1}
           onError={e => console.log('error:' + e.error)}
           onReady={e => console.log('ready')}
@@ -97,7 +92,6 @@ export default class App extends Component<Props, State> {
           }             // control playback of video with true/false
           style={{ alignSelf: 'stretch', height: 300 }}
         />
-      </TouchableOpacity>
     );
     }
   }

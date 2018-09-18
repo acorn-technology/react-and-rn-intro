@@ -14,7 +14,6 @@ npm install --save react-native-elements
 npm install --save react-native-vector-icons
 npm install --save youtube-api-search
 npm install --save react-native-youtube
-react-native link
 ```
 
 2. Or Using Yarn:
@@ -23,10 +22,9 @@ yarn add react-native-elements --save
 yarn add react-native-vector-icons --save
 yarn add youtube-api-search --save
 yarn add react-native-youtube --save
-react-native link
 ```
 
-3. Or Manually Updating package.json
+Resulting package.json extract
 
 ```json
   "dependencies": {
@@ -38,11 +36,15 @@ react-native link
     "youtube-api-search": "^0.0.5"
   },
 ```
-3.1 Followed by letting npm update modules:
+
+3.2 Link step: (adds the native parts to your Android and iOS projects)
 ```bash
-npm install
 react-native link
 ```
-or `yarn`
+If you need to support iOS as well, linking youtube player requires an extra step:
+```bash
+npm install -g rnpm
+rnpm link
+```
 
 Finally: `react-native run-ios` or `react-native run-android`
