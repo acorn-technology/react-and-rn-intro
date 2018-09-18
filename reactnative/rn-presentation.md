@@ -537,7 +537,8 @@ We are using a private "Acorn" firebase database - could become a fun chat app f
 
 <!-- slide -->
 
-Proceed to the next [tutorial](examples/acorntube/README.md).
+Proceed to the next [tutorial](examples/tutorial_listtube/listtube_presentation.md).
+
 
 <!-- slide -->
 ### React-Native Cons
