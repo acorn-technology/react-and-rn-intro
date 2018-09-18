@@ -40,7 +40,7 @@ export default class App extends Component<Props, State> {
   constructor() {
     super()
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null};
+    this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null };
   }
 
   onPressSearch(searchTerm:string) {
@@ -88,8 +88,7 @@ export default class App extends Component<Props, State> {
           videoId={video.id.videoId}   // The YouTube video ID
           play={true} controls={1}
           style={styles.youtube}
-        />
-    );
+        /> )
     }
   }
 
