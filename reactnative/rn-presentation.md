@@ -697,7 +697,7 @@ Add the SearchBar component to the render() function, but log searches to the co
 <!-- slide align="left" -->
 #### AcornTube- What's it Look Like?
 If we run it now it will look like this:
-![AcornTube1](images/with_searchbar_2.png)
+<img src="images/with_searchbar_2.png" height=800 />
 
 <!-- slide align="left" -->
 #### AcornTube- Let's Start Searching
