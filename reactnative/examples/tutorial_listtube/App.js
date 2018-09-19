@@ -28,9 +28,10 @@ type State = {
   ds:any,
   videos: Array<Video>,
   loading:boolean,
-  playingVideo:?Video,
-  lastSearchTerm:string
+  lastSearchTerm:string,
+  playingVideo:?Video
 };
+
 // Class declaration including the component types.
 export default class App extends Component<Props, State> {
   ds:any;
@@ -41,6 +42,7 @@ export default class App extends Component<Props, State> {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null };
   }
+
   onPressSearch(searchTerm:string) {
     this.setState({loading: true, lastSearchTerm:searchTerm});
     YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
@@ -48,6 +50,7 @@ export default class App extends Component<Props, State> {
       this.setState({loading: false, videos: videos, ds:ds, playingVideo:null});
     })
   }
+
   renderCardForVideo(video:Video){
     return (
       <TouchableOpacity style={{
@@ -73,6 +76,7 @@ export default class App extends Component<Props, State> {
       </TouchableOpacity>
     );
   }
+
   renderRow(video:Video, unused:string, index:string){
     if ((null === this.state.playingVideo) || (video.etag !== this.state.playingVideo?.etag)){
       return this.renderCardForVideo(video);
@@ -84,13 +88,12 @@ export default class App extends Component<Props, State> {
           videoId={video.id.videoId}   // The YouTube video ID
           play={true} controls={1}
           style={styles.youtube}
-        />
-    );
+        /> )
     }
   }
 
   render() {
-    const {loading, videos, lastSearchTerm} = this.state;
+    const {loading, videos, lastSearchTerm, ds} = this.state;
     return (
       <View style={styles.container}>
         <Header
@@ -103,7 +106,7 @@ export default class App extends Component<Props, State> {
         />
         <ListView style={styles.listview}
           enableEmptySections={true}
-          dataSource={this.state.ds}
+          dataSource={ds}
           refreshControl={ <RefreshControl refreshing={loading}
                            onRefresh={()=>{this.onPressSearch(lastSearchTerm)}} >
                            </RefreshControl> }

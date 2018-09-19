@@ -567,7 +567,7 @@ App
 - Remove Button, we will no longer need it. Import StyleSheet.
 ```javascript
 import React, {Component} from 'react';
-import { Text, View, ListView, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Header } from 'react-native-elements';
 
 // Stylesheet, like CSS
@@ -636,7 +636,7 @@ const styles = StyleSheet.create({
 type Props = {loading:boolean, onPressSearch:Function};
 type State = {searchTerm:string};
 
-export class SearchBar extends React.Component<Props, State> {
+export class SearchBar extends Component<Props, State> {
   state = { searchTerm: '' };
   render() {
     return (
@@ -653,7 +653,7 @@ export class SearchBar extends React.Component<Props, State> {
           onPress={() => this.props.onPressSearch(this.state.searchTerm)}
         />
       </View>
-    );
+    )
   }
 }
 ```
@@ -662,8 +662,8 @@ Lets go back to **App.js** and import our new SearchBar component.
 **App.js**
 ```javascript
 import React, {Component} from 'react';
-import { Text, View, ListView, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import { Header, Card } from 'react-native-elements';
+import { Text, View, StyleSheet} from 'react-native';
+import { Header } from 'react-native-elements';
 import { SearchBar } from './SearchBar';
 
 // Stylesheet, like CSS
@@ -701,23 +701,177 @@ If we run it now it will look like this:
 
 <!-- slide -->
 
-- The `state` variable in App.js holds our searchTerm. `state` is a special keyword in react that will re-render components when changed with the setState function.
+## App.js 1/4
 
-- In our **TextInput** component we update this state and the value of the text field to whatever is typed.
-
-- In our **Button** component we have an `onPress` function that just logs our searchTerm for now.
-
-### Passing back the searchTerm to our main app
-We need to get the search term back to our main application to fetch the data from the youTubeAPI to be displayed in the videoList.
-We do this by passing a function reference to our `SearchBar` object, that we then call when the search button is pressed.
-Adding a function in **App.js**, and passing it to `SearchBar`
-
-And in **SearchBar** we change our `onPress` inside our Button component to:
 ```javascript
-onPress={() => this.props.onPressSearch(this.state.searchTerm)}
+/** @flow */
+import React, {Component} from 'react';
+import { Text, View, Button, ListView, Image, TouchableOpacity, StyleSheet, RefreshControl} from 'react-native';
+import { Header, Card } from 'react-native-elements';
+import { SearchBar } from './SearchBar';
+import YTSearch from 'youtube-api-search';
+
+const API_KEY = 'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
+
+// Stylesheet, like CSS
+const styles = StyleSheet.create({
+  container: {flex:1, alignItems: 'stretch'},
+  listview: {flex:1, marginTop:20},
+  card: { padding: 5 },
+  image: { alignSelf: 'stretch', height: 180 },
+  textBox: { flex: 1, padding: 1 },
+  title: { fontSize: 12, },
+  channel: { fontSize: 11, color: '#777', alignSelf: 'flex-end' },
+  description: { fontSize: 10, alignSelf: 'center' }
+});
+
+// Flow type declarations
+type Video = {etag: string, kind:string, id:Object, snippet:Object };
+type Props = {};
+type State = {
+  ds:any,
+  videos: Array<Video>,
+  loading:boolean,
+  lastSearchTerm:string,
+  playingVideo:?Video
+};
+
 ```
-the `props` keyword is short for properties, and is used like arguments to components.
-Test that it works :)
+
+<!-- slide -->
+## App.js 2/4
+
+```javascript
+
+// Class declaration including the component types.
+export default class App extends Component<Props, State> {
+  ds:any;
+  state:State;
+
+  constructor() {
+    super()
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null };
+  }
+
+  onPressSearch(searchTerm:string) {
+    this.setState({loading: true, lastSearchTerm:searchTerm});
+    YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
+      let ds = this.ds.cloneWithRows(videos)
+      this.setState({loading: false, videos: videos, ds:ds, playingVideo:null});
+    })
+  }
+```
+<!-- slide -->
+## App.js 3/4
+
+```javascript
+renderCardForVideo(video:Video){
+  return (
+    <TouchableOpacity style={{
+      flex:1, alignSelf:'stretch'}}
+      onPress={()=>{this.setState({playingVideo:video})
+      }}>
+      <Card containerStyle={styles.card}>
+        <Image style={styles.image}
+            source={{uri: video.snippet.thumbnails.medium.url}}
+        />
+        <View style={styles.textBox}>
+          <Text style={styles.title}>
+                      {video.snippet.title}
+          </Text>
+          <Text style={styles.channel}>
+                      {video.snippet.channelTitle}
+          </Text>
+          <Text style={styles.description}>
+                      {video.snippet.description}
+          </Text>
+        </View>
+      </Card>
+    </TouchableOpacity>
+  );
+}
+
+renderRow(video:Video, unused:string, index:string){
+  return this.renderCardForVideo(video);
+}
+```
+
+<!-- slide -->
+## App.js 4/4
+
+```javascript
+  render() {
+    const {loading, videos, lastSearchTerm, ds} = this.state;
+    return (
+      <View style={styles.container}>
+        <Header
+          centerComponent={{text: 'AcornTube', style: {color: 'white'}}}
+          outerContainerStyles={{backgroundColor: 'red'}}
+        />
+        <SearchBar
+          loading={loading}
+          onPressSearch={(searchTerm:string)=>{this.onPressSearch(searchTerm);}}
+        />
+        <ListView style={styles.listview}
+          enableEmptySections={true}
+          dataSource={ds}
+          refreshControl={ <RefreshControl refreshing={loading}
+                           onRefresh={()=>{this.onPressSearch(lastSearchTerm)}} >
+                           </RefreshControl> }
+          renderRow={(rowData, unused, index) => {
+                     return this.renderRow(rowData, unused, index);
+          }}
+        ></ListView>
+      </View>
+    );
+  }
+}
+
+```
+
+<!-- slide -->
+
+## Let's add a real youtube player 1/3
+
+- Import react-native-youtube to App.js
+```javascript
+import YouTube from 'react-native-youtube';
+```
+
+- Create some styling for the youtube video player.
+```javascript
+// Stylesheet, like CSS
+const styles = StyleSheet.create({
+  ...
+  youtube: { alignSelf: 'stretch', height: 300 }
+});
+```
+
+<!-- slide -->
+## Let's add a real youtube player 2/3
+
+- If this is not the currently playing video, show the card.
+- Otherwise, show the youtube video.
+
+```javascript
+  renderRow(video:Video, unused:string, index:string){
+    if ((null === this.state.playingVideo) || (video.etag !== this.state.playingVideo?.etag)){
+      return this.renderCardForVideo(video);
+    }
+    else {
+      return (
+        <YouTube
+          apiKey={API_KEY}
+          videoId={video.id.videoId}   // The YouTube video ID
+          play={true} controls={1}
+          style={styles.youtube}
+        /> )
+    }
+  }
+```
+
+<!-- slide -->
 
 App.js uses the API key created in the prerequisites, like this.
 ```javascript
@@ -733,69 +887,6 @@ We create a new function that calls this with our `API_KEY` and `searchTerm` and
 In this section we create a loading state that is `true` while we wait for the YTSearch function to return and pass it to the search button.
 
 **App.js** imports our `VideoList` component, stores the video data in a list inside our `state` and add a `VideoList` element after our `SearchBar` passing in the videos list from our *state*
-
-**App.js**
-```javascript
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Header } from 'react-native-elements';
-import { SearchBar } from './SearchBar';
-import VideoList from './VideoList'
-import YTSearch from 'youtube-api-search';
-
-const API_KEY = 'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
-
-export default class App extends React.Component {
-  state = {
-    loading: false,
-    videos: []
-  }
-  onPressSearch = searchTerm => {
-    this.searchYouTube(searchTerm)
-  }
-  searchYouTube = searchTerm => {
-    this.setState({loading: true});
-    YTSearch({key: API_KEY, term: searchTerm}, videos => {
-      this.setState({loading: false, videos: videos});
-    })
-  }
-  render() {
-    const {loading, videos} = this.state;
-    return (
-      <View style={{flex:1}}>
-        <Header
-          centerComponent={{text: 'AcornTube', style: {color: '#fff'}}}
-          outerContainerStyles={{backgroundColor: '#E62117'}}
-        />
-        <SearchBar
-          loading={loading}
-          onPressSearch={this.onPressSearch}
-        />
-        <VideoList videos={videos}/>
-      </View>
-    );
-  }
-}
-```
-Try this out and take a look at the log to see what we get from the YouTubeAPI.
-
-<!-- slide -->
-### Loading state
-
-Update **SearchBar.js** to change the `Button` title to depend on the loading state, passed through props.
-```jsx
-        <Button
-          buttonStyle={styles.button}
-          icon={{
-            name: 'search',
-            size: 18,
-            color: 'white'
-          }}
-          textStyle={styles.buttonTextStyle}
-          title={this.props.loading ? "Loading..." : "Search"}
-          onPress={() => this.props.onPressSearch(this.state.searchTerm)}
-        />
-```
 
 
 <!-- slide -->
