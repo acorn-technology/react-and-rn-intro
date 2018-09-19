@@ -703,7 +703,7 @@ If we run it now it will look like this:
 #### AcornTube- Let's Start Searching
 
 Import YTSearch, a module we can use for searching youtube...
-Use API_KEY created in the [first tutorial](https://github.com/appsupport-at-acorn/react-and-rn-intro)
+Use API_KEY created in the [first tutorial]((https://github.com/appsupport-at-acorn/react-and-rn-intro/tree/master/tutorial/react))
 Import additional components which will be useful.
 ```javascript
 /** @flow */
@@ -976,6 +976,19 @@ Instacorn Screenshot
 
 We are using a private "Acorn" firebase database - could become a fun chat app for us Acornites with a little work!
 
+<!-- slide align="left" -->
+#### AcornTube Episode I
+
+If we get here we were REALLY, REALLY fast.
+
+Gustav Alholt has made the "mark 1" version of the youtube tutorial. It has more in common with the initial [React Tutorial](https://github.com/appsupport-at-acorn/react-and-rn-intro/tree/master/tutorial/react).  You can get it here:
+```bash
+git clone https://github.com/Glottris/-expo_youTube_tutorial
+```
+
+I used that code as a jumping off point for the code in this tutorial, but made changes for consistency between earlier portions of this tutorial.
+
+There is a [readme](examples/acorntube_like_first_react_tutorial/readme.md) in that tutorial with instructions on installing, building and running it.
 
 <!-- slide align="left" -->
 ### React-Native Cons
