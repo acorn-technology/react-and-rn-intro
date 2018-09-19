@@ -1,3 +1,6 @@
 [submodule "reactnative/examples/instacorn"]
 	path = reactnative/examples/instacorn
 	url = https://github.com/appsupport-at-acorn/rn-tutorial-instagram-clone
+[submodule "reactnative/examples/acorntube_like_first_react_tutorial"]
+	path = reactnative/examples/acorntube_like_first_react_tutorial
+	url = https://github.com/Glottris/-expo_youTube_tutorial
