@@ -4,11 +4,11 @@ presentation:
   height: 1280
   controls: false
 ---
-<!-- slide -->
+<!-- slide align="left" -->
 React & React Native
 "Learn Once, Write Anywhere"
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### What is React-Native?
 
 * Javascript engine for Mobile with direct hooks to native components supported on the mobile platform.
@@ -19,7 +19,7 @@ React & React Native
 ~~Write Once, Run Anywhere~~
 Learn Once, Write Anywhere
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Where does it come from?
 
 - Developed by Facebook
@@ -30,11 +30,11 @@ Learn Once, Write Anywhere
 
 ![using rn](images/whos_using_rn.png)
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### How does it work I ?
 ![architecture](images/rn_architecture.png)
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### How does it work II ?
 <img src ="images/rn_architecture.png" height="500"></img>
 - Runtime Environment: Javascript Core
@@ -45,7 +45,7 @@ Learn Once, Write Anywhere
 - Native code runs in its own thread, so it won't block the UI thread.
   - Animations, scrolling, maps, sound, video, etc, run with "native" performance with native look.
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### How does it work III ?
 <img src ="images/rn_architecture.png" height="500"></img>
 - Pure Android/iOS application is compiled from source and deployed to phone. This application includes all necessary native components, including native Java/Kotlin/Obj-C/Swift/C++ libraries needed by the javascript.
@@ -54,7 +54,7 @@ Learn Once, Write Anywhere
   - This enables **live reload** and **hot reload** on changes to the JavaScript UX.
 - In Release mode, the JavaScript code is bundled as a blob included in the release app.
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Why use React-Native (Pros)
 - Rapid development
 - Learn once, write anywhere
@@ -67,7 +67,7 @@ Learn Once, Write Anywhere
 - Use native views, buttons, lists, video-players, camera app, gallery app, maps, etc.
 - Distribute javascript code independently of app ("Expo").
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### React Native vs Expo
 #### React Native
 - A React Native project is created using react-native init <project_name>
@@ -85,7 +85,7 @@ Learn Once, Write Anywhere
 - Must do "expo eject" if you want to modify any native libraries or add native code.
   - generates the android/ and xcode/ libraries including the open source expo app source code.
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Example App 1
 
 Create a first app and open the generated folder in Atom.
@@ -107,7 +107,7 @@ export default class App extends Component {
     let numbers = [...Array(100)];
     numbers.map((value, index, array)=>{array[index] = index.toString();})
     this.state = {
-      dataSource: ds.cloneWithRows( numbers )
+      ds: ds.cloneWithRows( numbers )
     };
   }
   render() {
@@ -115,7 +115,7 @@ export default class App extends Component {
       <View>
         <Text style={{height: 50}}></Text>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={this.state.ds}
           renderRow={(rowData:string, unused:string, index:string) =>
               <Text>  Row {index} = {rowData}</Text>}
         >
@@ -126,34 +126,36 @@ export default class App extends Component {
 }
 ```
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Reload the app to see changes
 
 You need to reload the app to see any changes:
 
-#### IOS or Android Device:
-Reload the app: Shake your phone, select "Reload"
-#### IOS Simulator reload:
-Click on the simulator and press CMD+R
-#### Android Simulator reload:
-From shell, type "adb shell input keyevent 82"
+#### IOS or Android Device
+- Reload the app: Shake your phone, select "Reload"
+  - Android: You can also type "adb shell input keyevent 82" to "press the settings button"
+#### IOS Simulator reload
+- Click on the simulator and press CMD+R
+#### Android Simulator reload
+- Click on the simulator and press CTRL+M(win)/CMD+M(osx)
+
 Then click on "Reload"
 <img src="images/app1_screenshot.png" height=700/>
 
-<!-- slide -->
+<!-- slide align="left" -->
 #### Breakdown of the first app, part 1/2
 
-- Import what is needed from react and react native.
+Import what is needed from react and react native.
 ```javascript
 import React, {Component} from 'react';
 import {Text, View, ListView} from 'react-native';
 ```
-- Export the App Component by default to any Components which import this file.
+Export the App Component by default to any Components which import this file.
 
 ```javascript
 export default class App extends Component {  
 ```
-- Create a constructor that creates a ListView datasource with 100 elements in it.
+Create a constructor that creates a ListView datasource with 100 elements in it.
 ```javascript
   constructor() {
     super()
@@ -161,13 +163,15 @@ export default class App extends Component {
     let numbers = [...Array(100)];
     numbers.map((value, index, array)=>{array[index] = index.toString();})
     this.state = {
-      dataSource: ds.cloneWithRows( numbers )
+      ds: ds.cloneWithRows( numbers )
     };
   }
 ```
 
-<!-- slide -->
+<!-- slide align="left" -->
 #### Breakdown of the first app, part 2/2
+
+The react-native knows to call the render function in each component.
 ```javascript
   render() {
     // return JSX which defines the screen based on current state and props.
@@ -175,20 +179,21 @@ export default class App extends Component {
       <View>
         <Text style={{height: 50}}></Text>
         <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData:string, unused:string, index:string) =>
-              <Text>  Row {index} = {rowData}</Text>}
-        >
-        </ListView>
+          dataSource={this.state.ds}
+          renderRow={
+            (rowData:string, unused:string, index:string) =>
+              (<Text>  Row {index} = {rowData}</Text>)
+          } />
       </View>
     );
   }
 }
 ```
-- The render() function returns the jsx which defines the screen.
-- The list view component's props expect a function (renderRow) which knows how to display each row. We define this here too.
+The render() function returns the `<jsx></jsx>` which defines the screen.
+The list view component's props expect a function (renderRow) which knows how to display each row. We define this here too.
+The renderRow() property is set to a lambda which prints the row number, and the rowData.
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Live Reload and Hot Reload
 
 #### Live Reload
@@ -206,20 +211,20 @@ export default class App extends Component {
 - Sometimes, the app will fail on a hot reload as a new state variable is added or removed
   - Full app reload will restore the state.
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Let's enable Live Reload
 
 - Enable live reloading
   - Open the debug menu:
-    - Shake the Phone (CMD+D or "adb shell input keyevent 82")
+    - [Shake the Phone](#reload-the-app-to-see-changes)
     - Select "Enable Live Reload"
     - ![live reload](images/debug_menu.png)
-- Now any time you make a change to the app and save it, your app will reload automagically.
+- Now any time you make a change to the app and save it, your app will reload automagically.  Make a small change to your App.js and see that it reloads.
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Example App 2 - Contact List Code 1/2
-- We'll now create a fake contact list app, with a button to add a new random contact.
-- Paste this over the top of your App.js, above the component declaration.
+We'll now create a fake contact list app, with a button to add a new random contact.
+Paste this over the top of your App.js, above the component declaration.
 
 ```javascript
 import React, {Component} from 'react';
@@ -254,7 +259,7 @@ function getNumber(){
 }
 ```
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Example App 2 - Contact List Code 2/2
 Replace the inside of your App component with the following code.
 ```javascript
@@ -293,13 +298,15 @@ Replace the inside of your App component with the following code.
   }
 ```
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### It works, but it's ugly
 ![ugly](images/contacts_ugly.png)
 
+Note the "native" button at the bottom!
+
 Let's fix it up using [Flexbox](https://facebook.github.io/react-native/docs/flexbox)
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Flexbox
 
 <img src="images/flex-box_img.png" />
@@ -314,7 +321,7 @@ Let's fix it up using [Flexbox](https://facebook.github.io/react-native/docs/fle
 
 - Here is a [one page cheat sheet](https://gapintelligence.com/blog/2017/the-flexbox-one-page-cheat-sheet)
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Let's use styles and flexbox. ###
 
 - Disable Live Reload
@@ -324,7 +331,11 @@ Let's fix it up using [Flexbox](https://facebook.github.io/react-native/docs/fle
 ```javascript
 renderRow(rowData, unused, index){
   return (
-    <View style={{backgroundColor:'#E0FFFF', margin:1, flexDirection:'row', alignItems:'center'}}>
+    <View style={{
+      backgroundColor:'#E0FFFF',
+      margin:1,
+      flexDirection:'row',
+      alignItems:'center'}}>
       <Image style={{margin:1, width: 51, height: 51}}
         source={{uri: rowData.pic}} />
       <Text style={{flex:1, marginLeft:10}}>{rowData.name}</Text>
@@ -335,11 +346,11 @@ renderRow(rowData, unused, index){
 ```
 Play around with the definitions to see if you can make it prettier.
 
-<!-- slide -->
+<!-- slide align="left" -->
 ### Let's call someone.
 
 - We can make the each item into a clickable button by replacing the containing View with a Touchable*
-- There are different sorts of touchables, which act as views but have different animation types when clicked.
+- There are different sorts of touchables, which act as views but have different animation types when clicked, and generate onPress() and onLongPress() events when pressed.
 - We can use TouchableOpacity
 - Import TouchableOpacity and Alert
 
@@ -347,7 +358,7 @@ Play around with the definitions to see if you can make it prettier.
 import {Text, View, Button, ListView, Image, TouchableOpacity, Alert} from 'react-native';
 ```
 
-<!-- slide -->
+<!-- slide align="left" -->
 #### Add an alert, and print output to console.
 ```javascript
 renderRow(rowData, unused, index){
@@ -373,26 +384,26 @@ renderRow(rowData, unused, index){
   );
 }
 ```
-This results in a platform-native alert window with two buttons.
+Pressing a contact results in a platform-native alert window with two buttons.
 ![alert](images/calling_alert.png)
 
-<!-- slide -->
+<!-- slide align="left" -->
 #### Where's the debug console? 1/3
 
 If we want to debug the javascript, or see the console, we can use Chrome as a debugger....
 
-- Shake the phone (CMD+R or "adb shell keyinput 82")
+- [Shake the Phone](#reload-the-app-to-see-changes)
 - Select "Debug JS Remotely"
 - Chrome should open a new tab
 ![debug 1](images/debug_console_1.png)
 
-<!-- slide -->
+<!-- slide align="left" -->
 #### Where's the debug console? 2/3
 
 Select "..."-->"More Tools"-->Developer Tools
 ![debug 2](images/debug_console_2.png)
 
-<!-- slide -->
+<!-- slide align="left" -->
 #### Where's the debug console? 3/3
 ![debug 3](images/debug_console_3.png)
 
@@ -400,17 +411,17 @@ Select "..."-->"More Tools"-->Developer Tools
 - You can set breakpoints from within chrome.
 - Now make a call, and you will see the call printed in the console.
 
-<!-- slide -->
-### Flow 1/5
+<!-- slide align="left" -->
+### Flow 1/6
 - Flow-type is similar to Microsoft TypeScript
 - Supported by atom/nuclide if you followed the [prerequisites](prerequisites.md)
 - Supports static error and type checking of all flow-enabled source code
 - Enabled by adding @flow at the top of the document
 - Let's "flow-ize" the app so we can catch errors when writing code instead of crashing suddenly while running code.
 
-<!-- slide -->
-### Flow 2/5
-- Add @flow to the top of **App.js**
+<!-- slide align="left" -->
+### Flow 2/6
+Add @flow to the top of **App.js**. This tells flow that you have introduced Flow types to the file and that it should start throwing errors on the file.
 ```javascript
 /** @flow */
 ```
@@ -441,9 +452,9 @@ function getNumber():string{
 }
 ```
 
-<!-- slide -->
-### Flow 3/5
-- Define the types used by the App Component
+<!-- slide align="left" -->
+### Flow 3/6
+Define the types used by the App Component above the Component declaration.
 
 ```javascript
 // Flow type declarations
@@ -452,17 +463,20 @@ type Props = {}; // Expect no incoming props
 type State = { contacts: Array<Contact>, ds:any}; // Component state
 ```
 
-- Use Props and State in Component Declaration
+Use Props and State in Component Declaration
+Declare objects used by the class.
 ```javascript
 // Class declaration including the component types.
 export default class App extends Component<Props, State> {
   ds:any;
-  state:State = { contacts:[], ds:[] };
+  state:State;
+  ...
+}
 ```
 
-<!-- slide -->
-### Flow 4/5
-- Update types passed into the addOneContact() and renderRow() components
+<!-- slide align="left" -->
+### Flow 4/6
+Update types passed into the addOneContact() and renderRow() components
 ```javascript
   addOneContact(isConstructor:?boolean):State{
     let contact:Contact = {name:getName(), number:getNumber(), pic:getPic()};
@@ -498,17 +512,444 @@ export default class App extends Component<Props, State> {
   }
 ```
 
-<!-- slide -->
-
-### Flow 5/5
-- Make some mistakes in the code and see what happens in the IDE
+<!-- slide align="left" -->
+### Flow 5/6
+Make some mistakes in the code and see what happens in the IDE
 ![flow error](images/flow_error_catch.png)
-- Flow also allows for auto-complete in javascript code.  Type the object name for a known type, and Atom with Nuclide will provide appropriate autocomplete selections.
+Flow also enables auto-complete in javascript code.  Type the object name for a known type, and Atom with Nuclide will provide appropriate autocomplete selections.
 
-<!-- slide -->
+<!-- slide align="left" -->
+### Flow 6/6
+
+**Flow and Windows**
+Flow is BAD on windows. A workaround is to host the files on an OSX or Linux machine running nuclide server (`npm install -g nuclide`), run the nuclide Atom plugin in atom (`apm install nuclide`), then open a "remote" project in Atom.  Flow then works flawlessly.
+
+<img src="images/add_remote_folder.png" height=450 />
+
+Another workaround is to use [typescript](https://www.typescriptlang.org/) instead of flow, but these conflict, so for this tutorial I have chosen to show flow.  You need to choose before starting your own RN project.
+
+<!-- slide align="left" -->
+#### AcornTube - a crappier Youtube
+Add some new dependencies to support AcornTube and start rebuilding
+
+1. Using NPM:
+```bash
+npm install --save react-native-elements react-native-vector-icons
+npm install --save youtube-api-search react-native-youtube
+```
+2. Or Using Yarn:
+```bash
+yarn add react-native-elements react-native-vector-icons --save
+yarn add youtube-api-search react-native-youtube --save
+```
+Resulting package.json extract
+```json
+  "dependencies": {
+    "react": "16.5.0",
+    "react-native": "0.57.0",
+    "react-native-elements": "^0.19.1",
+    "react-native-vector-icons": "^5.0.0",
+    "react-native-youtube": "^1.1.0",
+    "youtube-api-search": "^0.0.5"
+  },
+```
+
+3.2 Link step: (adds the native parts to your Android and iOS projects)
+```bash
+react-native link
+```
+If you need to support iOS as well, linking youtube player requires an extra step:
+`npm install -g rnpm` && `rnpm link`
+
+Finally: `react-native run-ios` or `react-native run-android`
+
+<!-- slide align="left" -->
+#### AcornTube- Component structure
+Our app will contain three main components, a header, a search-bar and a list of videos(search results).
+```
+App
+ +-- Header
+ +-- SearchBar /- inputfield - button
+ +-- VideoList
+```
+Import Header in our **App.js** file, and add a new `Header` element
+```javascript
+import React, {Component} from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Header } from 'react-native-elements';
+
+// Stylesheet, like CSS
+const styles = StyleSheet.create({
+  container: {flex:1, alignItems: 'stretch'},
+});
+
+export default class App extends Component {
+  render() {  
+    return (
+      <View style={styles.container}>
+        <Header
+          centerComponent={{text: 'AcornTube', style: {color: 'white'}}}
+          outerContainerStyles={{backgroundColor: 'red'}}
+        />
+      </View>
+    );
+  }
+}
+```
+We imported StyleSheet. A StyleSheet is like CSS in html. It lets you define the "styles" used in a component or (if exported) an entire app.
+
+<!-- slide align="left" -->
+#### AcornTube- It Begins
+Now your application should look like this:
+<img src="images/screenshot_just_header.png" height=1000 />
+
+<!-- slide align="left" -->
+#### AcornTube- SearchBar.js 1/2
+
+Create an additional files beside App.js called SearchBar.js (`touch SearchBar.js` or use Atom-->RightClickInProject-->New-->File-->SearchBar.js)
+
+Our search bar consists of two parts, an input field and a button, wrapped in a 'View' component.  
+
+- Copy this code to the top of SearchBar.js.
+
+```javascript
+/* @flow */
+import React, {Component} from 'react';
+import { StyleSheet, View, TextInput } from 'react-native';
+import { Button } from 'react-native-elements';
+
+// StyleSheet, like CSS
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row', backgroundColor: '#fff',
+    alignItems: 'center', justifyContent: 'center',
+  },
+  textInput: {
+    borderColor: 'gray', borderBottomWidth: 1, flex: 1, marginLeft: 10
+  },
+  button: {
+    height: 40, marginBottom: 8, flexDirection: 'row', alignItems: 'center',
+    borderRadius:5
+  },
+  buttonTextStyle: {
+    color:'white', height: 24, fontSize: 18, alignSelf: 'center'
+  }
+});
+```
+<!-- slide align="left" -->
+#### AcornTube- SearchBar.js 2/2
+The search bar has a text input followed by a button to trigger the search.
+
+- Copy this code to the bottom of SearchBar.js
+
+```javascript
+type Props = {onPressSearch:Function, loading:boolean};
+type State = {searchTerm:string};
+
+export class SearchBar extends Component<Props, State> {
+  state = { searchTerm: '' };
+  render() {
+    return (
+      <View style={styles.container}>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={searchTerm => this.setState({searchTerm})}
+          value={this.state.searchTerm}
+        />
+        <Button
+          buttonStyle={styles.button}
+          textStyle={styles.buttonTextStyle}
+          title="Search"
+          onPress={() => this.props.onPressSearch(this.state.searchTerm)}
+        />
+      </View>
+    )
+  }
+}
+```
+<!-- slide align="left" -->
+#### AcornTube- Import SearchBar.js
+
+Lets go back to **App.js** and import our new SearchBar component.
+
+Add an import for SearchBar to the top of **App.js**
+```javascript
+import { SearchBar } from './SearchBar';
+```
+
+Add the SearchBar component to the render() function, but log searches to the console.
+```jsx
+  render() {
+    return (
+      <View style={styles.container}>
+        <Header
+          centerComponent={{text: 'AcornTube', style: {color: 'white'}}}
+          outerContainerStyles={{backgroundColor: 'red'}}
+        />
+        <SearchBar
+          onPressSearch={(searchTerm:string)=> console.log('Searching for ' + searchTerm)}
+        />
+      </View>
+    );
+  }
+
+```
+<!-- slide align="left" -->
+#### AcornTube- What's it Look Like?
+If we run it now it will look like this:
+![AcornTube1](images/with_searchbar_2.png)
+
+<!-- slide align="left" -->
+#### AcornTube- Let's Start Searching
+
+Import YTSearch, a module we can use for searching youtube...
+Use API_KEY created in the [first tutorial](https://github.com/appsupport-at-acorn/react-and-rn-intro)
+Import additional components which will be useful.
+```javascript
+/** @flow */
+import React, {Component} from 'react';
+import { Text, View, Button, ListView, Image,
+  TouchableOpacity, StyleSheet} from 'react-native';
+import { Header, Card } from 'react-native-elements';
+import { SearchBar } from './SearchBar';
+import YTSearch from 'youtube-api-search';
+
+const API_KEY = 'YOUR_API_KEY_HERE' ; //'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
+
+```
+Add some more styles to use for search results, and define types for search results.
+```javascript
+// Stylesheet, like CSS
+const styles = StyleSheet.create({
+  container: {flex:1, alignItems: 'stretch'},
+  listview: {flex:1, marginTop:20},
+  card: { padding: 5 },
+  image: { alignSelf: 'stretch', height: 180 },
+  textBox: { flex: 1, padding: 1 },
+  title: { fontSize: 12, },
+  channel: { fontSize: 11, color: '#777', alignSelf: 'flex-end' },
+  description: { fontSize: 10, alignSelf: 'center' }
+});
+```
+
+<!-- slide align="left" -->
+#### AcornTube- Let's Start Searching
+
+Paste some Flow definitions above the Component declaration for state variables to keep track of when the YouTube search is searching and when a video is playing (not used yet...)
+
+```javascript
+
+// Flow type declarations
+type Video = {etag: string, kind:string, id:Object, snippet:Object };
+type Props = {};
+type State = {
+  ds:any,
+  videos: Array<Video>,
+  loading:boolean,
+  lastSearchTerm:string,
+  playingVideo:?Video
+};
+
+```
+
+<!-- slide align="left" -->
+#### AcornTube - App.js - Let's Start Searching
+
+Create a datasource and add/construct the list of videos to the App component.
+
+```javascript
+
+// Class declaration including the component types.
+export default class App extends Component<Props, State> {
+  ds:any;
+  state:State;
+
+  constructor() {
+    super()
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null };
+  }
+  // Function called when search button is pressed.
+  onPressSearch(searchTerm:string) {
+    this.setState({loading: true, lastSearchTerm:searchTerm});
+    YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
+      let ds = this.ds.cloneWithRows(videos);
+      this.setState({loading: false, videos: videos, ds:ds, playingVideo:null});
+    })
+  }
+```
+<!-- slide align="left" -->
+#### AcornTube - App.js - Start Searching 2/3
+
+Create a function that can render a "Card" for each incoming video, and call it from the renderRow() function.
+
+```javascript
+renderCardForVideo(video:Video){
+  return (
+    <TouchableOpacity style={{
+      flex:1, alignSelf:'stretch'}}
+      onPress={()=>{this.setState({playingVideo:video})
+      }}>
+      <Card containerStyle={styles.card}>
+        <Image style={styles.image}
+            source={{uri: video.snippet.thumbnails.medium.url}}
+        />
+        <View style={styles.textBox}>
+          <Text style={styles.title}>
+                      {video.snippet.title}
+          </Text>
+          <Text style={styles.channel}>
+                      {video.snippet.channelTitle}
+          </Text>
+          <Text style={styles.description}>
+                      {video.snippet.description}
+          </Text>
+        </View>
+      </Card>
+    </TouchableOpacity>
+  );
+}
+
+renderRow(video:Video, unused:string, index:string){
+  return this.renderCardForVideo(video);
+}
+```
+
+<!-- slide align="left" -->
+#### AcornTube - App.js - Start Searching 3/3
+
+Add a ListView which can render each search result.
+
+```javascript
+  render() {
+    const {loading, videos, lastSearchTerm, ds} = this.state;
+    return (
+      <View style={styles.container}>
+        <Header
+          centerComponent={{text: 'AcornTube', style: {color: 'white'}}}
+          outerContainerStyles={{backgroundColor: 'red'}}
+        />
+        <SearchBar
+          loading={loading}
+          onPressSearch={(searchTerm:string)=>{this.onPressSearch(searchTerm);}}
+        />
+        <ListView style={styles.listview}
+          enableEmptySections={true}
+          dataSource={ds}
+          renderRow={(rowData, unused, index) => {
+                     return this.renderRow(rowData, unused, index);
+          }}
+        ></ListView>
+      </View>
+    );
+  }
+}
+
+```
+
+<!-- slide align="left" -->
+#### AcornTube - Fancy Native Refresh Control.
+
+Import the native RefreshControl component from React-Native
+```javascript
+import { Text, View, Button, ListView, Image,
+  TouchableOpacity, StyleSheet, RefreshControl} from 'react-native';
+```
+
+Update the ListView component to add a RefreshControl
+```jsx
+<ListView style={styles.listview}
+  enableEmptySections={true}
+  dataSource={ds}
+  refreshControl={ <RefreshControl refreshing={loading}
+                   onRefresh={()=>{this.onPressSearch(lastSearchTerm)}} >
+                   </RefreshControl> }
+  renderRow={(rowData, unused, index) => {
+             return this.renderRow(rowData, unused, index);
+  }}
+></ListView>
+```
+
+Now do a new search and watch the fancy native animations.
+Pull down on the ListView and see what happens.
+
+<!-- slide align="left" -->
+#### AcornTube - Make it Play
+
+- Import react-native-youtube to App.js
+```javascript
+import YouTube from 'react-native-youtube';
+```
+
+- Create some styling for the youtube video player.
+```javascript
+// Stylesheet, like CSS
+const styles = StyleSheet.create({
+  ...
+  youtube: { alignSelf: 'stretch', height: 300 }
+});
+```
+
+<!-- slide align="left" -->
+#### AcornTube - Make it Play 2
+
+Update renderRow with some simple logic...
+```javascript
+If there is no video playing or this is not the currently playing video,
+  show the card.
+Else
+  show the youtube video component
+```
+
+The code
+
+```javascript
+  renderRow(video:Video, unused:string, index:string){
+    if ((null === this.state.playingVideo) || (video.etag !== this.state.playingVideo?.etag)){
+      return this.renderCardForVideo(video);
+    }
+    else {
+      return (
+        <YouTube
+          apiKey={API_KEY}
+          videoId={video.id.videoId}   // The YouTube video ID
+          play={true} controls={2}
+          style={styles.youtube}
+        /> )
+    }
+  }
+```
+
+<!-- slide align="left" -->
+#### AcornTube - Tweak the SearchBar
+
+Let's add an icon to the SearchBar button and update its text when it is searching...
+
+```jsx
+  <Button
+    buttonStyle={styles.button}
+    icon={{
+      name: 'search',
+      size: 18,
+      color: 'white'
+    }}
+    textStyle={styles.buttonTextStyle}
+    title={this.props.loading ? "Loading..." : "Search"}
+    onPress={() => this.props.onPressSearch(this.state.searchTerm)}
+  />
+```
+
+<!-- slide align="left" -->
+#### AcornTube - Result
+
+<img src="images/acorntube_final.png" height=800 />
+
+<!-- slide align="left" -->
 ### Expo Test (inst-a-corn)
 
-A simple instagram clone including shared server interface (Fire.js), some shared screens (FeedScreen.js, NewPostScreen.js, SelectPhotoScreen.js) and access to the camera, using Expo.
+If we get here, then we were REALLY fast.
+
+Let's test a simple instagram clone including shared server interface (Fire.js), some shared screens (FeedScreen.js, NewPostScreen.js, SelectPhotoScreen.js) and access to the camera, using Expo.
 
 ```sh
 git clone https://github.com/appsupport-at-acorn/rn-tutorial-instagram-clone instacorn
@@ -529,17 +970,14 @@ Run it
 expo start
 ```
 
-<!-- slide -->
+<!-- slide align="left" -->
 Instacorn Screenshot
 <img src="images/instacorn_screenshot.png" height=800 />
 
 We are using a private "Acorn" firebase database - could become a fun chat app for us Acornites with a little work!
 
-<!-- slide -->
 
-Proceed to the next [tutorial](examples/acorntube/README.md).
-
-<!-- slide -->
+<!-- slide align="left" -->
 ### React-Native Cons
 - Developing in Windows is less than ideal
   - Slow build time
