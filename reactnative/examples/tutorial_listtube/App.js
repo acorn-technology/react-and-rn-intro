@@ -26,10 +26,11 @@ type Video = {etag: string, kind:string, id:Object, snippet:Object };
 type Props = {};
 type State = {
   ds:any,
-  playingVideo:?Video,
   videos: Array<Video>,
   loading:boolean,
-  lastSearchTerm:string};
+  playingVideo:?Video,
+  lastSearchTerm:string
+};
 // Class declaration including the component types.
 export default class App extends Component<Props, State> {
   ds:any;
@@ -38,7 +39,7 @@ export default class App extends Component<Props, State> {
   constructor() {
     super()
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {playingVideo:null, videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"" };
+    this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null };
   }
   onPressSearch(searchTerm:string) {
     this.setState({loading: true, lastSearchTerm:searchTerm});
@@ -88,7 +89,7 @@ export default class App extends Component<Props, State> {
     }
   }
 
-  renderdd() {
+  render() {
     const {loading, videos, lastSearchTerm} = this.state;
     return (
       <View style={styles.container}>
@@ -110,19 +111,6 @@ export default class App extends Component<Props, State> {
                      return this.renderRow(rowData, unused, index);
           }}
         ></ListView>
-      </View>
-    );
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Header
-          centerComponent={{text: 'AcornTube', style: {color: 'white'}}}
-          outerContainerStyles={{backgroundColor: 'red'}}
-        />
-        <SearchBar
-          onPressSearch={(searchTerm:string)=>{}}
-        />
       </View>
     );
   }
