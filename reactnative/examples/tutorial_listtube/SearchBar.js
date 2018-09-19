@@ -3,7 +3,25 @@ import React, {Component} from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 
-type Props = {loading:boolean, onPressSearch:Function};
+// StyleSheet, like CSS
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row', backgroundColor: '#fff',
+    alignItems: 'center', justifyContent: 'center',
+  },
+  textInput: {
+    borderColor: 'gray', borderBottomWidth: 1, flex: 1, marginLeft: 10
+  },
+  button: {
+    height: 40, marginBottom: 8, flexDirection: 'row', alignItems: 'center',
+    borderRadius:5
+  },
+  buttonTextStyle: {
+    color:'white', height: 24, fontSize: 18, alignSelf: 'center'
+  }
+});
+
+type Props = {onPressSearch:Function, loading:boolean};
 type State = {searchTerm:string};
 
 export class SearchBar extends Component<Props, State> {
@@ -28,34 +46,6 @@ export class SearchBar extends Component<Props, State> {
           onPress={() => this.props.onPressSearch(this.state.searchTerm)}
         />
       </View>
-    );
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textInput: {
-    borderColor: 'gray',
-    borderBottomWidth: 1,
-    flex: 1,
-    marginLeft: 10
-  },
-  button: {
-    height: 40,
-    marginBottom: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius:5
-  },
-  buttonTextStyle: {
-    color:'white',
-    height: 24,
-    fontSize: 18,
-    alignSelf: 'center'
-  }
-});

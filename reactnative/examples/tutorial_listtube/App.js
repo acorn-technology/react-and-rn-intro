@@ -1,6 +1,7 @@
 /** @flow */
 import React, {Component} from 'react';
-import { Text, View, Button, ListView, Image, TouchableOpacity, StyleSheet, RefreshControl} from 'react-native';
+import { Text, View, Button, ListView, Image,
+  TouchableOpacity, StyleSheet, RefreshControl} from 'react-native';
 import { Header, Card } from 'react-native-elements';
 import { SearchBar } from './SearchBar';
 import YTSearch from 'youtube-api-search';
@@ -42,11 +43,11 @@ export default class App extends Component<Props, State> {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {videos:[], ds:this.ds.cloneWithRows([]), loading:false, lastSearchTerm:"", playingVideo:null };
   }
-
+  // Function called when search button is pressed.
   onPressSearch(searchTerm:string) {
     this.setState({loading: true, lastSearchTerm:searchTerm});
     YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
-      let ds = this.ds.cloneWithRows(videos)
+      let ds = this.ds.cloneWithRows(videos);
       this.setState({loading: false, videos: videos, ds:ds, playingVideo:null});
     })
   }
@@ -86,7 +87,7 @@ export default class App extends Component<Props, State> {
         <YouTube
           apiKey={API_KEY}
           videoId={video.id.videoId}   // The YouTube video ID
-          play={true} controls={1}
+          play={true} controls={2}
           style={styles.youtube}
         /> )
     }
