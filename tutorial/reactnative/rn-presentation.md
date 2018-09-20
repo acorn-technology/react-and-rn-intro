@@ -342,6 +342,8 @@ Let's fix it up using [Flexbox](https://facebook.github.io/react-native/docs/fle
 
 - Flexbox in combination with hot-reload makes rapid UI design possible.
 
+- [Complete React-Native Flexbox cheat sheet](https://medium.com/@drorbiran/the-full-react-native-layout-cheat-sheet-a4147802405c)
+
 - Here is a [flexbox cheatsheat pdf](http://jonibologna.com/content/images/flexboxsheet.pdf).
 
 - Here is a [one page cheat sheet](https://gapintelligence.com/blog/2017/the-flexbox-one-page-cheat-sheet)
