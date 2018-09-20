@@ -94,6 +94,31 @@ Create a first app and open the generated folder in Atom.
 react-native init tutorial_1
 ```
 
+##### 1.0.1 THEY BROKE STUFF YESTERDAY. DO THIS**
+
+If you have a yarn.lock in your project directory, do this:
+
+```bash
+yarn add @babel/plugin-external-helpers --dev
+yarn add react-transform-hmr
+```
+
+Otherwise (package.lock) use npm.
+
+```bash
+npm install --save-dev @babel/plugin-external-helpers
+npm install --save react-transform-hmr
+```
+
+##### 1.0.2 THEY BROKE MORE STUFF YESTERDAY. DO THIS IF YOU HAVE UPGRADED TO XCODE10 AND WANT TO BUILD IN IOS**
+1. Open the project in XCode
+1. Go to File > Project Settings
+1. Change Build System to Legacy Build System
+
+<!-- slide align="left" -->
+
+In Atom, open the newly created "tutorial_1" folder.
+
 Copy and paste this code over your App.js code for a basic example of how to use a native ListView component on both Android and iOS.
 
 ```javascript
@@ -532,21 +557,22 @@ Another workaround is to use [typescript](https://www.typescriptlang.org/) inste
 #### AcornTube - a crappier Youtube
 Add some new dependencies to support AcornTube and start rebuilding
 
-1. Using NPM:
-```bash
-npm install --save react-native-elements react-native-vector-icons
-npm install --save youtube-api-search react-native-youtube
-```
-2. Or Using Yarn:
+1. Using Yarn (if you have yarn.lock in your project directory)
 ```bash
 yarn add react-native-elements react-native-vector-icons --save
 yarn add youtube-api-search react-native-youtube --save
 ```
+
+2. OR Using NPM (if you have package.lock in your project directory)
+```bash
+npm install --save react-native-elements react-native-vector-icons
+npm install --save youtube-api-search react-native-youtube
+```
+
 Resulting package.json extract
 ```json
   "dependencies": {
-    "react": "16.5.0",
-    "react-native": "0.57.0",
+    ...
     "react-native-elements": "^0.19.1",
     "react-native-vector-icons": "^5.0.0",
     "react-native-youtube": "^1.1.0",
@@ -701,7 +727,7 @@ If we run it now it will look like this:
 
 <!-- slide align="left" -->
 #### AcornTube- Let's Start Searching
-
+Enable Flow
 Import YTSearch, a module we can use for searching youtube...
 Use API_KEY created in the [first tutorial]((https://github.com/appsupport-at-acorn/react-and-rn-intro/tree/master/tutorial/react))
 Import additional components which will be useful.
@@ -847,10 +873,12 @@ Add a ListView which can render each search result.
 
 ```
 
+Now type something in to the search bar, press Search, and see what happens...
+
 <!-- slide align="left" -->
 #### AcornTube - Fancy Native Refresh Control.
 
-Import the native RefreshControl component from React-Native
+In **App.js**, import the native RefreshControl component from React-Native
 ```javascript
 import { Text, View, Button, ListView, Image,
   TouchableOpacity, StyleSheet, RefreshControl} from 'react-native';
@@ -885,7 +913,7 @@ import YouTube from 'react-native-youtube';
 ```javascript
 // Stylesheet, like CSS
 const styles = StyleSheet.create({
-  ...
+  ...,
   youtube: { alignSelf: 'stretch', height: 300 }
 });
 ```

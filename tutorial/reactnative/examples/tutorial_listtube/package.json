@@ -12,9 +12,11 @@
     "react-native-elements": "^0.19.1",
     "react-native-vector-icons": "^5.0.0",
     "react-native-youtube": "^1.1.0",
+    "react-transform-hmr": "^1.0.4",
     "youtube-api-search": "^0.0.5"
   },
   "devDependencies": {
+    "@babel/plugin-external-helpers": "^7.0.0",
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.45.3",

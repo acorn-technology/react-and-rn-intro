@@ -7,7 +7,7 @@ import { SearchBar } from './SearchBar';
 import YTSearch from 'youtube-api-search';
 import YouTube from 'react-native-youtube';
 
-const API_KEY = 'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
+const API_KEY = 'AIzaSyDZQnFqq03QkxoQyUN-S_Zf4jdbz3y4GIE' ;//'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
 
 // Stylesheet, like CSS
 const styles = StyleSheet.create({

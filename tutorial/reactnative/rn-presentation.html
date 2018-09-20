@@ -1374,14 +1374,14 @@ body {
       
       </style>
       
-      <link rel="stylesheet" href="file:///C:\Users\CFOGELKL\.atom\packages\markdown-preview-enhanced\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      <link rel="stylesheet" href="file:////Users/chris/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
       
       
       
       
       
-        <script src="file:///C:\Users\CFOGELKL\.atom\packages\markdown-preview-enhanced\node_modules\@shd101wyy\mume\dependencies\reveal\lib\js\head.min.js"></script>
-        <script src="file:///C:\Users\CFOGELKL\.atom\packages\markdown-preview-enhanced\node_modules\@shd101wyy\mume\dependencies\reveal\js\reveal.js"></script>
+        <script src="file:////Users/chris/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/reveal/lib/js/head.min.js"></script>
+        <script src="file:////Users/chris/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/reveal/js/reveal.js"></script>
       
       
       
@@ -1950,7 +1950,24 @@ Learn Once, Write Anywhere</p>
 
 <p>Create a first app and open the generated folder in Atom.</p>
 <pre data-role="codeBlock" data-info="sh" class="language-bash">react-native init tutorial_1
-</pre><p>Copy and paste this code over your App.js code for a basic example of how to use a native ListView component on both Android and iOS.</p>
+</pre><h5 class="mume-header" id="101-they-broke-stuff-yesterday-do-this">1.0.1 THEY BROKE STUFF YESTERDAY. DO THIS**</h5>
+
+<p>If you have a yarn.lock in your project directory, do this:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">yarn add @babel/plugin-external-helpers --dev
+yarn add react-transform-hmr
+</pre><p>Otherwise (package.lock) use npm.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @babel/plugin-external-helpers
+<span class="token function">npm</span> <span class="token function">install</span> --save react-transform-hmr
+</pre><h5 class="mume-header" id="102-they-broke-more-stuff-yesterday-do-this-if-you-have-upgraded-to-xcode10-and-want-to-build-in-ios">1.0.2 THEY BROKE MORE STUFF YESTERDAY. DO THIS IF YOU HAVE UPGRADED TO XCODE10 AND WANT TO BUILD IN IOS**</h5>
+
+<ol>
+<li>Open the project in XCode</li>
+<li>Go to File &gt; Project Settings</li>
+<li>Change Build System to Legacy Build System</li>
+</ol>
+</section><section align="left" lineNo="117" class="slide " data-line="117" data-h="9" data-v="0">
+<p>In Atom, open the newly created &quot;tutorial_1&quot; folder.</p>
+<p>Copy and paste this code over your App.js code for a basic example of how to use a native ListView component on both Android and iOS.</p>
 <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span>Component<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span>Text<span class="token punctuation">,</span> View<span class="token punctuation">,</span> ListView<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-native'</span><span class="token punctuation">;</span>
 
@@ -1978,7 +1995,7 @@ Learn Once, Write Anywhere</p>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="128" class="slide " data-line="128" data-h="9" data-v="0">
+</pre></section><section align="left" lineNo="153" class="slide " data-line="153" data-h="10" data-v="0">
 <h3 class="mume-header" id="reload-the-app-to-see-changes">Reload the app to see changes</h3>
 
 <p>You need to reload the app to see any changes:</p>
@@ -2003,7 +2020,7 @@ Learn Once, Write Anywhere</p>
 </ul>
 <p>Then click on &quot;Reload&quot;<br>
 <img src="images/app1_screenshot.png" height="700/"></p>
-</section><section align="left" lineNo="144" class="slide " data-line="144" data-h="10" data-v="0">
+</section><section align="left" lineNo="169" class="slide " data-line="169" data-h="11" data-v="0">
 <h4 class="mume-header" id="breakdown-of-the-first-app-part-12">Breakdown of the first app, part 1/2</h4>
 
 <p>Import what is needed from react and react native.</p>
@@ -2021,7 +2038,7 @@ Learn Once, Write Anywhere</p>
       ds<span class="token punctuation">:</span> ds<span class="token punctuation">.</span><span class="token function">cloneWithRows</span><span class="token punctuation">(</span> numbers <span class="token punctuation">)</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="170" class="slide " data-line="170" data-h="11" data-v="0">
+</pre></section><section align="left" lineNo="195" class="slide " data-line="195" data-h="12" data-v="0">
 <h4 class="mume-header" id="breakdown-of-the-first-app-part-22">Breakdown of the first app, part 2/2</h4>
 
 <p>The react-native knows to call the render function in each component.</p>
@@ -2043,7 +2060,7 @@ Learn Once, Write Anywhere</p>
 </pre><p>The render() function returns the <code>&lt;jsx&gt;&lt;/jsx&gt;</code> which defines the screen.<br>
 The list view component's props expect a function (renderRow) which knows how to display each row. We define this here too.<br>
 The renderRow() property is set to a lambda which prints the row number, and the rowData.</p>
-</section><section align="left" lineNo="195" class="slide " data-line="195" data-h="12" data-v="0">
+</section><section align="left" lineNo="220" class="slide " data-line="220" data-h="13" data-v="0">
 <h3 class="mume-header" id="live-reload-and-hot-reload">Live Reload and Hot Reload</h3>
 
 <h4 class="mume-header" id="live-reload">Live Reload</h4>
@@ -2066,7 +2083,7 @@ The renderRow() property is set to a lambda which prints the row number, and the
 </ul>
 </li>
 </ul>
-</section><section align="left" lineNo="213" class="slide " data-line="213" data-h="13" data-v="0">
+</section><section align="left" lineNo="238" class="slide " data-line="238" data-h="14" data-v="0">
 <h3 class="mume-header" id="lets-enable-live-reload">Let's enable Live Reload</h3>
 
 <ul>
@@ -2083,7 +2100,7 @@ The renderRow() property is set to a lambda which prints the row number, and the
 </li>
 <li>Now any time you make a change to the app and save it, your app will reload automagically.  Make a small change to your App.js and see that it reloads.</li>
 </ul>
-</section><section align="left" lineNo="223" class="slide " data-line="223" data-h="14" data-v="0">
+</section><section align="left" lineNo="248" class="slide " data-line="248" data-h="15" data-v="0">
 <h3 class="mume-header" id="example-app-2-contact-list-code-12">Example App 2 - Contact List Code 1/2</h3>
 
 <p>We'll now create a fake contact list app, with a button to add a new random contact.<br>
@@ -2118,7 +2135,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
   <span class="token punctuation">}</span>
   <span class="token keyword">return</span> number<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="261" class="slide " data-line="261" data-h="15" data-v="0">
+</pre></section><section align="left" lineNo="286" class="slide " data-line="286" data-h="16" data-v="0">
 <h3 class="mume-header" id="example-app-2-contact-list-code-22">Example App 2 - Contact List Code 2/2</h3>
 
 <p>Replace the inside of your App component with the following code.</p>
@@ -2155,13 +2172,13 @@ Paste this over the top of your App.js, above the component declaration.</p>
           onPress<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">addOneContact</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">}</span> style<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>alignSelf<span class="token punctuation">:</span><span class="token string">'center'</span><span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span>
       <span class="token operator">&lt;</span><span class="token operator">/</span>View<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="300" class="slide " data-line="300" data-h="16" data-v="0">
+</pre></section><section align="left" lineNo="325" class="slide " data-line="325" data-h="17" data-v="0">
 <h3 class="mume-header" id="it-works-but-its-ugly">It works, but it's ugly</h3>
 
 <p><img src="images/contacts_ugly.png" alt="ugly"></p>
 <p>Note the &quot;native&quot; button at the bottom!</p>
 <p>Let's fix it up using <a href="https://facebook.github.io/react-native/docs/flexbox">Flexbox</a></p>
-</section><section align="left" lineNo="308" class="slide " data-line="308" data-h="17" data-v="0">
+</section><section align="left" lineNo="333" class="slide " data-line="333" data-h="18" data-v="0">
 <h3 class="mume-header" id="flexbox">Flexbox</h3>
 
 <img src="images/flex-box_img.png">
@@ -2182,7 +2199,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
 <p>Here is a <a href="https://gapintelligence.com/blog/2017/the-flexbox-one-page-cheat-sheet">one page cheat sheet</a></p>
 </li>
 </ul>
-</section><section align="left" lineNo="323" class="slide " data-line="323" data-h="18" data-v="0">
+</section><section align="left" lineNo="348" class="slide " data-line="348" data-h="19" data-v="0">
 <h3 class="mume-header" id="lets-use-styles-and-flexbox">Let's use styles and flexbox.</h3>
 
 <ul>
@@ -2206,7 +2223,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </pre><p>Play around with the definitions to see if you can make it prettier.</p>
-</section><section align="left" lineNo="348" class="slide " data-line="348" data-h="19" data-v="0">
+</section><section align="left" lineNo="373" class="slide " data-line="373" data-h="20" data-v="0">
 <h3 class="mume-header" id="lets-call-someone">Let's call someone.</h3>
 
 <ul>
@@ -2216,7 +2233,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
 <li>Import TouchableOpacity and Alert</li>
 </ul>
 <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span>Text<span class="token punctuation">,</span> View<span class="token punctuation">,</span> Button<span class="token punctuation">,</span> ListView<span class="token punctuation">,</span> Image<span class="token punctuation">,</span> TouchableOpacity<span class="token punctuation">,</span> Alert<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-native'</span><span class="token punctuation">;</span>
-</pre></section><section align="left" lineNo="360" class="slide " data-line="360" data-h="20" data-v="0">
+</pre></section><section align="left" lineNo="385" class="slide " data-line="385" data-h="21" data-v="0">
 <h4 class="mume-header" id="add-an-alert-and-print-output-to-console">Add an alert, and print output to console.</h4>
 
 <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token function">renderRow</span><span class="token punctuation">(</span>rowData<span class="token punctuation">,</span> unused<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -2243,7 +2260,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
 <span class="token punctuation">}</span>
 </pre><p>Pressing a contact results in a platform-native alert window with two buttons.<br>
 <img src="images/calling_alert.png" alt="alert"></p>
-</section><section align="left" lineNo="389" class="slide " data-line="389" data-h="21" data-v="0">
+</section><section align="left" lineNo="414" class="slide " data-line="414" data-h="22" data-v="0">
 <h4 class="mume-header" id="wheres-the-debug-console-13">Where's the debug console? 1/3</h4>
 
 <p>If we want to debug the javascript, or see the console, we can use Chrome as a debugger....</p>
@@ -2253,12 +2270,12 @@ Paste this over the top of your App.js, above the component declaration.</p>
 <li>Chrome should open a new tab<br>
 <img src="images/debug_console_1.png" alt="debug 1"></li>
 </ul>
-</section><section align="left" lineNo="399" class="slide " data-line="399" data-h="22" data-v="0">
+</section><section align="left" lineNo="424" class="slide " data-line="424" data-h="23" data-v="0">
 <h4 class="mume-header" id="wheres-the-debug-console-23">Where's the debug console? 2/3</h4>
 
 <p>Select &quot;...&quot;--&gt;&quot;More Tools&quot;--&gt;Developer Tools<br>
 <img src="images/debug_console_2.png" alt="debug 2"></p>
-</section><section align="left" lineNo="405" class="slide " data-line="405" data-h="23" data-v="0">
+</section><section align="left" lineNo="430" class="slide " data-line="430" data-h="24" data-v="0">
 <h4 class="mume-header" id="wheres-the-debug-console-33">Where's the debug console? 3/3</h4>
 
 <p><img src="images/debug_console_3.png" alt="debug 3"></p>
@@ -2267,7 +2284,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
 <li>You can set breakpoints from within chrome.</li>
 <li>Now make a call, and you will see the call printed in the console.</li>
 </ul>
-</section><section align="left" lineNo="413" class="slide " data-line="413" data-h="24" data-v="0">
+</section><section align="left" lineNo="438" class="slide " data-line="438" data-h="25" data-v="0">
 <h3 class="mume-header" id="flow-16">Flow 1/6</h3>
 
 <ul>
@@ -2277,7 +2294,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
 <li>Enabled by adding @flow at the top of the document</li>
 <li>Let's &quot;flow-ize&quot; the app so we can catch errors when writing code instead of crashing suddenly while running code.</li>
 </ul>
-</section><section align="left" lineNo="421" class="slide " data-line="421" data-h="25" data-v="0">
+</section><section align="left" lineNo="446" class="slide " data-line="446" data-h="26" data-v="0">
 <h3 class="mume-header" id="flow-26">Flow 2/6</h3>
 
 <p>Add @flow to the top of <strong>App.js</strong>. This tells flow that you have introduced Flow types to the file and that it should start throwing errors on the file.</p>
@@ -2308,7 +2325,7 @@ Paste this over the top of your App.js, above the component declaration.</p>
   <span class="token punctuation">}</span>
   <span class="token keyword">return</span> number<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="454" class="slide " data-line="454" data-h="26" data-v="0">
+</pre></section><section align="left" lineNo="479" class="slide " data-line="479" data-h="27" data-v="0">
 <h3 class="mume-header" id="flow-36">Flow 3/6</h3>
 
 <p>Define the types used by the App Component above the Component declaration.</p>
@@ -2324,7 +2341,7 @@ Declare objects used by the class.</p>
   state<span class="token punctuation">:</span>State<span class="token punctuation">;</span>
   <span class="token operator">...</span>
 <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="476" class="slide " data-line="476" data-h="27" data-v="0">
+</pre></section><section align="left" lineNo="501" class="slide " data-line="501" data-h="28" data-v="0">
 <h3 class="mume-header" id="flow-46">Flow 4/6</h3>
 
 <p>Update types passed into the addOneContact() and renderRow() components</p>
@@ -2360,37 +2377,36 @@ Declare objects used by the class.</p>
       <span class="token operator">&lt;</span><span class="token operator">/</span>TouchableOpacity<span class="token operator">></span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="514" class="slide " data-line="514" data-h="28" data-v="0">
+</pre></section><section align="left" lineNo="539" class="slide " data-line="539" data-h="29" data-v="0">
 <h3 class="mume-header" id="flow-56">Flow 5/6</h3>
 
 <p>Make some mistakes in the code and see what happens in the IDE<br>
 <img src="images/flow_error_catch.png" alt="flow error"><br>
 Flow also enables auto-complete in javascript code.  Type the object name for a known type, and Atom with Nuclide will provide appropriate autocomplete selections.</p>
-</section><section align="left" lineNo="520" class="slide " data-line="520" data-h="29" data-v="0">
+</section><section align="left" lineNo="545" class="slide " data-line="545" data-h="30" data-v="0">
 <h3 class="mume-header" id="flow-66">Flow 6/6</h3>
 
 <p><strong>Flow and Windows</strong><br>
 Flow is BAD on windows. A workaround is to host the files on an OSX or Linux machine running nuclide server (<code>npm install -g nuclide</code>), run the nuclide Atom plugin in atom (<code>apm install nuclide</code>), then open a &quot;remote&quot; project in Atom.  Flow then works flawlessly.</p>
 <img src="images/add_remote_folder.png" height="450">
 <p>Another workaround is to use <a href="https://www.typescriptlang.org/">typescript</a> instead of flow, but these conflict, so for this tutorial I have chosen to show flow.  You need to choose before starting your own RN project.</p>
-</section><section align="left" lineNo="530" class="slide " data-line="530" data-h="30" data-v="0">
+</section><section align="left" lineNo="555" class="slide " data-line="555" data-h="31" data-v="0">
 <h4 class="mume-header" id="acorntube-a-crappier-youtube">AcornTube - a crappier Youtube</h4>
 
 <p>Add some new dependencies to support AcornTube and start rebuilding</p>
 <ol>
-<li>Using NPM:</li>
-</ol>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save react-native-elements react-native-vector-icons
-<span class="token function">npm</span> <span class="token function">install</span> --save youtube-api-search react-native-youtube
-</pre><ol start="2">
-<li>Or Using Yarn:</li>
+<li>Using Yarn (if you have yarn.lock in your project directory)</li>
 </ol>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">yarn add react-native-elements react-native-vector-icons --save
 yarn add youtube-api-search react-native-youtube --save
+</pre><ol start="2">
+<li>OR Using NPM (if you have package.lock in your project directory)</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save react-native-elements react-native-vector-icons
+<span class="token function">npm</span> <span class="token function">install</span> --save youtube-api-search react-native-youtube
 </pre><p>Resulting package.json extract</p>
 <pre data-role="codeBlock" data-info="json" class="language-json">  <span class="token property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"react"</span><span class="token operator">:</span> <span class="token string">"16.5.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"react-native"</span><span class="token operator">:</span> <span class="token string">"0.57.0"</span><span class="token punctuation">,</span>
+    ...
     <span class="token property">"react-native-elements"</span><span class="token operator">:</span> <span class="token string">"^0.19.1"</span><span class="token punctuation">,</span>
     <span class="token property">"react-native-vector-icons"</span><span class="token operator">:</span> <span class="token string">"^5.0.0"</span><span class="token punctuation">,</span>
     <span class="token property">"react-native-youtube"</span><span class="token operator">:</span> <span class="token string">"^1.1.0"</span><span class="token punctuation">,</span>
@@ -2401,7 +2417,7 @@ yarn add youtube-api-search react-native-youtube --save
 </pre><p>If you need to support iOS as well, linking youtube player requires an extra step:<br>
 <code>npm install -g rnpm</code> &amp;&amp; <code>rnpm link</code></p>
 <p>Finally: <code>react-native run-ios</code> or <code>react-native run-android</code></p>
-</section><section align="left" lineNo="565" class="slide " data-line="565" data-h="31" data-v="0">
+</section><section align="left" lineNo="591" class="slide " data-line="591" data-h="32" data-v="0">
 <h4 class="mume-header" id="acorntube-component-structure">AcornTube- Component structure</h4>
 
 <p>Our app will contain three main components, a header, a search-bar and a list of videos(search results).</p>
@@ -2432,12 +2448,12 @@ yarn add youtube-api-search react-native-youtube --save
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </pre><p>We imported StyleSheet. A StyleSheet is like CSS in html. It lets you define the &quot;styles&quot; used in a component or (if exported) an entire app.</p>
-</section><section align="left" lineNo="600" class="slide " data-line="600" data-h="32" data-v="0">
+</section><section align="left" lineNo="626" class="slide " data-line="626" data-h="33" data-v="0">
 <h4 class="mume-header" id="acorntube-it-begins">AcornTube- It Begins</h4>
 
 <p>Now your application should look like this:<br>
 <img src="images/screenshot_just_header.png" height="1000"></p>
-</section><section align="left" lineNo="605" class="slide " data-line="605" data-h="33" data-v="0">
+</section><section align="left" lineNo="631" class="slide " data-line="631" data-h="34" data-v="0">
 <h4 class="mume-header" id="acorntube-searchbarjs-12">AcornTube- SearchBar.js 1/2</h4>
 
 <p>Create an additional files beside App.js called SearchBar.js (<code>touch SearchBar.js</code> or use Atom--&gt;RightClickInProject--&gt;New--&gt;File--&gt;SearchBar.js)</p>
@@ -2467,7 +2483,7 @@ yarn add youtube-api-search react-native-youtube --save
     color<span class="token punctuation">:</span><span class="token string">'white'</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">,</span> fontSize<span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">,</span> alignSelf<span class="token punctuation">:</span> <span class="token string">'center'</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</pre></section><section align="left" lineNo="638" class="slide " data-line="638" data-h="34" data-v="0">
+</pre></section><section align="left" lineNo="664" class="slide " data-line="664" data-h="35" data-v="0">
 <h4 class="mume-header" id="acorntube-searchbarjs-22">AcornTube- SearchBar.js 2/2</h4>
 
 <p>The search bar has a text input followed by a button to trigger the search.</p>
@@ -2497,7 +2513,7 @@ type State <span class="token operator">=</span> <span class="token punctuation"
     <span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="669" class="slide " data-line="669" data-h="35" data-v="0">
+</pre></section><section align="left" lineNo="695" class="slide " data-line="695" data-h="36" data-v="0">
 <h4 class="mume-header" id="acorntube-import-searchbarjs">AcornTube- Import SearchBar.js</h4>
 
 <p>Lets go back to <strong>App.js</strong> and import our new SearchBar component.</p>
@@ -2518,15 +2534,16 @@ type State <span class="token operator">=</span> <span class="token punctuation"
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
-</pre></section><section align="left" lineNo="696" class="slide " data-line="696" data-h="36" data-v="0">
+</pre></section><section align="left" lineNo="722" class="slide " data-line="722" data-h="37" data-v="0">
 <h4 class="mume-header" id="acorntube-whats-it-look-like">AcornTube- What's it Look Like?</h4>
 
 <p>If we run it now it will look like this:<br>
 <img src="images/with_searchbar_2.png" height="800"></p>
-</section><section align="left" lineNo="701" class="slide " data-line="701" data-h="37" data-v="0">
+</section><section align="left" lineNo="727" class="slide " data-line="727" data-h="38" data-v="0">
 <h4 class="mume-header" id="acorntube-lets-start-searching">AcornTube- Let's Start Searching</h4>
 
-<p>Import YTSearch, a module we can use for searching youtube...<br>
+<p>Enable Flow<br>
+Import YTSearch, a module we can use for searching youtube...<br>
 Use API_KEY created in the <a href="(https://github.com/appsupport-at-acorn/react-and-rn-intro/tree/master/tutorial/react)">first tutorial</a><br>
 Import additional components which will be useful.</p>
 <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token comment">/** @flow */</span>
@@ -2551,7 +2568,7 @@ Import additional components which will be useful.</p>
   channel<span class="token punctuation">:</span> <span class="token punctuation">{</span> fontSize<span class="token punctuation">:</span> <span class="token number">11</span><span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token string">'#777'</span><span class="token punctuation">,</span> alignSelf<span class="token punctuation">:</span> <span class="token string">'flex-end'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
   description<span class="token punctuation">:</span> <span class="token punctuation">{</span> fontSize<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> alignSelf<span class="token punctuation">:</span> <span class="token string">'center'</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</pre></section><section align="left" lineNo="734" class="slide " data-line="734" data-h="38" data-v="0">
+</pre></section><section align="left" lineNo="760" class="slide " data-line="760" data-h="39" data-v="0">
 <h4 class="mume-header" id="acorntube-lets-start-searching-1">AcornTube- Let's Start Searching</h4>
 
 <p>Paste some Flow definitions above the Component declaration for state variables to keep track of when the YouTube search is searching and when a video is playing (not used yet...)</p>
@@ -2567,7 +2584,7 @@ type State <span class="token operator">=</span> <span class="token punctuation"
   playingVideo<span class="token punctuation">:</span><span class="token operator">?</span>Video
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-</pre></section><section align="left" lineNo="754" class="slide " data-line="754" data-h="39" data-v="0">
+</pre></section><section align="left" lineNo="780" class="slide " data-line="780" data-h="40" data-v="0">
 <h4 class="mume-header" id="acorntube-appjs-lets-start-searching">AcornTube - App.js - Let's Start Searching</h4>
 
 <p>Create a datasource and add/construct the list of videos to the App component.</p>
@@ -2590,7 +2607,7 @@ type State <span class="token operator">=</span> <span class="token punctuation"
       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>loading<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> videos<span class="token punctuation">:</span> videos<span class="token punctuation">,</span> ds<span class="token punctuation">:</span>ds<span class="token punctuation">,</span> playingVideo<span class="token punctuation">:</span><span class="token keyword">null</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="780" class="slide " data-line="780" data-h="40" data-v="0">
+</pre></section><section align="left" lineNo="806" class="slide " data-line="806" data-h="41" data-v="0">
 <h4 class="mume-header" id="acorntube-appjs-start-searching-23">AcornTube - App.js - Start Searching 2/3</h4>
 
 <p>Create a function that can render a &quot;Card&quot; for each incoming video, and call it from the renderRow() function.</p>
@@ -2623,7 +2640,7 @@ type State <span class="token operator">=</span> <span class="token punctuation"
 <span class="token function">renderRow</span><span class="token punctuation">(</span>video<span class="token punctuation">:</span>Video<span class="token punctuation">,</span> unused<span class="token punctuation">:</span>string<span class="token punctuation">,</span> index<span class="token punctuation">:</span>string<span class="token punctuation">)</span><span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">renderCardForVideo</span><span class="token punctuation">(</span>video<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="817" class="slide " data-line="817" data-h="41" data-v="0">
+</pre></section><section align="left" lineNo="843" class="slide " data-line="843" data-h="42" data-v="0">
 <h4 class="mume-header" id="acorntube-appjs-start-searching-33">AcornTube - App.js - Start Searching 3/3</h4>
 
 <p>Add a ListView which can render each search result.</p>
@@ -2651,10 +2668,11 @@ type State <span class="token operator">=</span> <span class="token punctuation"
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-</pre></section><section align="left" lineNo="849" class="slide " data-line="849" data-h="42" data-v="0">
+</pre><p>Now type something in to the search bar, press Search, and see what happens...</p>
+</section><section align="left" lineNo="877" class="slide " data-line="877" data-h="43" data-v="0">
 <h4 class="mume-header" id="acorntube-fancy-native-refresh-control">AcornTube - Fancy Native Refresh Control.</h4>
 
-<p>Import the native RefreshControl component from React-Native</p>
+<p>In <strong>App.js</strong>, import the native RefreshControl component from React-Native</p>
 <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Text<span class="token punctuation">,</span> View<span class="token punctuation">,</span> Button<span class="token punctuation">,</span> ListView<span class="token punctuation">,</span> Image<span class="token punctuation">,</span>
   TouchableOpacity<span class="token punctuation">,</span> StyleSheet<span class="token punctuation">,</span> RefreshControl<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-native'</span><span class="token punctuation">;</span>
 </pre><p>Update the ListView component to add a RefreshControl</p>
@@ -2670,7 +2688,7 @@ type State <span class="token operator">=</span> <span class="token punctuation"
 <span class="token operator">></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ListView</span><span class="token punctuation">></span></span>
 </pre><p>Now do a new search and watch the fancy native animations.<br>
 Pull down on the ListView and see what happens.</p>
-</section><section align="left" lineNo="875" class="slide " data-line="875" data-h="43" data-v="0">
+</section><section align="left" lineNo="903" class="slide " data-line="903" data-h="44" data-v="0">
 <h4 class="mume-header" id="acorntube-make-it-play">AcornTube - Make it Play</h4>
 
 <ul>
@@ -2682,10 +2700,10 @@ Pull down on the ListView and see what happens.</p>
 </ul>
 <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token comment">// Stylesheet, like CSS</span>
 <span class="token keyword">const</span> styles <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  <span class="token operator">...</span>
+  <span class="token operator">...</span><span class="token punctuation">,</span>
   youtube<span class="token punctuation">:</span> <span class="token punctuation">{</span> alignSelf<span class="token punctuation">:</span> <span class="token string">'stretch'</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">300</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</pre></section><section align="left" lineNo="892" class="slide " data-line="892" data-h="44" data-v="0">
+</pre></section><section align="left" lineNo="920" class="slide " data-line="920" data-h="45" data-v="0">
 <h4 class="mume-header" id="acorntube-make-it-play-2">AcornTube - Make it Play 2</h4>
 
 <p>Update renderRow with some simple logic...</p>
@@ -2708,7 +2726,7 @@ Else
         <span class="token operator">/</span><span class="token operator">></span> <span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-</pre></section><section align="left" lineNo="922" class="slide " data-line="922" data-h="45" data-v="0">
+</pre></section><section align="left" lineNo="950" class="slide " data-line="950" data-h="46" data-v="0">
 <h4 class="mume-header" id="acorntube-tweak-the-searchbar">AcornTube - Tweak the SearchBar</h4>
 
 <p>Let's add an icon to the SearchBar button and update its text when it is searching...</p>
@@ -2723,11 +2741,11 @@ Else
     <span class="token attr-name">title</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>loading <span class="token operator">?</span> <span class="token string">"Loading..."</span> <span class="token punctuation">:</span> <span class="token string">"Search"</span><span class="token punctuation">}</span></span>
     <span class="token attr-name">onPress</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span><span class="token function">onPressSearch</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>searchTerm<span class="token punctuation">)</span><span class="token punctuation">}</span></span>
   <span class="token punctuation">/></span></span>
-</pre></section><section align="left" lineNo="941" class="slide " data-line="941" data-h="46" data-v="0">
+</pre></section><section align="left" lineNo="969" class="slide " data-line="969" data-h="47" data-v="0">
 <h4 class="mume-header" id="acorntube-result">AcornTube - Result</h4>
 
 <img src="images/acorntube_final.png" height="800">
-</section><section align="left" lineNo="946" class="slide " data-line="946" data-h="47" data-v="0">
+</section><section align="left" lineNo="974" class="slide " data-line="974" data-h="48" data-v="0">
 <h3 class="mume-header" id="expo-test-inst-a-corn">Expo Test (inst-a-corn)</h3>
 
 <p>If we get here, then we were REALLY fast.</p>
@@ -2740,11 +2758,11 @@ Else
 <pre data-role="codeBlock" data-info="sh" class="language-bash"><span class="token function">npm</span> <span class="token function">install</span>
 </pre><p>Run it</p>
 <pre data-role="codeBlock" data-info="sh" class="language-bash">expo start
-</pre></section><section align="left" lineNo="972" class="slide " data-line="972" data-h="48" data-v="0">
+</pre></section><section align="left" lineNo="1000" class="slide " data-line="1000" data-h="49" data-v="0">
 <p>Instacorn Screenshot<br>
 <img src="images/instacorn_screenshot.png" height="800"></p>
 <p>We are using a private &quot;Acorn&quot; firebase database - could become a fun chat app for us Acornites with a little work!</p>
-</section><section align="left" lineNo="978" class="slide " data-line="978" data-h="49" data-v="0">
+</section><section align="left" lineNo="1006" class="slide " data-line="1006" data-h="50" data-v="0">
 <h4 class="mume-header" id="acorntube-episode-i">AcornTube Episode I</h4>
 
 <p>If we get here we were REALLY, REALLY fast.</p>
@@ -2752,7 +2770,7 @@ Else
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">git</span> clone https://github.com/Glottris/-expo_youTube_tutorial
 </pre><p>I used that code as a jumping off point for the code in this tutorial, but made changes for consistency between earlier portions of this tutorial.</p>
 <p>There is a <a href="examples/acorntube_like_first_react_tutorial/readme.md">readme</a> in that tutorial with instructions on installing, building and running it.</p>
-</section><section align="left" lineNo="992" class="slide " data-line="992" data-h="50" data-v="0">
+</section><section align="left" lineNo="1020" class="slide " data-line="1020" data-h="51" data-v="0">
 <h3 class="mume-header" id="react-native-cons">React-Native Cons</h3>
 
 <ul>
