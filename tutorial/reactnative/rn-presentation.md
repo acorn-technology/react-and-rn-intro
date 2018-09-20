@@ -51,7 +51,7 @@ Learn Once, Write Anywhere
 - Pure Android/iOS application is compiled from source and deployed to phone. This application includes all necessary native components, including native Java/Kotlin/Obj-C/Swift/C++ libraries needed by the javascript.
 - Node web server runs which holds all of the React-Native JavaScript code.
 - In Debug mode, the JavaScript code bundled and transferred from the development PC to the phone via USB/WIFI/Ethernet/etc...
-  - This enables **live reload** and **hot reload** on changes to the JavaScript UX.
+  - This enables **live reload** and **hot reload** on changes to the JavaScript UI or logic.
 - In Release mode, the JavaScript code is bundled as a blob included in the release app.
 
 <!-- slide align="left" -->
@@ -61,11 +61,12 @@ Learn Once, Write Anywhere
 - "Normal" apps are not limited by the provided RN API
   - Huge community of 3rd party modules
   - Roll your own native modules
-- Lean UX development (hot reloading speeds UX development)
+- Lean UX development (rapid prototyping and iterations)
 - Share pure javascript code between server and client
 - One development team needed with Javascript competence, rather than separate Android/iOS teams
 - Use native views, buttons, lists, video-players, camera app, gallery app, maps, etc.
 - Distribute javascript code independently of app ("Expo").
+- Cons will come later... but we have already experienced one of them.
 
 <!-- slide align="left" -->
 ### React Native vs Expo
@@ -88,7 +89,7 @@ Learn Once, Write Anywhere
 <!-- slide align="left" -->
 ### Example App 1
 
-Create a first app and open the generated folder in Atom.
+Create a first app.
 
 ```sh
 react-native init tutorial_1
@@ -117,7 +118,7 @@ npm install --save react-transform-hmr
 
 <!-- slide align="left" -->
 
-In Atom, open the newly created "tutorial_1" folder.
+In Atom (or your IDE), open the newly created "tutorial_1" folder.
 
 Copy and paste this code over your App.js code for a basic example of how to use a native ListView component on both Android and iOS.
 
