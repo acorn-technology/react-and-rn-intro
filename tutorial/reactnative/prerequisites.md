@@ -76,7 +76,7 @@ This tool allows you to get a full nuclide development experience on Windows, bu
 
 npm install -g nuclide
 
-#### Test your new development environment 1.
+#### 1.0 Test your new development environment 1.
 
 - Create a pure React-Native project called "tutorial_1"
 
@@ -86,11 +86,24 @@ react-native init tutorial_1
 cd tutorial_1
 ```
 
+##### 1.0.1 THEY BROKE STUFF YESTERDAY. DO THIS**
+
+```bash
+npm install --save-dev @babel/plugin-external-helpers
+```
+
+##### 1.0.2 THEY BROKE MORE STUFF YESTERDAY. DO THIS IF YOU HAVE UPGRADED TO XCODE10 AND WANT TO BUILD IN IOS**
+1. Open the project in XCode
+1. Go to File > Project Settings
+1. Change Build System to Legacy Build System
+
+#### 1.1
 To build and run your new app on iOS:
 ```bash
 react-native run-ios
 ```
 
+#### 1.2
 To build and run your new app on Android:
 ```bash
 react-native run-android
