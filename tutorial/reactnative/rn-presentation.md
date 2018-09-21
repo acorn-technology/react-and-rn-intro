@@ -743,7 +743,7 @@ import { Header, Card } from 'react-native-elements';
 import { SearchBar } from './SearchBar';
 import YTSearch from 'youtube-api-search';
 
-const API_KEY = 'YOUR_API_KEY_HERE' ; //'AIzaSyDNuniWTHCHeuq4ZxK-WWbO0pENHYMMCMs'
+const API_KEY = 'YOUR_API_KEY_HERE' ; //'AIzaSyDNuniWTHCHeuq4ZxKxxxxxxxxx'
 
 ```
 Add some more styles to use for search results, and define types for search results.
