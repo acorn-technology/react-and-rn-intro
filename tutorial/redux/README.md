@@ -58,7 +58,7 @@ Okay, that was a little bit about the current status of the application. Now it'
 
 We will now implement Redux from scratch so that you will get a good understanding of the pattern. I'm encouraging you to think about the pattern and concepts we've been talking about and not just copy-pasting the code.
 
-![alt text](images/data-flow3.png)
+<img src="images/data-flow3.png" height="300"/>
 
 Start off by opening the project in your editor of choice.
 
