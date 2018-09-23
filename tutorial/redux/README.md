@@ -5,7 +5,7 @@ Welcome to the Redux tutorial! Focus is going to be on understanding the pattern
 ## Prerequisites
 
 Good news! You barely have to install anything this time! It's the same prerequisites as the first session. So if you bring the same computer, you should be good to go. The only thing I ask you to do is to make sure that you have a *working* video player app. If you didn't have the time to finish the app from the React session, clone the repo here:
-`https://github.com/appsupport-at-acorn/react-and-rn-intro` and navigate into `tutorial/redux/source/start/my-app`. Update your YouTube API-key in `app.js` and run `npm install` and `npm start`, just to see that the app is working.
+https://github.com/appsupport-at-acorn/react-and-rn-intro and navigate into `tutorial/redux/source/start/my-app`. Update your YouTube API-key in `app.js` and run `npm install` and `npm start`, just to see that the app is working.
 
 ## Redux from scratch
 
@@ -19,13 +19,13 @@ We will now implement Redux from scratch so that you will get a good understandi
 
 There's one important statement to make here. React, like we discussed in the first session, has a virtual DOM that contains a clever diffing algorithm that optimizes repaints of the page based on when the state changes. Implementing Redux from scratch together with React would be very cumbersome, because we cannot call the `render()` function manually (the components would simply loose their state if we try to do that).
 
-Instead, we'll just go plain vanilla in this first exercise. Unfortunately we cannot re-use the JSX components and HTML markup that we created last time, and for the sake of simplicity another domain has been chosen - the classical **TODO List**. I've prepared a pretty UI for you, no worries. Save [this](./source/solution/redux-from-scratch/index.html) file somewhere (location doesn't matter) and open it in your browser. Be aware that there will be no live-reload on that page so you'd have to hit F5 to see your changes.
+Instead, we'll just go plain vanilla in this first exercise. Unfortunately we cannot re-use the JSX components and HTML markup that we created last time, and for the sake of simplicity another domain has been chosen - the classical **TODO** app. I've prepared a pretty UI for you, no worries. Save [this](./source/solution/redux-from-scratch/index.html) file somewhere (location doesn't matter) and open it in your browser. Be aware that there will be no live-reload on that page so you'd have to hit F5 to see your changes.
 
 What we will try to build is this:
 
 <br/>
 
-<img src="images/todo.png" height="500"/>
+<img src="images/todo.png" />
 
 <br/>
 
@@ -131,7 +131,7 @@ Pay attention to the spread-operator (...) above. It's the same thing as literal
     const a = {foo: 'foo', bar: 'bar'};
     const b = {...a, foo: 'haz'}; // {foo: 'haz', bar: 'bar'}
 
-Now, in order for the store to be able to update its state, it has to call the reducer. Let's pass it a reference to it.
+Enough JavaScript mumbojumbo. Now, in order for the store to be able to update its state, it has to call the reducer. Let's pass it a reference to it.
 
     window.store = createStore(reducer);
 
@@ -163,11 +163,11 @@ Reload the page and you will see the current state object displayed on the page!
 
 Wouldn't it be better if that todo is visible in the UI? Of course it would. Let's create a `render()`-function, similar to the one in React that also receives a reference the store as an input:
 
-    function render(store) {
+    function render() {
         const listElement     = document.getElementById('list');
         listElement.innerHTML = '';
 
-        window.store.getState().forEach(item => {
+        store.getState().forEach(item => {
             const itemElement = document.createElement('li');
 
             itemElement.innerHTML = `
@@ -200,7 +200,7 @@ Then, add (and expose) the `subscribe()`-function to the store:
 
 We also need to actually notify the listeners when something has changed, which is after the state has been updated in the `dispatch()`-function:
 
-    listeners.forEach(listener => listener(this));
+    listeners.forEach(listener => listener());
 
 Your complete `createStore()` should now look like this:
 
@@ -214,7 +214,7 @@ Your complete `createStore()` should now look like this:
 
         function dispatch(action) {
             state = reducer(state, action);
-            listeners.forEach(listener => listener(this));
+            listeners.forEach(listener => listener());
         }
 
         function subscribe(listener) {
@@ -224,15 +224,7 @@ Your complete `createStore()` should now look like this:
         return { getState, dispatch, subscribe };
     }
 
-Since a "listener" in this case is a function that should be called and passed the store, `listener(this)` does just that. `=>`is short hand notation for a function, the following two declarations are equivalent:
-
-    function square(x) { return x * x; }
-
-<br/>
-
-    const square = x => x * x;
-
-Enough JavaScript mumbojumbo. Subscribe to the store using our `render()`-function right after it has been created:
+Subscribe to the store using our `render()`-function right after it has been created:
 
     store.subscribe(render);
 
@@ -324,7 +316,7 @@ Hit F5 and play around a bit!
 
 ## Using the Redux library and Redux DevTools Extension
 
-Normally, you would install the the Redux lib through `npm` by running `npm install redux`, but for the sake of this demo, it's already linked from a CDN. If you look in `index.html` you can see a reference to `redux.min.js`, which will make it available on the `windows`-object, so we don't have to install anything!
+Normally, you would install the Redux lib through `npm` by running `npm install redux`, but for the sake of this demo, it's already linked from a CDN. If you look in `index.html` you can see a reference to `redux.min.js`, which will make it available on the `windows`-object, so we don't have to install anything.
 
 You will now keep the actions and reducers that you wrote. The only thing that will change is `createStore()`. We will replace our implementation with Redux's.
 
@@ -342,10 +334,10 @@ Now that we're using Redux's `createStore()`, a browser extension called Redux D
 
 Install the extension by following the instructions using the first option for the browser you are running: https://github.com/zalmoxisus/redux-devtools-extension
 
-In order for it to work when we're running without a server (i.e. using the file:///-protocol), you must configure the extension to allow such access:
+> NOTE 1 (for Chrome): In order for it to work when we're running without a server (i.e. using the file:///-protocol), you must configure the extension to allow such access:
 https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/Troubleshooting.md#access-file-url-file
 
-> NOTE: You might have to restart your browser for things to kick in.
+> NOTE 2: You might have to restart your browser for things to kick in.
 
 Oh and by the way, we can remove our own debugging panel now, delete this line in `index.html`:
 
@@ -357,22 +349,24 @@ Again, change your `createStore()`-call to the following:
 
     window.store = window.Redux.createStore(reducer, [], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-As you will now see if you hit F5, you will be able to do lots of cool things here!
+As you will now see if you hit F5, you will be able to do lots of cool things here like:
 
-// TODO: Slider, import/export etc
+* Investigating the state
+* Seeing what changed between actions
+* Time travel debugging
+* Importing/exporting state object
+* Dispatching actions
+* etc.
 
 <br/>
 
 ![alt text](images/redux-devtools.png)
-![alt text](images/redux-devtools2.png)
 
 ## Using React with Redux
 
-So far we haven't touched React. Why? Because it would be hard to write all the wiring needed from scratch. React has its own virtual DOM and `render()`-function that should not be called manually. And remember that Redux is a general pattern and has no relation to React, although they fit very good together as we will see in a while.
+So far we haven't touched React. Why? Because it would be hard to write all the wiring needed from scratch. React has its own virtual DOM and `render()`-function that should not be called manually. And remember that Redux is a general pattern and has no relation to React, although they fit very well together.
 
-> Note that more intimidating concepts will be introduced here, but they are all React-Redux-specific.
-
-Okay, let's finally get back to our video player app!
+Let's get back to our video player app!
 
 ***
 
@@ -394,16 +388,18 @@ And then finally `VideoListItem` uses this callback each time an item is clicked
 
 In the video player app, we also have these lines:
 
-    // [app.js]
+`search-bar.js`:
+
+    this.state = {searchTerm: ''};
+
+`app.js`:
+
     this.state = {
         videos: [],
         selectedVideo: null
     };
 
-    // [search-bar.js]
-    this.state = {searchTerm: ''};
-
-That was our combined initial state!
+Those two objects combined is our initial state.
 
 Translated into a single plain JavaScript object, the above could be expressed as:
 
@@ -413,31 +409,155 @@ Translated into a single plain JavaScript object, the above could be expressed a
         selectedVideo: null
     }
 
-In the Redux world, the above would be referred to as *data state*. Of course there are more things in the application that *could* be included in the state depending on how detailed one would like to be, but since it's often data that drives state, we will only consider this type of state in this app.
+In the Redux world, the above would be referred to as *data state*. Of course there are more things in the application that *could* be included in the state, but since it's often data that drives state, we will only consider this type of state in this app.
 
-Okay, that was a little bit about the current status of the application. Now it's time to introduce Redux to it to get rid of these callbacks and also be able to use the Redux DevTools to track state changes over time!
+Okay, that was a little bit about the current status of the application. Now it's time to introduce Redux to it to get rid of these callbacks and also be able to use the Redux DevTools Extension to track state changes over time.
 
 ***
 
 ### Install Redux and the React bindings
 
-Run
+In the root of the project directory (where you execute `npm start` from), run:
 
-    npm install redux react-redux
+    npm install redux react-redux --save
 
 Open the project in your editor.
 
-// TODO
+> NOTE: More intimidating concepts will be introduced here, but they are all React-Redux-specific.
 
-    <Provider />
-    connect()
-    mapStateToProps etc
+The API of the `react-redux`-lib contains two main parts:
 
+* `<Provider store>`
+* `connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])`
+
+`<Provider>` is a component that makes the Redux store available to the rest of your app.
+
+`connect()` is a function which encapsulates the process of talking to the store.
+
+It enables you to:
+
+* Read data from the Redux store into your app's connected components as props
+* Dispatch actions to your store from any of your app's connected components
+
+Correspondingly, the `connect()`-function takes two arguments, both optional:
+
+
+TODOOOO
+
+connect takes in two parameters. The first one allows you to define which pieces of data from the store are needed by this component. The second one allows you to indicate which actions that component might dispatch. By convention, they are called mapStateToProps and mapDispatchToProps, respectively.
+
+
+
+* `mapStateToProps`: called every time the store state changes. It receives the entire store state, and should return an object of data this component needs.
+
+* `mapDispatchToProps`: this parameter can either be a function, or an object.
+    * If it's a function, it will be called once on component creation. It will receive dispatch as an argument, and should return an object full of functions that use dispatch to dispatch actions.
+    * If it's an object full of action creators, each action creator will be turned into a prop function that automatically dispatches its action when called. Note: It's recommended to use this "object shorthand" form.
+
+Normally, you would call connect in this way:
+
+    const mapStateToProps = (state, ownProps) => ({
+        // ... computed data from state and optionally ownProps
+    });
+
+    const mapDispatchToProps = {
+        // ... normally is an object full of action creators
+    };
+
+    // `connect` returns a new function that accepts the component to wrap:
+    const connectToStore = connect(
+        mapStateToProps,
+        mapDispatchToProps
+    );
+    // and that function returns the connected, wrapper component:
+    const ConnectedComponent = connectToStore(Component);
+
+    // We normally do both in one step, like this:
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Component);
+
+***
+
+Open `index.js`. It should look like this since last time:
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+Wrap `<App>` in a `<Provider>` and add some imports, like so:
+
+    import { Provider } from 'react-redux';
+    import store from './store';
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    );
+
+If you have the app running, it will now complain about not finding the store.
+
+So let's go ahead and import redux and call `createStore()`, and also pass references to the reducer (which we have not yet created) and the Redux DevTools Extension enhancer:
+
+    import { createStore } from 'redux';
+    import reducer from './reducer';
+
+    const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+Before we create the reducer, think about what *actions* we might need. What kind of interactions can the user currently perform in the app? Issuing new search queries to the YouTube API is one thing, so let's start with that.
+
+Create a filed called `actions.js` in the `src` directory and add the following:
+
+    export const SEARCH_YOUTUBE = 'SEARCH_YOUTUBE';
+
+Now, when using Reux with React, it's common to use something called *action creators*. It's simply functions that return actions. Let's create one for this action in the same file:
+
+    export const searchYoutube = data => {
+        console.log('Inside action creator searchYoutube', data);
+
+        return {
+            type: SEARCH_YOUTUBE,
+            searchTerm: data
+        };
+    };
+
+Create a filed called `reducer.js` in the same folder as `index.js`.
+
+Let's declare an initial state in it and the reducer function itself with one action:
+
+    const initialState = {
+        searchTerm: '',
+        videos: [],
+        selectedVideo: null
+    };
+
+    export default function(state = initialState, action) {
+        console.log('Inside the reducer with state ', state, 'and action', action);
+
+        switch(action.type) {
+            case actions.SEARCH_YOUTUBE:
+                return {...state, searchTerm: action.searchTerm};
+            default:
+                return state;
+        }
+    }
 
 ***
 
 
 
+
+Implementing Container Components
+Now it's time to hook up those presentational components to Redux by creating some containers. Technically, a container component is just a React component that uses store.subscribe() to read a part of the Redux state tree and supply props to a presentational component it renders. You could write a container component by hand, but we suggest instead generating container components with the React Redux library's connect() function, which provides many useful optimizations to prevent unnecessary re-renders.
+
+
+
+
+To use connect(), you need to define a special function called mapStateToProps that describes how to transform the current Redux store state into the props you want to pass to a presentational component you are wrapping. For example, VisibleTodoList needs to calculate todos to pass to the
+
+
+====================
 
 
 TODOOOOO:
@@ -481,7 +601,7 @@ Create the store in the constructor:
 
     this.store = this.createStore();
 
- Begin thinking a little bit about the *actions* we might need. What kind of interactions can the user currently perform in the app? Issuing new search queries to the YouTube API is one thing, so let's start with that.
+Begin thinking a little bit about the *actions* we might need. What kind of interactions can the user currently perform in the app? Issuing new search queries to the YouTube API is one thing, so let's start with that.
 
 Add the following
     export const SEARCH_YOUTUBE = 'SEARCH_YOUTUBE';

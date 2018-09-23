@@ -4,41 +4,23 @@ import SearchBar from './components/search-bar';
 import YTSearch from 'youtube-api-search';
 import VideoList from "./components/video-list";
 import VideoDetail from "./components/video-detail";
-import { API_KEY } from "./api-key.json";
-import * as actions from './actions.js';
+
+const API_KEY = "AIzaSyDJGHMdImJ4b6_lLCyYupdmVSpawyyk3Ns";
 
 class App extends Component {
-    store = {};
 
     constructor(props) {
         super(props);
-
-        this.store = this.createStore();
 
         this.state = {
             videos: [],
             selectedVideo: null
         };
 
-        this.videoSearch('acorntechnology');
-    }
-
-    createStore() {
-        let state = {};
-
-        function dispatch(action) {
-            console.log('Dispatching action', action);
-        }
-
-        return { dispatch };
+        // this.videoSearch('acorntechnology');
     }
 
     videoSearch(searchTerm) {
-        this.store.dispatch({
-            type: actions.SEARCH_YOUTUBE,
-            searchTerm
-        });
-
         YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
             this.setState({
                 videos: videos,

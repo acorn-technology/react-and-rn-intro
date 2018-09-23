@@ -11,7 +11,7 @@ const RESET_TODOS   = 'RESET_TODOS';
 //         console.log('Dispatching action', action);
 //         state = reducer(state, action);
 //         document.getElementById('debug').innerHTML = JSON.stringify(this.getState());
-//         listeners.forEach(listener => listener(this));
+//         listeners.forEach(listener => listener());
 //     }
 
 //     function getState() {
@@ -64,11 +64,11 @@ function init() {
     attachEventHandlers(store);
 }
 
-function render(store) {
+function render() {
     const listElement     = document.getElementById('list');
     listElement.innerHTML = '';
 
-    window.store.getState().forEach(item => {
+    store.getState().forEach(item => {
         const itemElement = document.createElement('li');
 
         itemElement.innerHTML = `

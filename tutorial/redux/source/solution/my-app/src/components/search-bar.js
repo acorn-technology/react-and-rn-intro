@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { searchYoutube } from './../actions';
 
 class SearchBar extends Component {
 
@@ -20,8 +22,19 @@ class SearchBar extends Component {
 
     onInputChange(searchTerm) {
         this.setState({searchTerm: searchTerm});
-        this.props.onSearchTermChange(searchTerm);
+        // this.props.onSearchTermChange(searchTerm);
+
+        this.props.searchYoutube(this.state.searchTerm);
+        // this.setState({ searchTerm: '' });
     }
 }
 
-export default SearchBar;
+const mapStateToProps = state => {
+    return { searchTerm: state.searchTerm };
+};
+
+export default connect(
+    mapStateToProps,
+    { searchYoutube }
+)(SearchBar);
+// export default SearchBar;
