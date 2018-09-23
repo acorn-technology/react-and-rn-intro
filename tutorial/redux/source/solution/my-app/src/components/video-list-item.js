@@ -1,10 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { selectVideo } from './../actions';
 
 const VideoListItem = (props) => {
 
     const video = props.video;
-    const onVideoSelect = props.onVideoSelect;
     const imageUrl = video.snippet.thumbnails.default.url;
+
+    function onVideoSelect(video) {
+        console.log('In VideoListItem onVideoSelect', video);
+        props.selectVideo(video);
+    }
 
     return (
         <li onClick={() => onVideoSelect(video)} className="list-group-item">
@@ -20,9 +27,7 @@ const VideoListItem = (props) => {
     );
 };
 
-// const VideoListItem = ({video, onVideoSelect}) => {
-//     const imageUrl = video.snippet.thumbnails.default.url;
-//     return ...;
-// };
-
-export default VideoListItem;
+export default connect(
+    null,
+    { selectVideo }
+)(VideoListItem);

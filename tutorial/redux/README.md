@@ -31,7 +31,7 @@ What we will try to build is this:
 
 Open the file in an editor of your choice and create a new empty file named `app.js` next to it.
 
-Begin thinking a little bit about the *actions* we might need. We can obviously add todos. There's a reset-button, and it also seems possible to remove todos and mark them as completed. Okay, so let's define the following four actions:
+Let's see what *actions* we might need. We can obviously add todos. There's a reset-button, and it also seems possible to remove todos and mark them as completed. Okay, so let's define the following four actions:
 
     const ADD_TODO      = 'ADD_TODO';
     const REMOVE_TODO   = 'REMOVE_TODO';
@@ -46,7 +46,11 @@ Then we continue with the heart of Redux - the *store*. Create a function called
 
 Create a function called `init()` that's going to be our starting point in the application and call it right after its declaration. In `init()`, add a variable called `store` to the `windows`-object that calls `createStore()`:
 
-    window.store = createStore();
+    function init() {
+        window.store = createStore();
+    }
+
+    init();
 
 We would like to dispatch our actions somehow, right? Let's add a dispatch function to our store.
 
@@ -78,14 +82,14 @@ You should now see in the console that the action was dispatched.
 
 ***
 
-Remember that an action should be a plain JavaScript object containing the type of action and a payload. Right now it's just dispatching a string and not an object. An action could look like:
+Remember that an action should be a plain JavaScript object containing the type of action and a payload. Right now it's just dispatching a string and not an object. An action could look like this:
 
     {
         type: ADD_TODO,
         title: 'Buy bananas'
     }
 
-Let's change the dispatch-call:
+Let's change the dispatch-call to return an object:
 
     store.dispatch({
         type: ADD_TODO,
@@ -94,15 +98,15 @@ Let's change the dispatch-call:
 
 Okay, look again in the console and you will see that we now receive the full object with the payload as well. Great!
 
-We will need to add more functions to the store in just a little bit, but let's define the last concept of the Redux pattern: the *reducer*.
+We will need to add more functions to the store in just a little bit, but let's define the last concept of the Redux pattern - the *reducer*.
 
-It's a function that takes the previous (or current) state and an action, and returns a new state. Easy peasy.
+A reducer is a function that takes the previous (or current) state and an action, and returns a new state. Easy peasy.
 
     function reducer(state, action) {
         return state;
     }
 
-The above reducer is perfectly valid. It is pure and will always return the same output no matter the input, but it doesn't do anything yet :-)
+The above reducer is perfectly valid. It is pure and will always return the same output no matter what the input is, but it doesn't do anything yet :-)
 
 Let's continue with an implementation of the `ADD_TODO`-action:
 
@@ -135,7 +139,7 @@ Enough JavaScript mumbojumbo. Now, in order for the store to be able to update i
 
     window.store = createStore(reducer);
 
-Don't forget to update the `createStore()`-function to receive a `reducer` and then in the `dispatch()`-function add a line that updates the state with the value returned by the reducer:
+Don't forget to update the `createStore()`-function to receive a `reducer` and then in the `dispatch()`-function add a line that updates the state with the value returned by the reducer now known by the store:
 
     state = reducer(state, action);
 
@@ -161,7 +165,7 @@ Reload the page and you will see the current state object displayed on the page!
 
 ***
 
-Wouldn't it be better if that todo is visible in the UI? Of course it would. Let's create a `render()`-function, similar to the one in React that also receives a reference the store as an input:
+Wouldn't it be better if that todo is visible in the UI? Of course it would, we're getting there. Let's create a `render()`-function, similar to the one in React:
 
     function render() {
         const listElement     = document.getElementById('list');
@@ -234,7 +238,7 @@ Refresh the browser and sing Halleluja - we've just implemented Redux from scrat
 
 Interactivity plz! Okay I know, let's unlock the other features of this fancy application.
 
-We need event handlers to hook up the UI with dispatching events instead of doing this programatically. Remove the `store.dispatch()`-call that told you to buy bananas.
+We need event handlers to hook up the UI to dispatch events instead of doing this programatically. Remove the `store.dispatch()`-call that told you to buy bananas.
 
 Add this function:
 
@@ -261,7 +265,7 @@ Add this function:
         }));
     }
 
-And call it from the `init()`-function:
+And call it from `init()`:
 
     attachEventHandlers(store);
 
@@ -332,7 +336,7 @@ But what else does this lib do for us? The point is that it exposes some functio
 
 Now that we're using Redux's `createStore()`, a browser extension called Redux DevTools Extension will know how to hook up to our store and provide a lot of nice features!
 
-Install the extension by following the instructions using the first option for the browser you are running: https://github.com/zalmoxisus/redux-devtools-extension
+Install the extension by following the instructions using the first option for the browser you are running, as seen here: https://github.com/zalmoxisus/redux-devtools-extension
 
 > NOTE 1 (for Chrome): In order for it to work when we're running without a server (i.e. using the file:///-protocol), you must configure the extension to allow such access:
 https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/Troubleshooting.md#access-file-url-file
@@ -343,13 +347,13 @@ Oh and by the way, we can remove our own debugging panel now, delete this line i
 
     <div id="debug"></div>
 
-If you now refresh your browser you should see a new section in the browser DevTools called *Redux*. However, it says `No store found`. We need to provide a third argument to `createStore()` that adds this stuff as an *enhancer*, which is something that is similar to middleware, but let's leave it there.
+If you now refresh your browser you should see a new section in the browser developer tools called *Redux*. However, it says `No store found`. We need to provide a third argument to `createStore()` that adds this stuff as an *enhancer*, which is something that is similar to middleware, but let's not delve into such details.
 
 Again, change your `createStore()`-call to the following:
 
     window.store = window.Redux.createStore(reducer, [], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-As you will now see if you hit F5, you will be able to do lots of cool things here like:
+As you will now see if you hit F5, you will be able to do lots of cool things like:
 
 * Investigating the state
 * Seeing what changed between actions

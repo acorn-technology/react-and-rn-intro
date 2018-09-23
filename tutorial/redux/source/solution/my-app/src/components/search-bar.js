@@ -1,40 +1,41 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import YTSearch from 'youtube-api-search';
+import _ from 'lodash';
 import { connect } from 'react-redux';
-import { searchYoutube } from './../actions';
+
+import { searchYoutube, youtubeResponse, selectVideo } from './../actions';
+
+const API_KEY = "AIzaSyDJGHMdImJ4b6_lLCyYupdmVSpawyyk3Ns";
 
 class SearchBar extends Component {
 
     constructor(props) {
         super(props);
+        this.videoSearch('acorntechnology');
+    }
 
-        this.state = {searchTerm: ''};
+    videoSearch(searchTerm) {
+        console.log('videoSearch', searchTerm);
+        this.props.searchYoutube(searchTerm);
+
+        YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
+            this.props.youtubeResponse(videos);
+            this.props.selectVideo(videos[0]);
+        });
     }
 
     render() {
+        const videoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
+
         return (
             <div className="search-bar">
-                <input
-                    value={this.state.searchTerm}
-                    onChange={event => this.onInputChange(event.target.value)}/>
+                <input onChange={event => videoSearch(event.target.value)}/>
             </div>
         );
     }
-
-    onInputChange(searchTerm) {
-        this.setState({searchTerm: searchTerm});
-        // this.props.onSearchTermChange(searchTerm);
-
-        this.props.searchYoutube(this.state.searchTerm);
-        // this.setState({ searchTerm: '' });
-    }
 }
 
-const mapStateToProps = state => {
-    return { searchTerm: state.searchTerm };
-};
-
 export default connect(
-    mapStateToProps,
-    { searchYoutube }
+    null,
+    { searchYoutube, youtubeResponse, selectVideo }
 )(SearchBar);
-// export default SearchBar;

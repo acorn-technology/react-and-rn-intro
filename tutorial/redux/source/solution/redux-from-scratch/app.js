@@ -3,27 +3,27 @@ const REMOVE_TODO   = 'REMOVE_TODO';
 const TOGGLE_TODO   = 'TOGGLE_TODO';
 const RESET_TODOS   = 'RESET_TODOS';
 
-// function createStore(reducer) {
-//     let state       = [];
-//     const listeners = [];
+function createStore(reducer) {
+    let state       = [];
+    const listeners = [];
 
-//     function dispatch(action) {
-//         console.log('Dispatching action', action);
-//         state = reducer(state, action);
-//         document.getElementById('debug').innerHTML = JSON.stringify(this.getState());
-//         listeners.forEach(listener => listener());
-//     }
+    function dispatch(action) {
+        console.log('Dispatching action', action);
+        state = reducer(state, action);
+        document.getElementById('debug').innerHTML = JSON.stringify(this.getState());
+        listeners.forEach(listener => listener());
+    }
 
-//     function getState() {
-//         return state;
-//     }
+    function getState() {
+        return state;
+    }
 
-//     function subscribe(listener) {
-//         listeners.push(listener);
-//     }
+    function subscribe(listener) {
+        listeners.push(listener);
+    }
 
-//     return { dispatch, getState, subscribe };
-// }
+    return { dispatch, getState, subscribe };
+}
 
 function reducer(state, action) {
     console.log('Inside the reducer with state ', state, 'and action', action);
@@ -57,9 +57,15 @@ function reducer(state, action) {
 }
 
 function init() {
-    // window.store = createStore(reducer);
+    // Use our own store implementation
+    window.store = createStore(reducer);
+
+    // Use the Redux lib store
     // window.store = window.Redux.createStore(reducer, []);
-    window.store = window.Redux.createStore(reducer, [], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+    // Use the Redux lib store with Redux DevTools Extension
+    // window.store = window.Redux.createStore(reducer, [], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
     store.subscribe(render);
     attachEventHandlers(store);
 }

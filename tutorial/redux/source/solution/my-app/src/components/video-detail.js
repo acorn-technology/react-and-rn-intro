@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const VideoDetail = ({video}) => {
 
@@ -7,9 +8,6 @@ const VideoDetail = ({video}) => {
     }
 
     const videoUrl = "https://www.youtube.com/embed/" + video.id.videoId;
-
-    //ES6 template strings doing the same thing
-   // const videoUrl = `https://www.youtube.com/embed/${video.id.videoId}`;
 
     return (
         <div className="video-detail col-md-8">
@@ -24,4 +22,11 @@ const VideoDetail = ({video}) => {
     );
 };
 
-export default VideoDetail;
+const mapStateToProps = state => {
+    console.log('VideoDetail mapStateToProps', state);
+    return { video: state.selectedVideo };
+}
+
+export default connect(
+    mapStateToProps
+)(VideoDetail);
