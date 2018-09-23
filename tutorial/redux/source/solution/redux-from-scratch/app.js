@@ -3,7 +3,31 @@ const REMOVE_TODO   = 'REMOVE_TODO';
 const TOGGLE_TODO   = 'TOGGLE_TODO';
 const RESET_TODOS   = 'RESET_TODOS';
 
+// function createStore(reducer) {
+//     let state       = [];
+//     const listeners = [];
+
+//     function dispatch(action) {
+//         console.log('Dispatching action', action);
+//         state = reducer(state, action);
+//         document.getElementById('debug').innerHTML = JSON.stringify(this.getState());
+//         listeners.forEach(listener => listener(this));
+//     }
+
+//     function getState() {
+//         return state;
+//     }
+
+//     function subscribe(listener) {
+//         listeners.push(listener);
+//     }
+
+//     return { dispatch, getState, subscribe };
+// }
+
 function reducer(state, action) {
+    console.log('Inside the reducer with state ', state, 'and action', action);
+
     switch (action.type) {
         case ADD_TODO:
             return [...state, {
@@ -32,37 +56,19 @@ function reducer(state, action) {
     }
 }
 
-const initState = [];
-const store = createStore(reducer, initState
-// const store = window.Redux.createStore(reducer, initState
-// ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
-function createStore(reducer, initState) {
-    let state       = initState;
-    const listeners = [];
-
-    function getState() {
-        return state;
-    }
-
-    function dispatch(action) {
-        state = reducer(state, action);
-        listeners.forEach(listener => listener(this));
-    }
-
-    function subscribe(listener) {
-        listeners.push(listener);
-    }
-
-    return { getState, dispatch, subscribe };
+function init() {
+    // window.store = createStore(reducer);
+    // window.store = window.Redux.createStore(reducer, []);
+    window.store = window.Redux.createStore(reducer, [], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+    store.subscribe(render);
+    attachEventHandlers(store);
 }
 
-function render() {
+function render(store) {
     const listElement     = document.getElementById('list');
     listElement.innerHTML = '';
 
-    store.getState().forEach(item => {
+    window.store.getState().forEach(item => {
         const itemElement = document.createElement('li');
 
         itemElement.innerHTML = `
@@ -76,23 +82,6 @@ function render() {
         `;
 
         listElement.appendChild(itemElement);
-    });
-}
-
-// TODO: Move? Works with window.Redux?
-store.subscribe(render);
-
-function toggleTodo(id) {
-    store.dispatch({
-        type: TOGGLE_TODO,
-        id: id
-    });
-}
-
-function removeTodo(id) {
-    store.dispatch({
-        type: REMOVE_TODO,
-        id: id
     });
 }
 
@@ -119,4 +108,18 @@ function attachEventHandlers(store) {
     }));
 }
 
-attachEventHandlers(store);
+function toggleTodo(id) {
+    store.dispatch({
+        type: TOGGLE_TODO,
+        id: id
+    });
+}
+
+function removeTodo(id) {
+    store.dispatch({
+        type: REMOVE_TODO,
+        id: id
+    });
+}
+
+init();
