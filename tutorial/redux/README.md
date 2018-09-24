@@ -27,8 +27,6 @@ What we will try to build is this:
 
 <img src="images/todo.png" />
 
-<br/>
-
 Open the file in an editor of your choice and create a new empty file named `app.js` next to it.
 
 Let's see what *actions* we might need. We can obviously add todos. There's a reset-button, and it also seems possible to remove todos and mark them as completed. Okay, so let's define the following four actions:
@@ -711,8 +709,6 @@ Gahh, still nothing interesting going on in the UI! But hey, check out the DevTo
 <br/>
 
 <img src="images/redux-devtools-react.png" />
-
-<br/>
 
 ***
 
