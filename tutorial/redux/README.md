@@ -433,7 +433,7 @@ The *React bindings for Redux* has some intimidating concepts that we need to un
 * Read data from the Redux store into your app's connected components as `props`
 * Dispatch actions to your store from any of your app's connected components
 
-In order to achieve the above, the `connect()` function takes two (optional) arguments that have been given these names by pure convention: `mapStateToProps` and `mapDispatchToProps`.
+In order to achieve the above, the `connect()` function takes two (optional) arguments that have been given these names by pure convention: `mapStateToProps` and `mapDispatchToProps`.
 
 #### `mapStateToProps`
 
@@ -710,7 +710,7 @@ Gahh, still nothing interesting going on in the UI! But hey, check out the DevTo
 
 <br/>
 
-<img src="redux-devtools-react" />
+<img src="images/redux-devtools-react.png" />
 
 <br/>
 
