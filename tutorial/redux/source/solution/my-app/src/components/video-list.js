@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import VideoListItem from './video-list-item';
 
 const VideoList = (props) => {
-
     const videoItems = props.videos.map(video => {
         return (
             <VideoListItem
@@ -12,7 +11,7 @@ const VideoList = (props) => {
                 video={video}/>
         );
     });
-console.log('RE-RENDER VIDEO KISUT');
+
     return (
         <ul className="col-md-4 list-group">
             {videoItems}
@@ -21,7 +20,6 @@ console.log('RE-RENDER VIDEO KISUT');
 };
 
 const mapStateToProps = state => {
-    console.log('VideoList mapStateToProps', state);
     return { videos: state.videos };
 }
 

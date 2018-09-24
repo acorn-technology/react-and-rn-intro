@@ -9,7 +9,6 @@ const VideoListItem = (props) => {
     const imageUrl = video.snippet.thumbnails.default.url;
 
     function onVideoSelect(video) {
-        console.log('In VideoListItem onVideoSelect', video);
         props.selectVideo(video);
     }
 

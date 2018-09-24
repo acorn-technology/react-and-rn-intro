@@ -23,7 +23,6 @@ const VideoDetail = ({video}) => {
 };
 
 const mapStateToProps = state => {
-    console.log('VideoDetail mapStateToProps', state);
     return { video: state.selectedVideo };
 }
 

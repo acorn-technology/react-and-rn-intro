@@ -15,7 +15,6 @@ class SearchBar extends Component {
     }
 
     videoSearch(searchTerm) {
-        console.log('videoSearch', searchTerm);
         this.props.searchYoutube(searchTerm);
 
         YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
@@ -25,11 +24,11 @@ class SearchBar extends Component {
     }
 
     render() {
-        const videoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
+        const debouncedVideoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
 
         return (
             <div className="search-bar">
-                <input onChange={event => videoSearch(event.target.value)}/>
+                <input onChange={event => debouncedVideoSearch(event.target.value)}/>
             </div>
         );
     }
