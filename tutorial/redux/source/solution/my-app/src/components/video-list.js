@@ -8,7 +8,7 @@ const VideoList = (props) => {
         return (
             <VideoListItem
                 key={video.etag}
-                video={video}/>
+                video={video} />
         );
     });
 

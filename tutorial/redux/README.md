@@ -380,11 +380,11 @@ In the app, we communicate via callbacks (props) between parent and child compon
 
 The `App` component provide a prop called `onVideoSelect` to its child component `VideoList`, which is a callback setting the state as seen below:
 
-    <VideoList onVideoSelect={selectedVideo => this.setState({selectedVideo})}>
+    <VideoList onVideoSelect={selectedVideo => this.setState({selectedVideo})} />
 
 The `VideoList` component just passes this prop on to its child `VideoListItem`:
 
-    <VideoListItem onVideoSelect={props.onVideoSelect}>
+    <VideoListItem onVideoSelect={props.onVideoSelect} />
 
 And then finally `VideoListItem` uses this callback each time an item is clicked:
 
@@ -419,88 +419,84 @@ Okay, that was a little bit about the current status of the application. Now it'
 
 ***
 
-### Install Redux and the React bindings
+### Some theory about `react-redux`
+
+The *React bindings for Redux* has some intimidating concepts that we need to understand in order to use Redux with React. The API of the `react-redux`-lib contains two main parts:
+
+* `<Provider store={store} />`
+* `connect(mapStateToProps, mapDispatchToProps)`
+
+`<Provider>` is a component that makes the Redux store available to the rest of your app.
+
+`connect()` is a function which encapsulates the process of talking to the store by generating container components. Technically, a container component is just a React component that uses `store.subscribe()` to read a part of the Redux state tree and supply `props` to the presentational component that it renders. It enables you to:
+
+* Read data from the Redux store into your app's connected components as `props`
+* Dispatch actions to your store from any of your app's connected components
+
+In order to achieve the above, the `connect()`-function takes two (optional) arguments that have been given these names by pure convention: `mapStateToProps` and `mapDispatchToProps`.
+
+#### `mapStateToProps`
+
+The first one allows you to define which pieces of data from the store are needed by this component. So basically what data the component might have to *read*. It describes how to transform the current Redux store state into the props you want to pass to the presentational component that you are wrapping.
+
+Example:
+
+    const mapStateToProps = state => {
+        return { videos: state.videos };
+    }
+
+In this example, `videos` will be available in the `props` of the component.
+
+#### `mapDispatchToProps`
+
+The second one allows you to indicate which actions that component might *dispatch*. It can be a function, but most commonly it is an object of *action creators* (functions returning action objects).
+
+Example:
+
+    { searchYoutube }
+
+***
+
+The `connect()`-function is used like this:
+
+    const connectToStore = connect(mapStateToProps, mapDispatchToProps);
+    const ConnectedComponent = connectToStore(Component);
+
+The above two lines are normally made in one step:
+
+    connect(mapStateToProps, mapDispatchToProps)(Component);
+
+This looks a bit funny. Remember components are usually exported just like this:
+
+    export default VideoList;
+
+But here, and this is important, what is instead exported is a container component returned by the function returned by `connect(mapStateToProps, mapDispatchToProps)` given the actual presentation component as an argument. Funky, I know. So for our `VideoList`-component, as we shall see, the export statement would look like this:
+
+    const mapStateToProps = state => {
+        return { videos: state.videos };
+    }
+
+    export default connect(mapStateToProps)(VideoList);
+
+`mapDispatchToProps` is omitted because this component won't dispatch any actions.
+
+To summarize, what you have to remember is that each component has to map the store state to props if they want to use anything from the store, and provide an object of action creators if they want to dispatch actions. That's it.
+
+***
+
+### Time to code again!
 
 In the root of the project directory (where you execute `npm start` from), run:
 
     npm install redux react-redux --save
 
-Open the project in your editor.
-
-> NOTE: More intimidating concepts will be introduced here, but they are all React-Redux-specific.
-
-The API of the `react-redux`-lib contains two main parts:
-
-* `<Provider store>`
-* `connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])`
-
-`<Provider>` is a component that makes the Redux store available to the rest of your app.
-
-`connect()` is a function which encapsulates the process of talking to the store.
-
-It enables you to:
-
-* Read data from the Redux store into your app's connected components as props
-* Dispatch actions to your store from any of your app's connected components
-
-Correspondingly, the `connect()`-function takes two arguments, both optional:
-
-
-
-TODOOOO
-
-connect takes in two parameters. The first one allows you to define which pieces of data from the store are needed by this component. The second one allows you to indicate which actions that component might dispatch. By convention, they are called mapStateToProps and mapDispatchToProps, respectively.
-
-
-Reading data: `mapStateToProps()`
-Dispatching actions: `mapDispatchToProps()`
-
-
-* `mapStateToProps`: called every time the store state changes. It receives the entire store state, and should return an object of data this component needs.
-
-* `mapDispatchToProps`: this parameter can either be a function, or an object.
-    * If it's a function, it will be called once on component creation. It will receive dispatch as an argument, and should return an object full of functions that use dispatch to dispatch actions.
-    * If it's an object full of action creators, each action creator will be turned into a prop function that automatically dispatches its action when called. Note: It's recommended to use this "object shorthand" form.
-
-Normally, you would call connect in this way:
-
-    const mapStateToProps = (state, ownProps) => ({
-        // ... computed data from state and optionally ownProps
-    });
-
-    const mapDispatchToProps = {
-        // ... normally is an object full of action creators
-    };
-
-    // `connect` returns a new function that accepts the component to wrap:
-    const connectToStore = connect(
-        mapStateToProps,
-        mapDispatchToProps
-    );
-    // and that function returns the connected, wrapper component:
-    const ConnectedComponent = connectToStore(Component);
-
-    // We normally do both in one step, like this:
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(Component);
-
-
-So basically, each component that needs ?
-has to provide an object of action creators if they want to dispatch actions
-and map state to props if they want to use anyting from the store
-
-***
-
-Open `index.js`. It should look like this since last time:
+Open the project in your editor and navigate to `index.js`. It should look like this since last time:
 
     ReactDOM.render(<App />, document.getElementById('root'));
 
 Wrap `<App>` in a `<Provider>` and add some imports, like so:
 
     import { Provider } from 'react-redux';
-    import store from './store';
 
     ReactDOM.render(
         <Provider store={store}>
@@ -511,7 +507,7 @@ Wrap `<App>` in a `<Provider>` and add some imports, like so:
 
 If you have the app running, it will now complain about not finding the store.
 
-So let's go ahead and import redux and call `createStore()`, and also pass references to the reducer (which we have not yet created) and the Redux DevTools Extension enhancer:
+So let's go ahead and import `redux` and call `createStore()`, and also pass references to the reducer (which we have not yet created) and the Redux DevTools Extension enhancer:
 
     import { createStore } from 'redux';
     import reducer from './reducer';
@@ -526,18 +522,20 @@ Create a filed called `actions.js` in the `src` directory and add the following:
 
 Now, when using Reux with React, it's common to use something called *action creators*. It's simply functions that return actions. Let's create one for this action in the same file:
 
-    export const searchYoutube = data => {
-        console.log('Inside action creator searchYoutube', data);
+    export const searchYoutube = searchTerm => {
+        console.log('Inside action creator searchYoutube', searchTerm);
 
         return {
             type: SEARCH_YOUTUBE,
-            searchTerm: data
+            searchTerm
         };
     };
 
 Create a filed called `reducer.js` in the same folder as `index.js`.
 
-Let's declare an initial state in it and the reducer function itself with one action:
+Let's import the actions and declare an initial state in it, and then of course the reducer function itself handling this action:
+
+    import * as actions from './actions';
 
     const initialState = {
         searchTerm: '',
@@ -548,7 +546,7 @@ Let's declare an initial state in it and the reducer function itself with one ac
     export default function(state = initialState, action) {
         console.log('Inside the reducer with state ', state, 'and action', action);
 
-        switch(action.type) {
+        switch (action.type) {
             case actions.SEARCH_YOUTUBE:
                 return {...state, searchTerm: action.searchTerm};
             default:
@@ -556,22 +554,17 @@ Let's declare an initial state in it and the reducer function itself with one ac
         }
     }
 
+Verify that the application compiles properly.
+
 ***
 
 
 
 
-Implementing Container Components
-Now it's time to hook up those presentational components to Redux by creating some containers. Technically, a container component is just a React component that uses store.subscribe() to read a part of the Redux state tree and supply props to a presentational component it renders. You could write a container component by hand, but we suggest instead generating container components with the React Redux library's connect() function, which provides many useful optimizations to prevent unnecessary re-renders.
+===============
 
 
-
-
-To use connect(), you need to define a special function called mapStateToProps that describes how to transform the current Redux store state into the props you want to pass to a presentational component you are wrapping. For example, VisibleTodoList needs to calculate todos to pass to the
-
-
-
-If you inspect the application with the [https://github.com/facebook/react-devtools](React Developer Tools), you will see that the `<SearchBar>` component is wrapper by `<Connect>` which is a *container component* generated by `react-redux`'s `connect()`-function. It's in other words "connected" to the store:
+If you inspect the application with the [https://github.com/facebook/react-devtools](React Developer Tools), you will see that the `SearchBar`-component is wrapper by `<Connect>` which is a *container component* generated by `react-redux`'s `connect()`-function. It's in other words "connected" to the store:
 
 <br/>
 
@@ -579,183 +572,24 @@ If you inspect the application with the [https://github.com/facebook/react-devto
 
 <br/>
 
-
 ====================
 
 
 TODOOOOO:
 
-Our `app.js` should look like something like this:
 
-    class App extends Component {
-
-        constructor(props) {
-            super(props);
-
-            this.state = {
-                videos: [],
-                selectedVideo: null
-            };
-
-            this.videoSearch('acorntechnology');
-        }
-
-        // ...
-    }
-
-We can clearly see the App component's state defined here, but since we from now on will try to follow the Redux pattern, let's move it to where Redux stores its state - the *store*.
-
-Create a function called `createStore()` with an empty state in it:
-
-    createStore() {
-        let state;
-    }
-
-Then, add a variable called store to our App component so that it looks like this:
-
-    class App extends Component {
-        store = {};
-
-        constructor(props) {
-        // ...
-    }
-
-Create the store in the constructor:
-
-    this.store = this.createStore();
-
-Begin thinking a little bit about the *actions* we might need. What kind of interactions can the user currently perform in the app? Issuing new search queries to the YouTube API is one thing, so let's start with that.
-
-Add the following
-    export const SEARCH_YOUTUBE = 'SEARCH_YOUTUBE';
+> NOTE: Only writing `searchTerm` like above is a JavaScript shorthand for writing `searchTerm: searchTerm`.
 
 
-We would like to dispatch this action somehow, right? Let's add a dispatch function to our store.
-
-    function dispatch(action) {
-        console.log('Dispatching action', action);
-    }
-
-And call it in the `videoSearch()` function:
-
-    this.store.dispatch(actions.SEARCH_YOUTUBE);
-
-If you run the application by issuing `npm start` in the terminal, you should now get an error in the browser console saying:
-
-    Cannot read property 'dispatch' of undefined
-
-Our store doesn't expose it yet, so let it return an object containing the function, like this:
-
-    return { dispatch };
-
-***
-
-Remember that an action is a plain JavaScript object containing the type of action and a payload. Right now it's just dispatching a string and not an object. An action could look like:
-
-    {
-        type: actions.SEARCH_YOUTUBE,
-        payload: 'Funniest cat compilation ever made'
-    }
-
-Let's change the dispatch-call:
-
-    this.store.dispatch({
-        type: actions.SEARCH_YOUTUBE,
-        searchTerm
-    });
-
-**NOTE:** Only writing `searchTerm` like above is a JavaScript shorthand for writing `searchTerm: searchTerm`.
-
-Okay, look again in the console and you will see that we now receive the full object with the payload as well. Great!
-
-We will need to add more functions to the store in just a little bit, but let's define the last concept of the Redux pattern: the *reducer*.
-
-It's a function that takes the previous (or current) state and an action, and returns a new state. Easy peasy.
-
-    reducer(state, action) {
-        return state;
-    }
-
-The above reducer is perfectly valid. It is pure and will always return the same output no matter the input, but it doesn't do anything yet :-)
-
-Let's elaborate:
-
-    reducer(state, action) {
-        console.log('Inside the reducer with state ', state, 'and action', action);
-
-        switch (action.type) {
-            case actions.SEARCH_YOUTUBE:
-                return {...state, searchTerm: action.searchTerm };
-            default:
-                return state;
-        }
-    }
-
-Pay attention to the spread-operator (...) above. It's the same thing as literally spreading out all elements (if used on an array) or properties (if used on an object). And if it is used with objects, properties can override each other just like we did with `searchTerm` above which left the rest of the state untouched. It's a quick way to re-use properties of an object instead of explicitly having to clone it to be able to return a new object (which our reducer must do). Some quick examples of the spread operator if you haven't seen it before:
-
-    const a = [1,2];
-    const b = [...a, 3]; // [1,2,3]
-
-<br/>
-
-    const a = {foo: 'foo', bar: 'bar'};
-    const b = {...a, foo: 'haz'}; // {foo: 'haz', bar: 'bar'}
-
-Every time a `SEARCH_YOUTUBE`-action is triggered, the state will be updated with the new `searchTerm`. Now, in order for the store to know how to update its state, it has to know about the reducer. Let's pass it just that.
-
-    this.store = this.createStore(this.reducer);
 
 
-Remember from the re-cap that our current data state of the app (the combined `this.state =`-assignments) could be described as the following?
-
-    {
-        searchTerm: '',
-        videos: [],
-        selectedVideo: null
-    }
-
-That's our initial state, let's pass that as well when creating the store:
-
-    const initialState = {
-        searchTerm: '',
-        videos: [],
-        selectedVideo: null
-    };
-
-    this.store = this.createStore(this.reducer, initialState);
-
-Don't forget to update the beginning of `createStore` too:
-
-    createStore(reducer, initialState) {
-        let state = initialState;
-        // ...
-    }
-
-Time to have a look in the console. You should see two logs, one from the dispatch call and one from when the reducer received the action together with the current state.
-
-***
-
-I know, there's nothing really exciting going on here yet. Patience my friends :-)
-
-For debugging purposes, it would be good to see our current state object on the page while developing.
-
-// TODO massa
-TODO: At this point, we call `render()` manually. This will not work.
-
-    Uncaught TypeError: Cannot read property 'state' of undefined
-
-That's why there is an npm package for creating bindings between React and Redux.
-
-React has its virtual DOM that is very good at optimizing repaints of the page based on what parts have changed.
-
-***
 
 
 ***
 
 Try out the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to have is importing and exporting of the state.
 
-Our goal was to avoid passing callbacks (via props) in multiple levels and as we can see we have now achieved that. As a consequence of using Redux we also got rid of `setState()` and `this.state`. `App` looks *a lot* cleaner and the `SearchBar`-component is taking care of the actual searching. The components no longer need to know about each other as much as before and instead they are all *connected* to the store either by reading data (`mapStateToProps()`) or dispatching actions (`mapDispatchToProps()`). Good job!
+Our goal was to avoid passing callbacks (via props) in multiple levels and as we can see we have now achieved that. As a consequence of using Redux we also got rid of `setState()` and `this.state`. `App` looks *a lot* cleaner and the `SearchBar`-component is taking care of the actual searching. The components no longer need to know about each other as much as before and instead they are all connected to the store. Good job!
 
 ## More exercises
 
