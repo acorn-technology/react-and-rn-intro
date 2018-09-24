@@ -7,10 +7,7 @@ const VideoListItem = (props) => {
 
     const video = props.video;
     const imageUrl = video.snippet.thumbnails.default.url;
-
-    function onVideoSelect(video) {
-        props.selectVideo(video);
-    }
+    const onVideoSelect = video => props.selectVideo(video);
 
     return (
         <li onClick={() => onVideoSelect(video)} className="list-group-item">
