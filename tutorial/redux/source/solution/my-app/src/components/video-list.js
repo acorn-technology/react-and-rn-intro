@@ -22,7 +22,7 @@ const VideoList = (props) => {
 
 const mapStateToProps = state => {
     return { videos: state.videos };
-}
+};
 
 export default connect(
     mapStateToProps,

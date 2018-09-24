@@ -29,7 +29,7 @@ What we will try to build is this:
 
 Open the file in an editor of your choice and create a new empty file named `app.js` next to it.
 
-Let's see what *actions* we might need. We can obviously add todos. There's a reset-button, and it also seems possible to remove todos and mark them as completed. Okay, so let's define the following four actions:
+Let's see what *actions* we might need. We can obviously add todos. There's a reset button, and it also seems possible to remove todos and mark them as completed. Okay, so let's define the following four actions:
 
     const ADD_TODO      = 'ADD_TODO';
     const REMOVE_TODO   = 'REMOVE_TODO';
@@ -87,14 +87,14 @@ Remember that an action should be a plain JavaScript object containing the type 
         title: 'Buy bananas'
     }
 
-Let's change the dispatch-call to return an object:
+Let's change the dispatch call to return an object instead:
 
     store.dispatch({
         type: ADD_TODO,
         title: 'Buy bananas'
     });
 
-Okay, look again in the console and you will see that we now receive the full object with the payload as well. Great!
+Okay, look in the console again and you will see that we now receive the full object with the payload as well. Great!
 
 We will need to add more functions to the store in just a little bit, but let's define the last concept of the Redux pattern - the *reducer*.
 
@@ -316,6 +316,8 @@ If you feel like it, feel free to implement the logic for reducing the other act
 
 Hit F5 and play around a bit!
 
+> The full source code can be found [here](./source/solution/redux-from-scratch).
+
 ## Using the Redux library and Redux DevTools Extension
 
 Normally, you would install the Redux lib through `npm` by running `npm install redux`, but for the sake of this demo, it's already linked from a CDN. If you look in `index.html` you can see a reference to `redux.min.js`, which will make it available on the `windows` object, so we don't have to install anything.
@@ -345,7 +347,7 @@ Oh and by the way, we can remove our own debugging panel now, delete this line i
 
     <div id="debug"></div>
 
-If you now refresh your browser you should see a new tab in the browser developer tools called *Redux*. However, it says `No store found`. We need to provide a third argument to `createStore()` that adds this stuff as an *enhancer*, which is something that is similar to middleware, but let's not delve into such details.
+If you refresh your browser you should see a new tab in the browser developer tools called *Redux*. However, it says `No store found`. We need to provide a third argument to `createStore()` that adds this stuff as an *enhancer*, which is something that is similar to middleware, but let's not delve deeper into that.
 
 Again, change your `createStore()` call to the following:
 
@@ -374,9 +376,9 @@ Let's get back to our video player app!
 
 ### Re-cap from the React session
 
-In the app, we communicate via callbacks (props) between parent and child components in multiple levels:
+In the video player app, we communicate via callbacks (props) between parent and child components in multiple levels:
 
-The `App` component provide a prop called `onVideoSelect` to its child component `VideoList`, which is a callback setting the state as seen below:
+The `App` component provides a prop called `onVideoSelect` to its child component `VideoList`, which is a callback setting the state as seen below:
 
     <VideoList onVideoSelect={selectedVideo => this.setState({selectedVideo})} />
 
@@ -419,7 +421,7 @@ Okay, that was a little bit about the current status of the application. Now it'
 
 ### Some theory about `react-redux`
 
-The *React bindings for Redux* has some intimidating concepts that we need to understand in order to use Redux with React. The API of the `react-redux` lib contains two main parts:
+The *React bindings for Redux* has some peculiar concepts that we need to understand in order to use React with Redux. The API of the `react-redux` lib contains two main parts:
 
 * `<Provider store={store} />`
 * `connect(mapStateToProps, mapDispatchToProps)`
@@ -441,7 +443,7 @@ Example:
 
     const mapStateToProps = state => {
         return { videos: state.videos };
-    }
+    };
 
 In this example, `videos` will be available in the `props` of the component.
 
@@ -452,6 +454,15 @@ The second one allows you to indicate which actions that component might *dispat
 Example:
 
     { searchYoutube }
+
+, that in turn looks like this:
+
+    const searchYoutube = searchTerm => {
+        return {
+            type: SEARCH_YOUTUBE,
+            searchTerm
+        };
+    };
 
 ***
 
@@ -472,13 +483,13 @@ But here, and this is important, what is instead exported is a container compone
 
     const mapStateToProps = state => {
         return { videos: state.videos };
-    }
+    };
 
     export default connect(mapStateToProps)(VideoList);
 
 `mapDispatchToProps` is omitted because this component won't dispatch any actions.
 
-To summarize, what you have to remember is that each component has to map the store state to props if they want to use anything from the store, and provide an object of action creators if they want to dispatch actions. That's it.
+To summarize, what you have to remember is that each component has to map the store state to props if it want to use anything from the store, and provide an object of action creators if they want to dispatch actions. That's it.
 
 ***
 
@@ -552,17 +563,17 @@ Verify that the application compiles properly.
 
 ***
 
-Okay, so far we haven't really changed any of the old architecture. Remember that it wasn't advisable pass props on to children in too many levels? As we saw in the re-cap, that's exactly what was going on. So let's start with removing this dependency chain.
+Okay, so far we haven't really changed any of the old architecture. Remember that it wasn't advisable to pass props on to children in too many levels? As we saw in the re-cap, that's exactly what was going on. So let's start with removing this dependency chain.
 
-Let's begin with the `App` and `SearchBar` components. We could move the actual search logic into the `SearchBar`. So move the `videoSearch` function along with the import of `youtube-api-search`, the API-key and invocation.
+Let's begin with the `App` and `SearchBar` components. We could move the actual search logic into the `SearchBar`. So go ahead and move the `videoSearch` function along with the import of `youtube-api-search`, the API-key and the function invocation.
 
-Your app should now only say "Loading...". Why is that? Because all the other components were dependent on the `videos` state of `App`. But as we can see if we debug the application with the [https://github.com/facebook/react-devtools](React Developer Tools), this state variable has now been populated in `SearchBar` instead.
+Your app should now only say "Loading...". Why is that? Because all the other components were dependent on the `videos` state of `App`. But as we can see if we debug the application with the [React Developer Tools](https://github.com/facebook/react-devtools), this state variable has now been populated in `SearchBar` instead.
 
-We don't want to keep any traditional React state explicitly now that we are refactoring to use Redux instead, so remove all what state is in `SearchBar`.
+We don't want to keep any traditional React state explicitly now that we are refactoring to use Redux instead, so remove everything related to state in `SearchBar`.
 
 Move the debounced `videoSearch` function along with the `lodash`import from `App` to `SearchBar` and change the invocation in the `<input>` element.
 
-Now the compiler will complain because we removed this function from `App`, so remove this attribute `onSearchTermChange` completely.
+Now the compiler will complain because we removed this function from `App`, so remove the `onSearchTermChange` attribute completely.
 
 `app.js` should now look like this:
 
@@ -638,7 +649,7 @@ Add this to the top of the `videoSearch` function:
 
     this.props.searchYoutube(searchTerm);
 
-Check the console. It should say `TypeError: this.props.searchYoutube is not a function`. Okay... Aha! We need to import the action creator `searchYoutube` that we specified in `actions.js` earlier on. How do we do that? Could we just import it? No, because then we wouldn't have any reference to the store anywhere, because the actions and action creators are plain JavaScript objects and functions not knowing about anything else. Somehow, we need to *connect* this component to the store. That's where the `connect()` function comes into play!
+Check the console. It should say `TypeError: this.props.searchYoutube is not a function`. Okay... Aha! We need to import the action creator `searchYoutube` that we specified in `actions.js` earlier on. How do we do that? Is it enough to just import it? No, because then we wouldn't have any reference to the store anywhere, because the actions and action creators are plain JavaScript objects and functions not knowing about anything else. Somehow, we need to *connect* this component to the store. That's where the `connect()` function comes into play!
 
 Update the export statement at the bottom of the file from:
 
@@ -663,7 +674,7 @@ If you now inspect the application with the *React* DevTools, you will see that 
 
 <br/>
 
-<img src="images/react-devtools-connect.png" />
+<img src="images/react-devtools-connect.png" height="250" />
 
 <br/>
 
@@ -680,7 +691,7 @@ Earlier, we set the `App`'s state after receiving the response from the YouTube 
         };
     };
 
-...and a new case to our reducer:
+Add a new case to the reducer:
 
     case actions.YOUTUBE_RESPONSE:
         return {...state, videos: action.videos};
@@ -730,13 +741,13 @@ Next, continue with `VideoList` and remove the passing of `onVideoSelect` and co
 
     const mapStateToProps = state => {
         return { videos: state.videos };
-    }
+    };
 
     export default connect(
         mapStateToProps,
     )(VideoList);
 
-Let's pause here and think about what we just did. We're telling `react-redux` to map our Redux state as props, but not the whole state, we're *selecting* a part of the state, namely `state.videos`, and **only** when this object changes will our component re-render. Smart huh? And as before `props.videos` will still be available to our component because we just mapped it. Okay, moving on... (you didn't forget to import `connect` did you?) Because if you did, you wouldn't notice that we now have a list of videos displayed on the page again!
+Let's pause here and think about what we just did. We're telling `react-redux` to map our Redux state as props, but not the whole state, we're *selecting* a part of the state, namely `state.videos`, and **only** when this object changes will our component re-render. Smart huh? And as before, `props.videos` will still be available to our component because we just mapped it. Okay, moving on... (you didn't forget to import `connect` did you?) Because if you did, you wouldn't notice that we now have a list of videos displayed on the page again!
 
 ***
 
@@ -759,7 +770,7 @@ Finally, we need somewhere to display the videos that were selected so we refact
 
     const mapStateToProps = state => {
         return { video: state.selectedVideo };
-    }
+    };
 
     export default connect(
         mapStateToProps
@@ -767,11 +778,13 @@ Finally, we need somewhere to display the videos that were selected so we refact
 
 ***
 
-That was a cascading crescendo wasn't it!
+That was kind of a cascading crescendo wasn't it!
 
-Now, play around with the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to have is importing and exporting of the state.
+Now, play around with the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to be able to importing and export the state.
 
 Our goal was to avoid passing callbacks (via props) in multiple levels and as we can see we have now achieved that. As a consequence of using Redux we also got rid of `setState()` and `this.state` (and all components could now actually be functional and not class based). `App` looks *a lot* cleaner and the `SearchBar` component is taking care of the actual searching. The components no longer need to know about each other as much as before and instead they are all connected to the store. Good job!
+
+> The full source code can be found [here](./source/solution/my-app).
 
 ## More exercises
 
@@ -781,7 +794,7 @@ If you still have time left, our backlog is long. Here's a few picks:
 
 If you uncomment the video search for "acorntechnology" that is triggered in `SearchBar`, you will see that it says "Loading..." in the UI. This is not true, we're not waiting for a request to complete here are we? Take it as a small exercise to introduce a new *state property* to handle this in a better way.
 
-> TIPS: In the Network tab in the browser developer tools, you can throttle requests to simulate a lower bandwidth in order to test things like this more easily. But don't forget to unthrottle when your'e done! Otherwise you will start swearing.
+> TIPS: In the Network tab in the browser developer tools, you can throttle requests to simulate a lower bandwidth in order to test things like this more easily. But don't forget to unthrottle when you're done! Otherwise you will start swearing.
 
 ### Save state in localStorage
 
@@ -792,11 +805,11 @@ If you refresh the browser the application will loose its state. Since using Red
 Let's say that an uncontrolled client error is thrown at some point. A good idea could be to have a backend service for the client to post logs to when this happens. Things like what page it occured on, perhaps in what component, in what browser and even how the state looked would be very useful for debugging! Try to implement this feature.
 
 > TIPS:
- * throw()
- * window.onerror()
- * document.location.href
- * navigator.userAgent
- * fetch()
+> * throw()
+> * window.onerror()
+> * document.location.href
+> * navigator.userAgent
+> * fetch()
 
 ### Implementing your own history button
 
