@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import SearchBar from './components/search-bar';
 import VideoList from "./components/video-list";
 import VideoDetail from "./components/video-detail";

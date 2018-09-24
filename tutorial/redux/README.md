@@ -44,7 +44,7 @@ Then we continue with the heart of Redux - the *store*. Create a function called
         let state = [];
     }
 
-Create a function called `init()` that's going to be our starting point in the application and call it right after its declaration. In `init()`, add a variable called `store` to the `windows`-object that calls `createStore()`:
+Create a function called `init()` that's going to be our starting point in the application and call it right after its declaration. In `init()`, add a variable called `store` to the `windows` object that calls `createStore()`:
 
     function init() {
         window.store = createStore();
@@ -66,7 +66,7 @@ You will see an error saying `Uncaught TypeError: Cannot read property 'dispatch
 
     return { dispatch };
 
-Our `createStore()`-function should now look like this:
+Our `createStore()` function should now look like this:
 
     function createStore() {
         let state = [];
@@ -108,7 +108,7 @@ A reducer is a function that takes the previous (or current) state and an action
 
 The above reducer is perfectly valid. It is pure and will always return the same output no matter what the input is, but it doesn't do anything yet :-)
 
-Let's continue with an implementation of the `ADD_TODO`-action:
+Let's continue with an implementation of the `ADD_TODO` action:
 
     function reducer(state, action) {
         console.log('Inside the reducer with state ', state, 'and action', action);
@@ -139,7 +139,7 @@ Enough JavaScript mumbojumbo. Now, in order for the store to be able to update i
 
     window.store = createStore(reducer);
 
-Don't forget to update the `createStore()`-function to receive a `reducer` and then in the `dispatch()`-function add a line that updates the state with the value returned by the reducer now known by the store:
+Don't forget to update the `createStore()` function to receive a `reducer` and then in the `dispatch()` function add a line that updates the state with the value returned by the reducer now known by the store:
 
     state = reducer(state, action);
 
@@ -151,13 +151,13 @@ I know, there's nothing really exciting going on here yet. Patience my friends :
 
 For debugging purposes, it would be good to see our current state object on the page while developing.
 
-Create (and expose by returning) a `getState()`-function in our store that simply returns `state`:
+Create (and expose by returning) a `getState()` function in our store that simply returns `state`:
 
     function getState() {
         return state;
     }
 
-In the end of the `dispatch()`-function, add this line:
+In the end of the `dispatch()` function, add this line:
 
     document.getElementById('debug').innerHTML = JSON.stringify(this.getState());
 
@@ -165,7 +165,7 @@ Reload the page and you will see the current state object displayed on the page!
 
 ***
 
-Wouldn't it be better if that todo is visible in the UI? Of course it would, we're getting there. Let's create a `render()`-function, similar to the one in React:
+Wouldn't it be better if that todo is visible in the UI? Of course it would, we're getting there. Let's create a `render()` function, similar to the one in React:
 
     function render() {
         const listElement     = document.getElementById('list');
@@ -190,19 +190,19 @@ Wouldn't it be better if that todo is visible in the UI? Of course it would, we'
 
 This might look a bit intimidating at first, but all it does is looping through the state and creating list items (`<li>`'s) for each todo.
 
-Refresh the page. Nothing should have changed. We need to call the `render()`-function. Or in other words, our app or "component" needs to subscribe to the store, and the store needs to notify its listeners.
+Refresh the page. Nothing should have changed. We need to call the `render()` function. Or in other words, our app or "component" needs to subscribe to the store, and the store needs to notify its listeners.
 
-Add an array of listeners to the `createStore()`-function:
+Add an array of listeners to the `createStore()` function:
 
     const listeners = [];
 
-Then, add (and expose) the `subscribe()`-function to the store:
+Then, add (and expose) the `subscribe()` function to the store:
 
     function subscribe(listener) {
         listeners.push(listener);
     }
 
-We also need to actually notify the listeners when something has changed, which is after the state has been updated in the `dispatch()`-function:
+We also need to actually notify the listeners when something has changed, which is after the state has been updated in the `dispatch()` function:
 
     listeners.forEach(listener => listener());
 
@@ -228,7 +228,7 @@ Your complete `createStore()` should now look like this:
         return { getState, dispatch, subscribe };
     }
 
-Subscribe to the store using our `render()`-function right after it has been created:
+Subscribe to the store using our `render()` function right after it has been created:
 
     store.subscribe(render);
 
@@ -238,7 +238,7 @@ Refresh the browser and sing Halleluja - we've just implemented Redux from scrat
 
 Interactivity plz! Okay I know, let's unlock the other features of this fancy application.
 
-We need event handlers to hook up the UI to dispatch events instead of doing this programatically. Remove the `store.dispatch()`-call that told you to buy bananas.
+We need event handlers to hook up the UI to dispatch events instead of doing this programatically. Remove the `store.dispatch()` call that told you to buy bananas.
 
 Add this function:
 
@@ -320,11 +320,11 @@ Hit F5 and play around a bit!
 
 ## Using the Redux library and Redux DevTools Extension
 
-Normally, you would install the Redux lib through `npm` by running `npm install redux`, but for the sake of this demo, it's already linked from a CDN. If you look in `index.html` you can see a reference to `redux.min.js`, which will make it available on the `windows`-object, so we don't have to install anything.
+Normally, you would install the Redux lib through `npm` by running `npm install redux`, but for the sake of this demo, it's already linked from a CDN. If you look in `index.html` you can see a reference to `redux.min.js`, which will make it available on the `windows` object, so we don't have to install anything.
 
 You will now keep the actions and reducers that you wrote. The only thing that will change is `createStore()`. We will replace our implementation with Redux's.
 
-Comment out your whole `createStore()`-function and replace the call to it with this:
+Comment out your whole `createStore()` function and replace the call to it with this:
 
     window.store = window.Redux.createStore(reducer, []);
 
@@ -349,7 +349,7 @@ Oh and by the way, we can remove our own debugging panel now, delete this line i
 
 If you now refresh your browser you should see a new tab in the browser developer tools called *Redux*. However, it says `No store found`. We need to provide a third argument to `createStore()` that adds this stuff as an *enhancer*, which is something that is similar to middleware, but let's not delve into such details.
 
-Again, change your `createStore()`-call to the following:
+Again, change your `createStore()` call to the following:
 
     window.store = window.Redux.createStore(reducer, [], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -368,7 +368,7 @@ As you will now see if you hit F5, you will be able to do lots of cool things li
 
 ## Using React with Redux
 
-So far we haven't touched React. Why? Because it would be hard to write all the wiring needed from scratch. React has its own virtual DOM and `render()`-function that should not be called manually. And remember that Redux is a general pattern and has no relation to React, although they fit very well together.
+So far we haven't touched React. Why? Because it would be hard to write all the wiring needed from scratch. React has its own virtual DOM and `render()` function that should not be called manually. And remember that Redux is a general pattern and has no relation to React, although they fit very well together.
 
 Let's get back to our video player app!
 
@@ -421,7 +421,7 @@ Okay, that was a little bit about the current status of the application. Now it'
 
 ### Some theory about `react-redux`
 
-The *React bindings for Redux* has some intimidating concepts that we need to understand in order to use Redux with React. The API of the `react-redux`-lib contains two main parts:
+The *React bindings for Redux* has some intimidating concepts that we need to understand in order to use Redux with React. The API of the `react-redux` lib contains two main parts:
 
 * `<Provider store={store} />`
 * `connect(mapStateToProps, mapDispatchToProps)`
@@ -433,7 +433,7 @@ The *React bindings for Redux* has some intimidating concepts that we need to un
 * Read data from the Redux store into your app's connected components as `props`
 * Dispatch actions to your store from any of your app's connected components
 
-In order to achieve the above, the `connect()`-function takes two (optional) arguments that have been given these names by pure convention: `mapStateToProps` and `mapDispatchToProps`.
+In order to achieve the above, the `connect()` function takes two (optional) arguments that have been given these names by pure convention: `mapStateToProps` and `mapDispatchToProps`.
 
 #### `mapStateToProps`
 
@@ -457,7 +457,7 @@ Example:
 
 ***
 
-The `connect()`-function is used like this:
+The `connect()` function is used like this:
 
     const connectToStore = connect(mapStateToProps, mapDispatchToProps);
     const ConnectedComponent = connectToStore(Component);
@@ -470,7 +470,7 @@ This looks a bit funny. Remember components are usually exported just like this:
 
     export default VideoList;
 
-But here, and this is important, what is instead exported is a container component returned by the function returned by `connect(mapStateToProps, mapDispatchToProps)` given the actual presentation component as an argument. Funky, I know. So for our `VideoList`-component, as we shall see, the export statement would look like this:
+But here, and this is important, what is instead exported is a container component returned by the function returned by `connect(mapStateToProps, mapDispatchToProps)` given the actual presentation component as an argument. Funky, I know. So for our `VideoList` component, as we shall see, the export statement would look like this:
 
     const mapStateToProps = state => {
         return { videos: state.videos };
@@ -520,11 +520,9 @@ Create a filed called `actions.js` in the `src` directory and add the following:
 
     export const SEARCH_YOUTUBE = 'SEARCH_YOUTUBE';
 
-Now, when using Reux with React, it's common to use something called *action creators*. It's simply functions that return actions. Let's create one for this action in the same file:
+Now, when using Redux with React, it's common to use something called *action creators*. It's simply functions that return actions. Let's create one for this action in the same file:
 
     export const searchYoutube = searchTerm => {
-        console.log('Inside action creator searchYoutube', searchTerm);
-
         return {
             type: SEARCH_YOUTUBE,
             searchTerm
@@ -544,8 +542,6 @@ Let's import the actions and declare an initial state in it, and then of course 
     };
 
     export default function(state = initialState, action) {
-        console.log('Inside the reducer with state ', state, 'and action', action);
-
         switch (action.type) {
             case actions.SEARCH_YOUTUBE:
                 return {...state, searchTerm: action.searchTerm};
@@ -558,13 +554,114 @@ Verify that the application compiles properly.
 
 ***
 
+Okay, so far we haven't really changed any of the old architecture. Remember that it wasn't advisable pass props on to children in too many levels? As we saw in the re-cap, that's exactly what was going on. So let's start with removing this dependency chain.
 
+Let's begin with the `App` and `SearchBar` components. We could move the actual search logic into the `SearchBar`. So move the `videoSearch` function along with the import of `youtube-api-search`, the API-key and invocation.
 
+Your app should now only say "Loading...". Why is that? Because all the other components were dependent on the `videos` state of `App`. But as we can see if we debug the application with the [https://github.com/facebook/react-devtools](React Developer Tools), this state variable has now been populated in `SearchBar` instead.
 
-===============
+We don't want to keep any traditional React state explicitly now that we are refactoring to use Redux instead, so remove all what state is in `SearchBar`.
 
+Move the debounced `videoSearch` function along with the `lodash`import from `App` to `SearchBar` and change the invocation in the `<input>` element.
 
-If you inspect the application with the [https://github.com/facebook/react-devtools](React Developer Tools), you will see that the `SearchBar`-component is wrapper by `<Connect>` which is a *container component* generated by `react-redux`'s `connect()`-function. It's in other words "connected" to the store:
+Now the compiler will complain because we removed this function from `App`, so remove this attribute `onSearchTermChange` completely.
+
+`app.js` should now look like this:
+
+    import React, {Component} from 'react';
+    import SearchBar from './components/search-bar';
+    import VideoList from "./components/video-list";
+    import VideoDetail from "./components/video-detail";
+
+    class App extends Component {
+
+        constructor(props) {
+            super(props);
+
+            this.state = {
+                videos: [],
+                selectedVideo: null
+            };
+        }
+
+        render() {
+            return (
+                <div>
+                    <SearchBar />
+                    <VideoDetail video={this.state.selectedVideo}/>
+                    <VideoList
+                        onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+                        videos={this.state.videos}/>
+                </div>
+            );
+        }
+    }
+
+    export default App;
+
+And `search-bar.js` like this (be aware of the API-key if you copy this):
+
+    import React, {Component} from 'react';
+    import YTSearch from 'youtube-api-search';
+    import _ from 'lodash';
+
+    const API_KEY = "a-key";
+
+    class SearchBar extends Component {
+
+        constructor(props) {
+            super(props);
+
+            this.videoSearch('acorntechnology');
+        }
+
+        videoSearch(searchTerm) {
+            YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
+            });
+        }
+
+        render() {
+            const videoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
+
+            return (
+                <div className="search-bar">
+                    <input
+                        onChange={event => videoSearch(event.target.value)}/>
+                </div>
+            );
+        }
+    }
+
+    export default SearchBar;
+
+Alright, `App` looks cleaner and we have removed all state from `SearchBar`. But now it's time to introduce Redux and actually dispatching an action when we make a search, right?
+
+Add this to the top of the `videoSearch` function:
+
+    this.props.searchYoutube(searchTerm);
+
+Check the console. It should say `TypeError: this.props.searchYoutube is not a function`. Okay... Aha! We need to import the action creator `searchYoutube` that we specified in `actions.js` earlier on. How do we do that? Could we just import it? No, because then we wouldn't have any reference to the store anywhere, because the actions and action creators are plain JavaScript objects and functions not knowing about anything else. Somehow, we need to *connect* this component to the store. That's where the `connect()` function comes into play!
+
+Update the export statement at the bottom of the file from:
+
+    export default SearchBar;
+
+to:
+
+    export default connect(
+        null,
+        { searchYoutube }
+    )(SearchBar);
+
+and add this import at the top of the file:
+
+    import { connect } from 'react-redux';
+
+Check the *Redux* DevTools. We *should* now see that this action was dispatched:
+
+    {type: "SEARCH_YOUTUBE", searchTerm: "acorntechnology"}
+
+If you now inspect the application with the *React* DevTools, you will see that the `SearchBar` component is wrapped by `<Connect>` which is the *container component* generated by `react-redux`'s `connect()` function. It's in other words "connected" to the store!
 
 <br/>
 
@@ -572,24 +669,113 @@ If you inspect the application with the [https://github.com/facebook/react-devto
 
 <br/>
 
-====================
+Great. But the UI is still pretty dull. You should now be able to try out the search bar and see more actions getting dispatched though.
 
+Earlier, we set the `App`'s state after receiving the response from the YouTube API, but at some point we removed it to make way for Redux. Let's dispatch an action saying that we received a response so that we can update our store with the incoming video objects.
 
-TODOOOOO:
+    export const YOUTUBE_RESPONSE = 'YOUTUBE_RESPONSE';
 
+    export const youtubeResponse = videos => {
+        return {
+            type: YOUTUBE_RESPONSE,
+            videos
+        };
+    };
 
-> NOTE: Only writing `searchTerm` like above is a JavaScript shorthand for writing `searchTerm: searchTerm`.
+...and a new case to our reducer:
 
+    case actions.YOUTUBE_RESPONSE:
+        return {...state, videos: action.videos};
 
+And the `videoSearch()` function should now look like this (don't forget to import `youtubeResponse` and place it in your `mapDispatchToProps` just like with `searchYoutube`:
 
+    videoSearch(searchTerm) {
+        this.props.searchYoutube(searchTerm);
 
+        YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
+            this.props.youtubeResponse(videos);
+        });
+    }
 
+While we're at it, let's finish the last action as well: `SELECT_VIDEO` that will be dispatched when we click an item in the `VideoList` later on. Do with that just what you did with `youtubeResponse` and then add this line to the `YTSearch()` callback:
+
+    this.props.selectVideo(videos[0]);
+
+Don't forget to update your reducer with the new case as well:
+
+    case actions.SELECT_VIDEO:
+        return {...state, selectedVideo: action.selectedVideo};
+
+Gahh, still nothing interesting going on in the UI! But hey, check out the DevTools and we should be all set  when it comes to the state:
+
+<br/>
+
+<img src="redux-devtools-react" />
+
+<br/>
 
 ***
 
-Try out the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to have is importing and exporting of the state.
+What's left now is just *connect*ing things together. Go to `App` and strip it down to this minimalistic definition. The browser is not going to smile at you.
 
-Our goal was to avoid passing callbacks (via props) in multiple levels and as we can see we have now achieved that. As a consequence of using Redux we also got rid of `setState()` and `this.state`. `App` looks *a lot* cleaner and the `SearchBar`-component is taking care of the actual searching. The components no longer need to know about each other as much as before and instead they are all connected to the store. Good job!
+    class App extends Component {
+        render() {
+            return (
+                <div>
+                    <SearchBar />
+                    <VideoDetail />
+                    <VideoList />
+                </div>
+            );
+        }
+    }
+
+Next, continue with `VideoList` and remove the passing of `onVideoSelect` and connect the component to Redux:
+
+    const mapStateToProps = state => {
+        return { videos: state.videos };
+    }
+
+    export default connect(
+        mapStateToProps,
+    )(VideoList);
+
+Let's pause here and think about what we just did. We're telling `react-redux` to map our Redux state as props, but not the whole state, we're *selecting* a part of the state, namely `state.videos`, and **only** when this object changes will our component re-render. Smart huh? And as before `props.videos` will still be available to our component because we just mapped it. Okay, moving on... (you didn't forget to import `connect` did you?) Because if you did, you wouldn't notice that we now have a list of videos displayed on the page again!
+
+***
+
+In `VideoListItem`, replace:
+
+    const onVideoSelect = props.onVideoSelect;
+
+with:
+
+    const onVideoSelect = video => props.selectVideo(video);
+
+and connect it to the store:
+
+    export default connect(
+        null,
+        { selectVideo }
+    )(VideoListItem);
+
+Finally, we need somewhere to display the videos that were selected so we refactor our last component, `VideoDetail`, by only connecting it to the store and we are done!
+
+    const mapStateToProps = state => {
+        return { video: state.selectedVideo };
+    }
+
+    export default connect(
+        mapStateToProps
+    )(VideoDetail);
+
+***
+
+That was a cascading crescendo wasn't it!
+
+Now, play around with the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to have is importing and exporting of the state.
+
+Our goal was to avoid passing callbacks (via props) in multiple levels and as we can see we have now achieved that. As a consequence of using Redux we also got rid of `setState()` and `this.state` (and all components could now actually be functional and not class based). `App` looks *a lot* cleaner and the `SearchBar` component is taking care of the actual searching. The components no longer need to know about each other as much as before and instead they are all connected to the store. Good job!
 
 ## More exercises
 

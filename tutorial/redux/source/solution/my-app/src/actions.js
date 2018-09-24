@@ -1,10 +1,6 @@
-/* Actions */
-
 export const SEARCH_YOUTUBE = 'SEARCH_YOUTUBE';
 export const YOUTUBE_RESPONSE = 'YOUTUBE_RESPONSE';
 export const SELECT_VIDEO = 'SELECT_VIDEO';
-
-/* Action creators */
 
 export const searchYoutube = searchTerm => {
     return {
