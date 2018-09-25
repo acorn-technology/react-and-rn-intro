@@ -1,6 +1,6 @@
 # Redux
 
-Welcome to the Redux tutorial! If you are unable to attend the theoretical introduction, please check out the [presentation](./Redux.pptx) first. Focus is going to be on understanding the pattern, have a look at some DevTools, and using Redux in our React video player application.
+Welcome to the Redux tutorial! If you are unable to attend the theoretical introduction, please check out the [presentation](./Redux.pptx) first. Focus is going to be on understanding the pattern by implementing Redux from scratch, have a look at some DevTools, and finally using Redux in our React video player application.
 
 ## Prerequisites
 
@@ -9,7 +9,7 @@ https://github.com/appsupport-at-acorn/react-and-rn-intro and navigate into `tut
 
 ## Redux from scratch
 
-We will now implement Redux from scratch so that you will get a good understanding of the pattern and how the different plugins and binding libraries in the Redux ecosystem work under the hood. I'm encouraging you to think about the pattern and concepts we've been talking about and not just copy-pasting the code.
+Before getting back to our video player app and refactoring it to use Redux, we will begin by implementing Redux from scratch. Hopefully this will give you a good understanding of the pattern and how the different plugins and binding libraries in the Redux ecosystem work under the hood. I'm encouraging you to think about the pattern and concepts we've been talking about and not just copy-pasting the code.
 
 <br/>
 
