@@ -780,7 +780,7 @@ Finally, we need somewhere to display the videos that were selected so we refact
 
 That was kind of a cascading crescendo wasn't it!
 
-Now, play around with the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to be able to importing and export the state.
+Now, play around with the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to have is being able to import and export the state.
 
 <br/>
 
