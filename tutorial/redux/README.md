@@ -782,6 +782,10 @@ That was kind of a cascading crescendo wasn't it!
 
 Now, play around with the Redux DevTools Extension and see how we can go back and forth in time using the slider and have the UI change accordingly. Another feature which is nice to be able to importing and export the state.
 
+<br/>
+
+<img src="images/final-result.png" />
+
 Our goal was to avoid passing callbacks (via props) in multiple levels and as we can see we have now achieved that. As a consequence of using Redux we also got rid of `setState()` and `this.state` (and all components could now actually be functional and not class based). `App` looks *a lot* cleaner and the `SearchBar` component is taking care of the actual searching. The components no longer need to know about each other as much as before and instead they are all connected to the store. Good job!
 
 > The full source code can be found [here](./source/solution/my-app).
