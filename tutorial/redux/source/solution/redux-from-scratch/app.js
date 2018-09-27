@@ -10,16 +10,15 @@ function createStore(reducer) {
     function dispatch(action) {
         console.log('Dispatching action', action);
         state = reducer(state, action);
-        document.getElementById('debug').innerHTML = JSON.stringify(this.getState());
-        listeners.forEach(listener => listener());
+        listeners.forEach(fn => fn());
     }
 
     function getState() {
         return state;
     }
 
-    function subscribe(listener) {
-        listeners.push(listener);
+    function subscribe(fn) {
+        listeners.push(fn);
     }
 
     return { dispatch, getState, subscribe };
@@ -42,7 +41,7 @@ function reducer(state, action) {
         case TOGGLE_TODO:
             return state.map(item => {
                 if (item.id === action.id) {
-                    item.completed = !item.completed;
+                    item = {...item, completed: !item.completed};
                 };
 
                 return item;
@@ -98,7 +97,7 @@ function attachEventHandlers(store) {
 
     inputElement.focus();
 
-    form.addEventListener('submit', () => {
+    formElement.addEventListener('submit', () => {
         if (inputElement.value) {
             store.dispatch({
                 type: ADD_TODO,

@@ -50,17 +50,17 @@ Create a function called `init()` that's going to be our starting point in the a
 
     init();
 
-We would like to dispatch our actions somehow, right? Let's add a dispatch function to our store.
+We would like to dispatch our actions somehow, right? Let's add a dispatch function to our store (inside of `createStore()`).
 
     function dispatch(action) {
         console.log('Dispatching action', action);
     }
 
-Try dispatching one of the actions now:
+Try dispatching one of the actions now from inside the `init()` function:
 
     store.dispatch(ADD_TODO);
 
-You will see an error saying `Uncaught TypeError: Cannot read property 'dispatch' of undefined`. Our store doesn't expose it yet, so let it return an object containing the function, like this:
+If you reload the page and open the browser's developer console, you will see an error saying `Uncaught TypeError: Cannot read property 'dispatch' of undefined`. Our store doesn't expose it yet, so let it return an object containing the function, like this:
 
     return { dispatch };
 
@@ -143,23 +143,23 @@ Don't forget to update the `createStore()` function to receive a `reducer` and t
 
 Time to have a look in the console. You should see two logs, one from the dispatch call and one from when the reducer receiving the action together with the current state.
 
-***
-
-I know, there's nothing really exciting going on here yet. Patience my friends :-)
-
-For debugging purposes, it would be good to see our current state object on the page while developing.
-
-Create (and expose by returning) a `getState()` function in our store that simply returns `state`:
+For others to be able to read our state, create (and expose by returning) a `getState()` function in our store that simply returns `state`:
 
     function getState() {
         return state;
     }
 
+For debugging purposes, it would be good to see our current state object on the page while developing.
+
+In `index.html`, add this line before the `todoapp` section:
+
+    <div id="debug"></div>
+
 In the end of the `dispatch()` function, add this line:
 
-    document.getElementById('debug').innerHTML = JSON.stringify(this.getState());
+    document.getElementById('debug').innerHTML = JSON.stringify(state);
 
-Reload the page and you will see the current state object displayed on the page!
+Reload the page and you will see the current state object displayed on the page! I know, there's nothing really exciting going on here yet. Patience my friends :-)
 
 ***
 
@@ -196,13 +196,13 @@ Add an array of listeners to the `createStore()` function:
 
 Then, add (and expose) the `subscribe()` function to the store:
 
-    function subscribe(listener) {
-        listeners.push(listener);
+    function subscribe(fn) {
+        listeners.push(fn);
     }
 
 We also need to actually notify the listeners when something has changed, which is after the state has been updated in the `dispatch()` function:
 
-    listeners.forEach(listener => listener());
+    listeners.forEach(fn => fn());
 
 Your complete `createStore()` should now look like this:
 
@@ -216,17 +216,17 @@ Your complete `createStore()` should now look like this:
 
         function dispatch(action) {
             state = reducer(state, action);
-            listeners.forEach(listener => listener());
+            listeners.forEach(fn => fn());
         }
 
-        function subscribe(listener) {
-            listeners.push(listener);
+        function subscribe(fn) {
+            listeners.push(fn);
         }
 
         return { getState, dispatch, subscribe };
     }
 
-Subscribe to the store using our `render()` function right after it has been created:
+Subscribe to the store using our `render()` function right after the store has been created inside `init()`:
 
     store.subscribe(render);
 
@@ -247,7 +247,7 @@ Add this function:
 
         inputElement.focus();
 
-        form.addEventListener('submit', () => {
+        formElement.addEventListener('submit', () => {
             if (inputElement.value) {
                 store.dispatch({
                     type: ADD_TODO,
@@ -300,7 +300,7 @@ If you feel like it, feel free to implement the logic for reducing the other act
             case TOGGLE_TODO:
                 return state.map(item => {
                     if (item.id === action.id) {
-                        item.completed = !item.completed;
+                        item = {...item, completed: !item.completed};
                     };
 
                     return item;
@@ -433,7 +433,7 @@ The *React bindings for Redux* has some peculiar concepts that we need to unders
 * Read data from the Redux store into your app's connected components as `props`
 * Dispatch actions to your store from any of your app's connected components
 
-In order to achieve the above, the `connect()` function takes two (optional) arguments that have been given these names by pure convention: `mapStateToProps` and `mapDispatchToProps`.
+In order to achieve the above, the `connect()` function takes two arguments, both **optional**, that have been given these names by pure convention: `mapStateToProps` and `mapDispatchToProps`.
 
 #### `mapStateToProps`
 
@@ -525,7 +525,7 @@ So let's go ahead and import `redux` and call `createStore()`, and also pass ref
 
 Before we create the reducer, think about what *actions* we might need. What kind of interactions can the user currently perform in the app? Issuing new search queries to the YouTube API is one thing, so let's start with that.
 
-Create a filed called `actions.js` in the `src` directory and add the following:
+Create a file called `actions.js` in the `src` directory and add the following:
 
     export const SEARCH_YOUTUBE = 'SEARCH_YOUTUBE';
 
@@ -538,7 +538,9 @@ Now, when using Redux with React, it's common to use something called *action cr
         };
     };
 
-Create a filed called `reducer.js` in the same folder as `index.js`.
+> NOTE: The `searchTerm` symbol above makes use of something in JavaScript called *enhanced object literals*. It's the same as writing `searchTerm: searchTerm`, i.e. a property called `searchTerm` with the value of the parameter with the same name.
+
+Create a file called `reducer.js` in the same folder as `index.js`.
 
 Let's import the actions and declare an initial state in it, and then of course the reducer function itself handling this action:
 
@@ -571,7 +573,7 @@ Your app should now only say "Loading...". Why is that? Because all the other co
 
 We don't want to keep any traditional React state explicitly now that we are refactoring to use Redux instead, so remove everything related to state in `SearchBar`.
 
-Move the debounced `videoSearch` function along with the `lodash`import from `App` to `SearchBar` and change the invocation in the `<input>` element.
+Move `videoSearch()` and `debouncedVideoSearch` along with the `lodash` import from `App` to `SearchBar` and change the invocation in the `<input>` element.
 
 Now the compiler will complain because we removed this function from `App`, so remove the `onSearchTermChange` attribute completely.
 
@@ -630,12 +632,12 @@ And `search-bar.js` like this (be aware of the API-key if you copy this):
         }
 
         render() {
-            const videoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
+            const debouncedVideoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
 
             return (
                 <div className="search-bar">
                     <input
-                        onChange={event => videoSearch(event.target.value)}/>
+                        onChange={event => debouncedVideoSearch(event.target.value)}/>
                 </div>
             );
         }
@@ -662,9 +664,10 @@ to:
         { searchYoutube }
     )(SearchBar);
 
-and add this import at the top of the file:
+and add these two imports at the top of the file:
 
     import { connect } from 'react-redux';
+    import { searchYoutube } from './../actions';
 
 Check the *Redux* DevTools. We *should* now see that this action was dispatched:
 

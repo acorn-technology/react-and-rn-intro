@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { searchYoutube, youtubeResponse, selectVideo } from './../actions';
 
-const API_KEY = "a-key";
+const API_KEY = "AIzaSyDJGHMdImJ4b6_lLCyYupdmVSpawyyk3Ns";
 
 class SearchBar extends Component {
 
@@ -25,12 +25,12 @@ class SearchBar extends Component {
     }
 
     render() {
-        const videoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
+        const debouncedVideoSearch = _.debounce((searchTerm) => {this.videoSearch(searchTerm)}, 300);
 
         return (
             <div className="search-bar">
                 <input
-                    onChange={event => videoSearch(event.target.value)}/>
+                    onChange={event => debouncedVideoSearch(event.target.value)}/>
             </div>
         );
     }
