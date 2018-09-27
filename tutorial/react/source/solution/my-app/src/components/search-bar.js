@@ -4,7 +4,7 @@ import _ from "lodash";
 import {connect} from "react-redux";
 import {selectVideo, youtubeResponse, youtubeSearch} from "../actions";
 
-const API_KEY = "AIzaSyCY4kj7ZQBE9-0fX5KXrhq_BAOTqTZbNRU";
+const API_KEY = "the_key";
 
 class SearchBar extends Component {
 
