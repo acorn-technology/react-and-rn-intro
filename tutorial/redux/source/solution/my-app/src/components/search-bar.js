@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { searchYoutube, youtubeResponse, selectVideo } from './../actions';
 
-const API_KEY = "AIzaSyDJGHMdImJ4b6_lLCyYupdmVSpawyyk3Ns";
+const API_KEY = "a-key";
 
 class SearchBar extends Component {
 
