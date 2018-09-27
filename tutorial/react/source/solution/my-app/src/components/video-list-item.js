@@ -1,9 +1,11 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {selectVideo} from "../actions";
 
 const VideoListItem = (props) => {
 
     const video = props.video;
-    const onVideoSelect = props.onVideoSelect;
+    const onVideoSelect = video => props.selectVideo(video);
     const imageUrl = video.snippet.thumbnails.default.url;
 
     return (
@@ -25,4 +27,4 @@ const VideoListItem = (props) => {
 //     return ...;
 // };
 
-export default VideoListItem;
+export default connect(null, {selectVideo})(VideoListItem);
