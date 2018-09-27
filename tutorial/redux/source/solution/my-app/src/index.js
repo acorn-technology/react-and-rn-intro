@@ -6,7 +6,13 @@ import { Provider } from 'react-redux';
 import App from './app';
 import reducer from './reducer';
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const initialState = {
+    searchTerm: '',
+    videos: [],
+    selectedVideo: null
+};
+
+const store = createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
     <Provider store={store}>

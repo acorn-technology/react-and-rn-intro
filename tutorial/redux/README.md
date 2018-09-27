@@ -521,7 +521,13 @@ So let's go ahead and import `redux` and call `createStore()`, and also pass ref
     import { createStore } from 'redux';
     import reducer from './reducer';
 
-    const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+    const initialState = {
+        searchTerm: '',
+        videos: [],
+        selectedVideo: null
+    };
+
+    const store = createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 Before we create the reducer, think about what *actions* we might need. What kind of interactions can the user currently perform in the app? Issuing new search queries to the YouTube API is one thing, so let's start with that.
 
@@ -546,13 +552,7 @@ Let's import the actions and declare an initial state in it, and then of course 
 
     import * as actions from './actions';
 
-    const initialState = {
-        searchTerm: '',
-        videos: [],
-        selectedVideo: null
-    };
-
-    export default function(state = initialState, action) {
+    export default function(state, action) {
         switch (action.type) {
             case actions.SEARCH_YOUTUBE:
                 return {...state, searchTerm: action.searchTerm};

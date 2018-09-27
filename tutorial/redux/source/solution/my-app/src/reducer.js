@@ -1,12 +1,6 @@
 import * as actions from './actions';
 
-const initialState = {
-    searchTerm: '',
-    videos: [],
-    selectedVideo: null
-};
-
-export default function(state = initialState, action) {
+export default function(state, action) {
     switch (action.type) {
         case actions.SEARCH_YOUTUBE:
             return {...state, searchTerm: action.searchTerm};
